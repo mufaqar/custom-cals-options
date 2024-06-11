@@ -1,0 +1,16 @@
+.custom-curtain-options {
+    margin-top: 20px;
+}
+
+.custom-curtain-options label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.custom-curtain-options select, 
+.custom-curtain-options input[type="number"],
+.custom-curtain-options textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
