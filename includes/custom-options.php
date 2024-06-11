@@ -2,7 +2,6 @@
 // Add custom curtain options to product pages
 function custom_curtain_options_add_to_product() {
     global $product;
-
     if ($product->is_type('simple')) {
         echo '<div class="custom-curtain-options">';
          // Price Display
@@ -30,12 +29,15 @@ function custom_curtain_options_add_to_product() {
                     <option value="custom">Custom Size (price x total sq ft)</option>
                 </select>
                 <div id="curtain_size_custom" style="display:none;">
+                 <div>
+                        <label for="custom_width">Enter Width (ft):</label>
+                        <input type="number" id="custom_width" name="custom_width" min="1"> 
+                    </div>
                     <div>
-                    <label for="custom_length">Enter Length (ft):</label>
-                    <input type="number" id="custom_length" name="custom_length" min="1">
-                    </div><div>
-                    <label for="custom_width">Enter Width (ft):</label>
-                    <input type="number" id="custom_width" name="custom_width" min="1"> </div>
+                        <label for="custom_length">Enter Length (ft):</label>
+                        <input type="number" id="custom_length" name="custom_length" min="1">
+                    </div>
+                   
                 </div>
               </div>';
 
