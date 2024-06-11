@@ -1,16 +1,26 @@
 .custom-curtain-options {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .custom-curtain-options label {
-    display: block;
-    margin: 10px 0 5px;
+  display: block;
+  margin: 10px 0 5px;
 }
 
-.custom-curtain-options select, 
-.custom-curtain-options input[type="number"],
+.custom-curtain-options select,
+.custom-curtain-options input[type='number'],
 .custom-curtain-options textarea {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+}
+#curtain_size_custom {
+  display: flex;
+  gap: 7%;
+}
+
+#curtain_size_custom div {
+  width: 45%;
 }

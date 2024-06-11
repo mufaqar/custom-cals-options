@@ -5,6 +5,10 @@ function custom_curtain_options_add_to_product() {
 
     if ($product->is_type('simple')) {
         echo '<div class="custom-curtain-options">';
+         // Price Display
+         echo '<div id="curtain_price_display" style="margin-top: 10px;">
+                    <strong>Price: </strong><span id="curtain_price">$0.00</span>
+                </div>';
 
         // Curtain Material
         echo '<div class="curtain-material">
@@ -26,17 +30,16 @@ function custom_curtain_options_add_to_product() {
                     <option value="custom">Custom Size (price x total sq ft)</option>
                 </select>
                 <div id="curtain_size_custom" style="display:none;">
+                    <div>
                     <label for="custom_length">Enter Length (ft):</label>
                     <input type="number" id="custom_length" name="custom_length" min="1">
+                    </div><div>
                     <label for="custom_width">Enter Width (ft):</label>
-                    <input type="number" id="custom_width" name="custom_width" min="1">
+                    <input type="number" id="custom_width" name="custom_width" min="1"> </div>
                 </div>
               </div>';
 
-        // Price Display
-        echo '<div id="curtain_price_display" style="margin-top: 10px;">
-                <strong>Price: </strong><span id="curtain_price">$0.00</span>
-              </div>';
+       
 
         // Hem Selection
         echo '<div class="curtain-hem">
