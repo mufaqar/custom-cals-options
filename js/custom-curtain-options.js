@@ -40,6 +40,7 @@ jQuery(document).ready(function($) {
         // Calculate additional cost for the second hem
         if (secondHem !== 'none') {
             const length = size === 'custom' ? parseFloat($('#custom_length').val()) : parseFloat(size.split('_')[0]);
+            console.log("🚀 ~ updatePrice ~ length:", length)
             price += length * priceMap[material]['ln_ft_price'];
         }
 
