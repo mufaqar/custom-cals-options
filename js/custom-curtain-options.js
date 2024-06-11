@@ -42,6 +42,7 @@ jQuery(document).ready(function($) {
         }
 
         const length = size === 'custom' ? parseFloat($('#custom_length').val()) : parseFloat(size.split('_')[0]);
+        console.log("🚀 ~ updatePrice ~ length:", length)
 
         // Calculate additional cost for the second hem
         if (secondHem !== 'none') {
@@ -60,7 +61,7 @@ jQuery(document).ready(function($) {
 
         $('#curtain_price').text('$' + price.toFixed(2));
         console.log('Price:', price); // Log price
-        console.log('Webbing Reinforcement:', webbingReinforcement); // Log webbing reinforcement
+       // console.log('Webbing Reinforcement:', webbingReinforcement); // Log webbing reinforcement
     }
 
     $('#curtain_material, #curtain_size, #custom_length, #custom_width, #second_hem, #pipe_pocket, #webbing_reinforcement').on('change keyup', updatePrice);
