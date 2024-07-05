@@ -13,6 +13,7 @@ function custom_curtain_options_add_to_product() {
         $webbing_reinforcement = get_post_meta($product_id, '_webbing_reinforcement', true);
         $additional_details = get_post_meta($product_id, '_additional_details', true);
         $electric_system = get_post_meta($product_id, '_electric_system', true);
+        $show_electric_system = get_post_meta($product_id, '_show_electric_system', true);
 
         // Predefined options
         $predefined_materials = array(
@@ -35,16 +36,7 @@ function custom_curtain_options_add_to_product() {
 
         echo '<div class="custom-curtain-options">';
 
-        // Electric System Question
-        echo '<div class="electric-system">
-                <label for="electric_system">Will this tarp be used in an electric system?</label>
-                <select id="electric_system" name="electric_system">
-                    <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
-                    <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
-                </select>
-              </div>';
-
-        echo '<div id="curtain_options" style="display: ' . ($electric_system === 'yes' ? 'block' : 'none') . ';">';
+       
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
@@ -76,6 +68,19 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
         }
+
+         // Show Electric System Question
+         if ($show_electric_system) {
+            echo '<div class="electric-system">
+                    <label for="electric_system">Will this tarp be used in an electric system?</label>
+                    <select id="electric_system" name="electric_system">
+                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
+                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
+                    </select>
+                  </div>';
+        }
+
+        echo '<div id="curtain_options" style="display: ' . ($electric_system === 'yes' || !$show_electric_system ? 'block' : 'none') . ';">';
 
         // Curtain Hem
         if ($curtain_hem) {

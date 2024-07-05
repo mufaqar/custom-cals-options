@@ -31,8 +31,18 @@ function custom_curtain_options_product_custom_fields() {
     $webbing_reinforcement = get_post_meta($product_id, '_webbing_reinforcement', true);
     $additional_details = get_post_meta($product_id, '_additional_details', true);
     $electric_system = get_post_meta($product_id, '_electric_system', true);
+    $show_electric_system = get_post_meta($product_id, '_show_electric_system', true);
 
     echo '<div class="options_group">';
+
+    woocommerce_wp_checkbox(
+        array(
+            'id' => '_show_electric_system',
+            'label' => __('Show Electric System Question', 'custom-curtain-options'),
+            'value' => $show_electric_system,
+            'desc_tip' => true,
+        )
+    );
 
     woocommerce_wp_select(
         array(
@@ -135,6 +145,7 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
         '_webbing_reinforcement',
         '_additional_details',
         '_electric_system',
+        '_show_electric_system',
     );
 
     if (isset($_POST['_curtain_material'])) {
