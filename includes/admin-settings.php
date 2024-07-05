@@ -30,8 +30,22 @@ function custom_curtain_options_product_custom_fields() {
     $pipe_pocket = get_post_meta($product_id, '_pipe_pocket', true);
     $webbing_reinforcement = get_post_meta($product_id, '_webbing_reinforcement', true);
     $additional_details = get_post_meta($product_id, '_additional_details', true);
+    $electric_system = get_post_meta($product_id, '_electric_system', true);
 
     echo '<div class="options_group">';
+
+    woocommerce_wp_select(
+        array(
+            'id' => '_electric_system',
+            'label' => __('Will this tarp be used in an electric system?', 'custom-curtain-options'),
+            'options' => array(
+                'no' => __('No', 'custom-curtain-options'),
+                'yes' => __('Yes', 'custom-curtain-options'),
+            ),
+            'value' => $electric_system,
+            'desc_tip' => true,
+        )
+    );
 
     echo '<p class="form-field"><label for="_curtain_material">' . __('Curtain Material Options', 'custom-curtain-options') . '</label><br>';
     echo '<select id="_curtain_material" name="_curtain_material[]" multiple="multiple" style="width: 100%; height: auto;">';
@@ -120,6 +134,7 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
         '_pipe_pocket',
         '_webbing_reinforcement',
         '_additional_details',
+        '_electric_system',
     );
 
     if (isset($_POST['_curtain_material'])) {

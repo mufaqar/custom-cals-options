@@ -57,3 +57,14 @@ jQuery(document).ready(function($) {
         return prices[optionValue] || 0;
     }
 });
+
+
+jQuery(document).ready(function($) {
+    $('#electric_system').change(function() {
+        if ($(this).val() === 'yes') {
+            $('#curtain_options').show();
+        } else {
+            $('#curtain_options').hide();
+        }
+    }).change(); // Trigger change to set initial state
+});
