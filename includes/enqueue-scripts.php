@@ -1,7 +1,12 @@
 <?php
-// Enqueue necessary scripts and styles
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 function custom_curtain_options_enqueue_scripts() {
-    wp_enqueue_script('custom-curtain-options-script', plugins_url('../js/custom-curtain-options.js', __FILE__), array('jquery'), '1.0', true);
-    wp_enqueue_style('custom-curtain-options-style', plugins_url('../css/custom-curtain-options.css', __FILE__));
+    if (is_product()) {
+        wp_enqueue_script('custom-curtain-options-js', plugin_dir_url(__FILE__) . '../assets/js/custom-curtain-options.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_style('custom-curtain-options-css', plugin_dir_url(__FILE__) . '../assets/css/custom-curtain-options.css', array(), '1.0.0');
+    }
 }
 add_action('wp_enqueue_scripts', 'custom_curtain_options_enqueue_scripts');
