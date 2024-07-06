@@ -7,6 +7,8 @@ function custom_curtain_options_add_to_product() {
         $product_id = $product->get_id();
         $curtain_material = get_post_meta($product_id, '_curtain_material', true) ?: array();
         $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
+        $curtain_custom_width = get_post_meta($product_id, '_curtain_custom_width', true);
+        $curtain_custom_height = get_post_meta($product_id, '_curtain_custom_height', true);
         $curtain_hem = get_post_meta($product_id, '_curtain_hem', true);
         $second_hem = get_post_meta($product_id, '_second_hem', true);
         $pipe_pocket = get_post_meta($product_id, '_pipe_pocket', true);
@@ -36,7 +38,18 @@ function custom_curtain_options_add_to_product() {
 
         echo '<div class="custom-curtain-options">';
 
-       
+        // Show Electric System Question
+        if ($show_electric_system) {
+            echo '<div class="electric-system">
+                    <label for="electric_system">Will this tarp be used in an electric system?</label>
+                    <select id="electric_system" name="electric_system">
+                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
+                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
+                    </select>
+                  </div>';
+        }
+
+        echo '<div id="curtain_options" style="display: ' . ($electric_system === 'yes' || !$show_electric_system ? 'block' : 'none') . ';">';
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
@@ -67,20 +80,18 @@ function custom_curtain_options_add_to_product() {
                 }
             }
             echo '</select></div>';
-        }
 
-         // Show Electric System Question
-         if ($show_electric_system) {
-            echo '<div class="electric-system">
-                    <label for="electric_system">Will this tarp be used in an electric system?</label>
-                    <select id="electric_system" name="electric_system">
-                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
-                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
-                    </select>
+            echo '<div class="curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">';
+            echo '<div class="form-field">
+                    <label for="custom_width">Custom Width (ft):</label>
+                    <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
                   </div>';
+            echo '<div class="form-field">
+                    <label for="custom_height">Custom Height (ft):</label>
+                    <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+                  </div>';
+            echo '</div>';
         }
-
-        echo '<div id="curtain_options" style="display: ' . ($electric_system === 'yes' || !$show_electric_system ? 'block' : 'none') . ';">';
 
         // Curtain Hem
         if ($curtain_hem) {

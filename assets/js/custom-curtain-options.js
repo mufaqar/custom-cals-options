@@ -59,6 +59,7 @@ jQuery(document).ready(function($) {
 });
 
 
+
 jQuery(document).ready(function($) {
     $('#electric_system').change(function() {
         if ($(this).val() === 'yes') {
@@ -67,4 +68,13 @@ jQuery(document).ready(function($) {
             $('#curtain_options').hide();
         }
     }).change(); // Trigger change to set initial state
+
+    $('#curtain_size').change(function() {
+        if ($('#curtain_size option[value="custom"]').is(':selected')) {
+            $('.curtain-custom-size-fields').show();
+        } else {
+            $('.curtain-custom-size-fields').hide();
+        }
+    }).change(); // Trigger change to set initial state
 });
+

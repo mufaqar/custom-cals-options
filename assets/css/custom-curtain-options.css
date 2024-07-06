@@ -25,3 +25,9 @@
 #curtain_options {
   display: none;
 }
+
+#curtain_options,
+.curtain-custom-size-fields {
+    display: none;
+}
+

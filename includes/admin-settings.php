@@ -25,6 +25,8 @@ function custom_curtain_options_product_custom_fields() {
 
     $curtain_material = get_post_meta($product_id, '_curtain_material', true) ?: array();
     $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
+    $curtain_custom_width = get_post_meta($product_id, '_curtain_custom_width', true);
+    $curtain_custom_height = get_post_meta($product_id, '_curtain_custom_height', true);
     $curtain_hem = get_post_meta($product_id, '_curtain_hem', true);
     $second_hem = get_post_meta($product_id, '_second_hem', true);
     $pipe_pocket = get_post_meta($product_id, '_pipe_pocket', true);
@@ -72,6 +74,16 @@ function custom_curtain_options_product_custom_fields() {
         echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($label) . '</option>';
     }
     echo '</select></p>';
+
+    echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+            <label for="_curtain_custom_width">' . __('Custom Width (ft)', 'custom-curtain-options') . '</label>
+            <input type="number" id="_curtain_custom_width" name="_curtain_custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
+          </p>';
+
+    echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+            <label for="_curtain_custom_height">' . __('Custom Height (ft)', 'custom-curtain-options') . '</label>
+            <input type="number" id="_curtain_custom_height" name="_curtain_custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+          </p>';
 
     woocommerce_wp_select(
         array(
@@ -134,6 +146,20 @@ function custom_curtain_options_product_custom_fields() {
     );
 
     echo '</div>';
+
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('#_curtain_size').change(function() {
+                if ($('#_curtain_size option[value="custom"]').is(':selected')) {
+                    $('.curtain-custom-size-fields').show();
+                } else {
+                    $('.curtain-custom-size-fields').hide();
+                }
+            }).change();
+        });
+    </script>
+    <?php
 }
 add_action('woocommerce_product_options_general_product_data', 'custom_curtain_options_product_custom_fields');
 
@@ -146,6 +172,8 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
         '_additional_details',
         '_electric_system',
         '_show_electric_system',
+        '_curtain_custom_width',
+        '_curtain_custom_height',
     );
 
     if (isset($_POST['_curtain_material'])) {
