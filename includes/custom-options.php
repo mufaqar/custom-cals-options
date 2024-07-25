@@ -81,16 +81,19 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
-            echo '<div class="curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">';
-            echo '<div class="form-field">
-                    <label for="custom_width">Custom Width (ft):</label>
-                    <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
-                  </div>';
-            echo '<div class="form-field">
-                    <label for="custom_height">Custom Height (ft):</label>
-                    <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
-                  </div>';
-            echo '</div>';
+           // Custom Width
+                echo '<div class="form-field">
+                <label for="custom_width">Custom Width (ft):</label>
+                <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
+                <span id="custom_width_inches" class="custom-size-inches"></span> <!-- Display inches here -->
+                </div>';
+
+                // Custom Height
+                echo '<div class="form-field">
+                <label for="custom_height">Custom Height (ft):</label>
+                <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+                <span id="custom_height_inches" class="custom-size-inches"></span> <!-- Display inches here -->
+                </div>';
         }
 
         // Curtain Hem
@@ -154,4 +157,3 @@ function custom_curtain_options_add_to_product() {
     }
 }
 add_action('woocommerce_before_add_to_cart_button', 'custom_curtain_options_add_to_product');
-

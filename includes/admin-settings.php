@@ -76,14 +76,16 @@ function custom_curtain_options_product_custom_fields() {
     echo '</select></p>';
 
     echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-            <label for="_curtain_custom_width">' . __('Custom Width (ft)', 'custom-curtain-options') . '</label>
-            <input type="number" id="_curtain_custom_width" name="_curtain_custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
-          </p>';
+    <label for="_curtain_custom_width">' . __('Custom Width (ft)', 'custom-curtain-options') . '</label>
+    <input type="number" id="_curtain_custom_width" name="_curtain_custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
+    <span id="custom_width_inches" class="custom-size-inches">--</span>
+</p>';
 
-    echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-            <label for="_curtain_custom_height">' . __('Custom Height (ft)', 'custom-curtain-options') . '</label>
-            <input type="number" id="_curtain_custom_height" name="_curtain_custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
-          </p>';
+echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+    <label for="_curtain_custom_height">' . __('Custom Height (ft)', 'custom-curtain-options') . '</label>
+    <input type="number" id="_curtain_custom_height" name="_curtain_custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+    <span id="custom_height_inches" class="custom-size-inches">11</span>
+</p>';
 
     woocommerce_wp_select(
         array(
