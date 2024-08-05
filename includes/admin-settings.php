@@ -27,11 +27,6 @@ function custom_curtain_options_product_custom_fields() {
     $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
     $curtain_custom_width = get_post_meta($product_id, '_curtain_custom_width', true);
     $curtain_custom_height = get_post_meta($product_id, '_curtain_custom_height', true);
-    $curtain_hem = get_post_meta($product_id, '_curtain_hem', true);
-    $second_hem = get_post_meta($product_id, '_second_hem', true);
-    $pipe_pocket = get_post_meta($product_id, '_pipe_pocket', true);
-    $webbing_reinforcement = get_post_meta($product_id, '_webbing_reinforcement', true);
-    $additional_details = get_post_meta($product_id, '_additional_details', true);
     $electric_system = get_post_meta($product_id, '_electric_system', true);
     $product_type = get_post_meta($product_id, '_product_type', true);
     $curtain_length = get_post_meta($product_id, '_curtain_length', true);
@@ -104,66 +99,6 @@ function custom_curtain_options_product_custom_fields() {
     <span id="custom_height_inches" class="custom-size-inches">--</span>
 </p>';
 
-    woocommerce_wp_select(
-        array(
-            'id' => '_curtain_hem',
-            'label' => __('Curtain Hem Options', 'custom-curtain-options'),
-            'options' => array(
-                '3_hem' => __('3" Hem', 'custom-curtain-options'),
-                '4_hem' => __('4" Hem', 'custom-curtain-options'),
-            ),
-            'value' => $curtain_hem,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_select(
-        array(
-            'id' => '_second_hem',
-            'label' => __('Second Hem Options', 'custom-curtain-options'),
-            'options' => array(
-                'none' => __('None', 'custom-curtain-options'),
-                '3_hem' => __('3" Hem', 'custom-curtain-options'),
-                '4_hem' => __('4" Hem', 'custom-curtain-options'),
-            ),
-            'value' => $second_hem,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_select(
-        array(
-            'id' => '_pipe_pocket',
-            'label' => __('Pipe Pocket Options', 'custom-curtain-options'),
-            'options' => array(
-                'none' => __('None', 'custom-curtain-options'),
-                '1' => __('1', 'custom-curtain-options'),
-                '2' => __('2', 'custom-curtain-options'),
-                '3' => __('3', 'custom-curtain-options'),
-            ),
-            'value' => $pipe_pocket,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_checkbox(
-        array(
-            'id' => '_webbing_reinforcement',
-            'label' => __('Webbing Reinforcement', 'custom-curtain-options'),
-            'value' => $webbing_reinforcement,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_textarea_input(
-        array(
-            'id' => '_additional_details',
-            'label' => __('Additional Details', 'custom-curtain-options'),
-            'value' => $additional_details,
-            'desc_tip' => true,
-        )
-    );
-
     echo '</div>';
 
     ?>
@@ -172,13 +107,13 @@ function custom_curtain_options_product_custom_fields() {
             function toggleFieldsByProductType() {
                 var selectedProductType = $('#_product_type').val();
                 if (selectedProductType === 'livestock_curtains') {
-                    $('#_curtain_hem_field, #_second_hem_field').show();
-                    $('#_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').hide();
+                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_additional_details_field').hide();
+                    $('#_electric_system_field, #_curtain_length_field').hide();
                 } else if (selectedProductType === 'rollover_tarps') {
-                    $('#_curtain_hem_field, #_second_hem_field').hide();
-                    $('#_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').show();
+                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_additional_details_field').hide();
+                    $('#_electric_system_field, #_curtain_length_field').show();
                 } else {
-                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').show();
+                    $('#_electric_system_field, #_curtain_length_field').show();
                 }
             }
 
@@ -201,14 +136,9 @@ add_action('woocommerce_product_options_general_product_data', 'custom_curtain_o
 
 function custom_curtain_options_save_product_custom_fields($post_id) {
     $fields = array(
-        '_curtain_hem',
-        '_second_hem',
-        '_pipe_pocket',
-        '_webbing_reinforcement',
-        '_additional_details',
-        '_electric_system',
         '_curtain_custom_width',
         '_curtain_custom_height',
+        '_electric_system',
         '_product_type',
         '_curtain_length',
     );
