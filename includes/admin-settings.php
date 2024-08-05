@@ -34,6 +34,7 @@ function custom_curtain_options_product_custom_fields() {
     $additional_details = get_post_meta($product_id, '_additional_details', true);
     $electric_system = get_post_meta($product_id, '_electric_system', true);
     $product_type = get_post_meta($product_id, '_product_type', true);
+    $curtain_length = get_post_meta($product_id, '_curtain_length', true);
 
     echo '<div class="options_group">';
 
@@ -61,6 +62,17 @@ function custom_curtain_options_product_custom_fields() {
             ),
             'value' => $electric_system,
             'desc_tip' => true,
+        )
+    );
+
+    woocommerce_wp_select(
+        array(
+            'id' => '_curtain_length',
+            'label' => __('Length (ft)', 'custom-curtain-options'),
+            'options' => array_combine(range(11, 50), range(11, 50)),
+            'value' => $curtain_length,
+            'desc_tip' => true,
+            'custom_attributes' => array('hidden' => 'hidden') // Initially hidden
         )
     );
 
@@ -161,14 +173,12 @@ function custom_curtain_options_product_custom_fields() {
                 var selectedProductType = $('#_product_type').val();
                 if (selectedProductType === 'livestock_curtains') {
                     $('#_curtain_hem_field, #_second_hem_field').show();
-                    $('#_pipe_pocket_field, #_webbing_reinforcement_field').hide();
-                    $('#_electric_system_field').hide();
+                    $('#_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').hide();
                 } else if (selectedProductType === 'rollover_tarps') {
                     $('#_curtain_hem_field, #_second_hem_field').hide();
-                    $('#_pipe_pocket_field, #_webbing_reinforcement_field').show();
-                    $('#_electric_system_field').show();
+                    $('#_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').show();
                 } else {
-                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field').show();
+                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field, #_curtain_length_field').show();
                 }
             }
 
@@ -200,6 +210,7 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
         '_curtain_custom_width',
         '_curtain_custom_height',
         '_product_type',
+        '_curtain_length',
     );
 
     if (isset($_POST['_curtain_material'])) {

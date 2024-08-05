@@ -14,8 +14,9 @@ jQuery(document).ready(function($) {
         var secondHemPrice = getOptionPrice($('#second_hem').val());
         var pipePocketPrice = getOptionPrice($('#pipe_pocket').val());
         var webbingPrice = $('#webbing_reinforcement').is(':checked') ? 10 : 0; // Example price for webbing reinforcement
+        var lengthPrice = getOptionPrice($('#curtain_length').val());
 
-        var totalPrice = basePrice + materialPrice + sizePrice + hemPrice + secondHemPrice + pipePocketPrice + webbingPrice;
+        var totalPrice = basePrice + materialPrice + sizePrice + hemPrice + secondHemPrice + pipePocketPrice + webbingPrice + lengthPrice;
 
         // Update the price display
         $('#curtain_price').text('$' + totalPrice.toFixed(2));
@@ -48,7 +49,7 @@ jQuery(document).ready(function($) {
     }
 
     // Event handlers for price and size conversion updates
-    $('#curtain_material, #curtain_size, #curtain_hem, #second_hem, #pipe_pocket, #webbing_reinforcement, #custom_width, #custom_height').on('input change', updatePriceAndConvertSize);
+    $('#curtain_material, #curtain_size, #curtain_hem, #second_hem, #pipe_pocket, #webbing_reinforcement, #curtain_length, #custom_width, #custom_height').on('input change', updatePriceAndConvertSize);
 
     // Toggle custom size fields
     $('#curtain_size, #_curtain_size').change(toggleCustomSizeFields).change(); // Initial check
@@ -80,7 +81,47 @@ jQuery(document).ready(function($) {
             'none': 0,
             '1': 5,
             '2': 10,
-            '3': 15
+            '3': 15,
+            '11': 11,
+            '12': 12,
+            '13': 13,
+            '14': 14,
+            '15': 15,
+            '16': 16,
+            '17': 17,
+            '18': 18,
+            '19': 19,
+            '20': 20,
+            '21': 21,
+            '22': 22,
+            '23': 23,
+            '24': 24,
+            '25': 25,
+            '26': 26,
+            '27': 27,
+            '28': 28,
+            '29': 29,
+            '30': 30,
+            '31': 31,
+            '32': 32,
+            '33': 33,
+            '34': 34,
+            '35': 35,
+            '36': 36,
+            '37': 37,
+            '38': 38,
+            '39': 39,
+            '40': 40,
+            '41': 41,
+            '42': 42,
+            '43': 43,
+            '44': 44,
+            '45': 45,
+            '46': 46,
+            '47': 47,
+            '48': 48,
+            '49': 49,
+            '50': 50
         };
 
         return prices[optionValue] || 0;

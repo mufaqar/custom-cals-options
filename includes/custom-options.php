@@ -16,6 +16,7 @@ function custom_curtain_options_add_to_product() {
         $additional_details = get_post_meta($product_id, '_additional_details', true);
         $electric_system = get_post_meta($product_id, '_electric_system', true);
         $product_type = get_post_meta($product_id, '_product_type', true);
+        $curtain_length = get_post_meta($product_id, '_curtain_length', true);
 
         // Predefined options
         $predefined_materials = array(
@@ -47,6 +48,15 @@ function custom_curtain_options_add_to_product() {
                         <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
                     </select>
                   </div>';
+
+            // Curtain Length
+            echo '<div class="form-field curtain-length">
+                <label for="curtain_length">Length (ft):</label>
+                <select id="curtain_length" name="curtain_length">';
+            for ($i = 11; $i <= 50; $i++) {
+                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
+            }
+            echo '</select></div>';
         }
 
         echo '<div id="curtain_options" style="display: block;">';
