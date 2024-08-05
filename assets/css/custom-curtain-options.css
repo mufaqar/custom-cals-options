@@ -31,3 +31,35 @@
     display: none;
 }
 
+
+
+.custom-curtain-options {
+  margin-top: 20px;
+}
+
+.custom-curtain-options label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.custom-curtain-options select,
+.custom-curtain-options input,
+.custom-curtain-options textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+#curtain_price_display {
+  font-size: 1.2em;
+  color: #333;
+}
+
+#curtain_options {
+  display: none;
+}
+
+.curtain-custom-size-fields {
+  display: none;
+}

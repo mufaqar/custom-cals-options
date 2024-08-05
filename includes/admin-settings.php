@@ -33,15 +33,20 @@ function custom_curtain_options_product_custom_fields() {
     $webbing_reinforcement = get_post_meta($product_id, '_webbing_reinforcement', true);
     $additional_details = get_post_meta($product_id, '_additional_details', true);
     $electric_system = get_post_meta($product_id, '_electric_system', true);
-    $show_electric_system = get_post_meta($product_id, '_show_electric_system', true);
+    $product_type = get_post_meta($product_id, '_product_type', true);
 
     echo '<div class="options_group">';
 
-    woocommerce_wp_checkbox(
+    // Product Type Dropdown
+    woocommerce_wp_select(
         array(
-            'id' => '_show_electric_system',
-            'label' => __('Show Electric System Question', 'custom-curtain-options'),
-            'value' => $show_electric_system,
+            'id' => '_product_type',
+            'label' => __('Product Type', 'custom-curtain-options'),
+            'options' => array(
+                'livestock_curtains' => __('Livestock Curtains', 'custom-curtain-options'),
+                'rollover_tarps' => __('Rollover Tarps', 'custom-curtain-options'),
+            ),
+            'value' => $product_type,
             'desc_tip' => true,
         )
     );
@@ -81,10 +86,10 @@ function custom_curtain_options_product_custom_fields() {
     <span id="custom_width_inches" class="custom-size-inches">--</span>
 </p>';
 
-echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+    echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
     <label for="_curtain_custom_height">' . __('Custom Height (ft)', 'custom-curtain-options') . '</label>
     <input type="number" id="_curtain_custom_height" name="_curtain_custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
-    <span id="custom_height_inches" class="custom-size-inches">11</span>
+    <span id="custom_height_inches" class="custom-size-inches">--</span>
 </p>';
 
     woocommerce_wp_select(
@@ -152,6 +157,25 @@ echo '<p class="form-field curtain-custom-size-fields" style="display: ' . (in_a
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
+            function toggleFieldsByProductType() {
+                var selectedProductType = $('#_product_type').val();
+                if (selectedProductType === 'livestock_curtains') {
+                    $('#_curtain_hem_field, #_second_hem_field').show();
+                    $('#_pipe_pocket_field, #_webbing_reinforcement_field').hide();
+                    $('#_electric_system_field').hide();
+                } else if (selectedProductType === 'rollover_tarps') {
+                    $('#_curtain_hem_field, #_second_hem_field').hide();
+                    $('#_pipe_pocket_field, #_webbing_reinforcement_field').show();
+                    $('#_electric_system_field').show();
+                } else {
+                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_electric_system_field').show();
+                }
+            }
+
+            $('#_product_type').change(function() {
+                toggleFieldsByProductType();
+            }).change();
+
             $('#_curtain_size').change(function() {
                 if ($('#_curtain_size option[value="custom"]').is(':selected')) {
                     $('.curtain-custom-size-fields').show();
@@ -173,9 +197,9 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
         '_webbing_reinforcement',
         '_additional_details',
         '_electric_system',
-        '_show_electric_system',
         '_curtain_custom_width',
         '_curtain_custom_height',
+        '_product_type',
     );
 
     if (isset($_POST['_curtain_material'])) {
