@@ -4,7 +4,6 @@ function custom_curtain_options_product_custom_fields() {
     global $post;
     $product_id = $post->ID;
 
-    // Predefined options
     $predefined_materials = array(
         '15_oz' => '15oz',
         '18_oz' => '18oz',
@@ -27,49 +26,20 @@ function custom_curtain_options_product_custom_fields() {
     $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
     $curtain_custom_width = get_post_meta($product_id, '_curtain_custom_width', true);
     $curtain_custom_height = get_post_meta($product_id, '_curtain_custom_height', true);
-    $electric_system = get_post_meta($product_id, '_electric_system', true);
     $product_type = get_post_meta($product_id, '_product_type', true);
-    $curtain_length = get_post_meta($product_id, '_curtain_length', true);
 
     echo '<div class="options_group">';
 
-    // Product Type Dropdown
-    woocommerce_wp_select(
-        array(
-            'id' => '_product_type',
-            'label' => __('Product Type', 'custom-curtain-options'),
-            'options' => array(
-                'livestock_curtains' => __('Livestock Curtains', 'custom-curtain-options'),
-                'rollover_tarps' => __('Rollover Tarps', 'custom-curtain-options'),
-            ),
-            'value' => $product_type,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_select(
-        array(
-            'id' => '_electric_system',
-            'label' => __('Will this tarp be used in an electric system?', 'custom-curtain-options'),
-            'options' => array(
-                'no' => __('No', 'custom-curtain-options'),
-                'yes' => __('Yes', 'custom-curtain-options'),
-            ),
-            'value' => $electric_system,
-            'desc_tip' => true,
-        )
-    );
-
-    woocommerce_wp_select(
-        array(
-            'id' => '_curtain_length',
-            'label' => __('Length (ft)', 'custom-curtain-options'),
-            'options' => array_combine(range(11, 50), range(11, 50)),
-            'value' => $curtain_length,
-            'desc_tip' => true,
-            'custom_attributes' => array('hidden' => 'hidden') // Initially hidden
-        )
-    );
+    woocommerce_wp_select(array(
+        'id' => '_product_type',
+        'label' => __('Product Type', 'custom-curtain-options'),
+        'options' => array(
+            'livestock_curtains' => __('Livestock Curtains', 'custom-curtain-options'),
+            'rollover_tarps' => __('Rollover Tarps', 'custom-curtain-options'),
+        ),
+        'value' => $product_type,
+        'desc_tip' => true,
+    ));
 
     echo '<p class="form-field"><label for="_curtain_material">' . __('Curtain Material Options', 'custom-curtain-options') . '</label><br>';
     echo '<select id="_curtain_material" name="_curtain_material[]" multiple="multiple" style="width: 100%; height: auto;">';
@@ -100,20 +70,15 @@ function custom_curtain_options_product_custom_fields() {
 </p>';
 
     echo '</div>';
-
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             function toggleFieldsByProductType() {
                 var selectedProductType = $('#_product_type').val();
-                if (selectedProductType === 'livestock_curtains') {
-                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_additional_details_field').hide();
-                    $('#_electric_system_field, #_curtain_length_field').hide();
-                } else if (selectedProductType === 'rollover_tarps') {
-                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_additional_details_field').hide();
-                    $('#_electric_system_field, #_curtain_length_field').show();
+                if (selectedProductType === 'livestock_curtains' || selectedProductType === 'rollover_tarps') {
+                    $('#_curtain_hem_field, #_second_hem_field, #_pipe_pocket_field, #_webbing_reinforcement_field, #_additional_details_field, #_electric_system_field, #_curtain_length_field').hide();
                 } else {
-                    $('#_electric_system_field, #_curtain_length_field').show();
+                    $('#_curtain_length_field').show();
                 }
             }
 
@@ -138,7 +103,6 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
     $fields = array(
         '_curtain_custom_width',
         '_curtain_custom_height',
-        '_electric_system',
         '_product_type',
         '_curtain_length',
     );

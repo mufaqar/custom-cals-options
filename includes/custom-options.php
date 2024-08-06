@@ -41,7 +41,7 @@ function custom_curtain_options_add_to_product() {
 
         // Show Electric System Question
         if ($product_type === 'rollover_tarps') {
-            echo '<div class="electric-system">
+            echo '<div class="form-group electric-system">
                     <label for="electric_system">Will this tarp be used in an electric system?</label>
                     <select id="electric_system" name="electric_system">
                         <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
@@ -50,7 +50,7 @@ function custom_curtain_options_add_to_product() {
                   </div>';
 
             // Curtain Length
-            echo '<div class="form-field curtain-length">
+            echo '<div class="form-group curtain-length">
                 <label for="curtain_length">Length (ft):</label>
                 <select id="curtain_length" name="curtain_length">';
             for ($i = 11; $i <= 50; $i++) {
@@ -59,7 +59,7 @@ function custom_curtain_options_add_to_product() {
             echo '</select></div>';
         }
 
-        echo '<div id="curtain_options" style="display: block;">';
+        echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
@@ -68,7 +68,7 @@ function custom_curtain_options_add_to_product() {
 
         // Curtain Material
         if (!empty($curtain_material)) {
-            echo '<div class="curtain-material">
+            echo '<div class="form-group curtain-material">
                     <label for="curtain_material">Choose Curtain Material:</label>
                     <select id="curtain_material" name="curtain_material">';
             foreach ($curtain_material as $key) {
@@ -81,7 +81,7 @@ function custom_curtain_options_add_to_product() {
 
         // Width/Size Options
         if (!empty($curtain_size)) {
-            echo '<div class="curtain-size">
+            echo '<div class="form-group curtain-size">
                     <label for="curtain_size">Choose a width/size option:</label>
                     <select id="curtain_size" name="curtain_size">';
             foreach ($curtain_size as $key) {
@@ -92,14 +92,14 @@ function custom_curtain_options_add_to_product() {
             echo '</select></div>';
 
             // Custom Width
-            echo '<div class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+            echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
                 <label for="custom_width">Custom Width (ft):</label>
                 <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
                 <span id="custom_width_inches" class="custom-size-inches">--</span>
             </div>';
 
             // Custom Height
-            echo '<div class="form-field curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+            echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
                 <label for="custom_height">Custom Height (ft):</label>
                 <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
                 <span id="custom_height_inches" class="custom-size-inches">--</span>
@@ -107,62 +107,52 @@ function custom_curtain_options_add_to_product() {
         }
 
         // Curtain Hem
-        if ($curtain_hem && $product_type === 'livestock_curtains') {
+        if ($product_type === 'livestock_curtains') {
             $hem_options = array(
                 '3_hem' => '3" Hem',
                 '4_hem' => '4" Hem',
             );
-            echo '<div class="curtain-hem">
+            echo '<div class="form-group curtain-hem">
                     <label for="curtain_hem">Choose a hem:</label>
                     <select id="curtain_hem" name="curtain_hem">';
             foreach ($hem_options as $key => $value) {
-                $selected = ($curtain_hem == $key) ? 'selected' : '';
-                echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
+                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
+            }
+            echo '</select></div>';
+
+            $second_hem_options = array(
+                'none' => 'None',
+                '3_hem' => '3" Hem',
+                '4_hem' => '4" Hem',
+            );
+            echo '<div class="form-group curtain-addons"><label>Add a second hem:</label>
+                  <select id="second_hem" name="second_hem">';
+            foreach ($second_hem_options as $key => $value) {
+                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
             }
             echo '</select></div>';
         }
 
-        // Curtain Optional Add-ons
-        if ($product_type === 'livestock_curtains' || $product_type === 'rollover_tarps') {
-            echo '<div class="curtain-addons">';
-            if ($second_hem && $product_type === 'livestock_curtains') {
-                $second_hem_options = array(
-                    'none' => 'None',
-                    '3_hem' => '3" Hem',
-                    '4_hem' => '4" Hem',
-                );
-                echo '<label>Add a second hem:</label>
-                      <select id="second_hem" name="second_hem">';
-                foreach ($second_hem_options as $key => $value) {
-                    $selected = ($second_hem == $key) ? 'selected' : '';
-                    echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
-                }
-                echo '</select>';
+        if ($product_type === 'rollover_tarps') {
+            $pipe_pocket_options = array(
+                'none' => 'None',
+                '1' => '1',
+                '2' => '2',
+                '3' => '3',
+            );
+            echo '<div class="form-group curtain-addons"><label>Add a Pipe Pocket:</label>
+                  <select id="pipe_pocket" name="pipe_pocket">';
+            foreach ($pipe_pocket_options as $key => $value) {
+                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
             }
-            if ($pipe_pocket && $product_type === 'rollover_tarps') {
-                $pipe_pocket_options = array(
-                    'none' => 'None',
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                );
-                echo '<label>Add a Pipe Pocket:</label>
-                      <select id="pipe_pocket" name="pipe_pocket">';
-                foreach ($pipe_pocket_options as $key => $value) {
-                    $selected = ($pipe_pocket == $key) ? 'selected' : '';
-                    echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
-                }
-                echo '</select>';
-            }
-            if ($webbing_reinforcement && $product_type === 'rollover_tarps') {
-                echo '<label for="webbing_reinforcement">Add Webbing Reinforcement:</label>
-                      <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>';
-            }
-            echo '</div>';
+            echo '</select>';
+
+            echo '<label for="webbing_reinforcement">Add Webbing Reinforcement:</label>
+                  <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>';
         }
 
         // Additional details/requests
-        echo '<div class="additional-details">
+        echo '<div class="form-group additional-details">
                 <label for="additional_details">Additional details/requests:</label>
                 <textarea id="additional_details" name="additional_details" rows="4" cols="50">' . esc_textarea($additional_details) . '</textarea>
               </div>';
