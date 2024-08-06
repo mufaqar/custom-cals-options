@@ -39,25 +39,8 @@ function custom_curtain_options_add_to_product() {
 
         echo '<div class="custom-curtain-options">';
 
-        // Show Electric System Question
-        if ($product_type === 'rollover_tarps') {
-            echo '<div class="form-group electric-system">
-                    <label for="electric_system">Will this tarp be used in an electric system?</label>
-                    <select id="electric_system" name="electric_system">
-                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
-                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
-                    </select>
-                  </div>';
-
-            // Curtain Length
-            echo '<div class="form-group curtain-length">
-                <label for="curtain_length">Length (ft):</label>
-                <select id="curtain_length" name="curtain_length">';
-            for ($i = 11; $i <= 50; $i++) {
-                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
-            }
-            echo '</select></div>';
-        }
+      
+        
 
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
@@ -104,6 +87,25 @@ function custom_curtain_options_add_to_product() {
                 <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
                 <span id="custom_height_inches" class="custom-size-inches">--</span>
             </div>';
+        }
+          // Show Electric System Question
+          if ($product_type === 'rollover_tarps') {
+            echo '<div class="form-group electric-system">
+                    <label for="electric_system">Will this tarp be used in an electric system?</label>
+                    <select id="electric_system" name="electric_system">
+                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
+                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
+                    </select>
+                  </div>';
+
+            // Curtain Length
+            echo '<div class="form-group curtain-length">
+                <label for="curtain_length">Length (ft):</label>
+                <select id="curtain_length" name="curtain_length">';
+            for ($i = 11; $i <= 50; $i++) {
+                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
+            }
+            echo '</select></div>';
         }
 
         // Curtain Hem
@@ -157,6 +159,7 @@ function custom_curtain_options_add_to_product() {
                 <textarea id="additional_details" name="additional_details" rows="4" cols="50">' . esc_textarea($additional_details) . '</textarea>
               </div>';
 
+        echo '</div>';
         echo '</div>';
         echo '</div>';
     }
