@@ -88,16 +88,9 @@ function custom_curtain_options_add_to_product() {
                 <span id="custom_height_inches" class="custom-size-inches">--</span>
             </div>';
         }
-          // Show Electric System Question
-          if ($product_type === 'rollover_tarps') {
-            echo '<div class="form-group electric-system">
-                    <label for="electric_system">Will this tarp be used in an electric system?</label>
-                    <select id="electric_system" name="electric_system">
-                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
-                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
-                    </select>
-                  </div>';
-
+          // If Product type is rollover_tarps
+          if ($product_type === 'rollover_tarps') {           
+         
             // Curtain Length
             echo '<div class="form-group curtain-length">
                 <label for="curtain_length">Length (ft):</label>
@@ -106,6 +99,16 @@ function custom_curtain_options_add_to_product() {
                 echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
             }
             echo '</select></div>';
+
+              // Electric System 
+
+            echo '<div class="form-group electric-system">
+                    <label for="electric_system">Will this tarp be used in an electric system?</label>
+                    <select id="electric_system" name="electric_system">
+                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
+                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
+                    </select>
+                  </div>';
         }
 
         // Curtain Hem

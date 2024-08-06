@@ -40,15 +40,7 @@ jQuery(document).ready(function($) {
 
     $('#curtain_size, #_curtain_size').change(toggleCustomSizeFields).change();
 
-    $('#electric_system').change(function() {
-        if ($(this).val() === 'yes') {
-            $('#curtain_options').show();
-        } else {
-            $('#curtain_options').hide();
-        }
-    }).change();
-
-    updatePriceAndConvertSize();
+      updatePriceAndConvertSize();
 
     function getOptionPrice(optionValue) {
         var prices = {
