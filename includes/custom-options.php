@@ -57,6 +57,13 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
+            // Custom Width
+            echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+                    <label for="custom_width">Linear Ft. Length:</label>
+                    <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
+                  
+                 </div>';
+
             // Curtain Fabric
             if (!empty($curtain_material)) {
                 echo '<div class="form-group curtain-material">
@@ -70,23 +77,15 @@ function custom_curtain_options_add_to_product() {
                 echo '</select></div>';
             }
 
-            // Custom Width
-            echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-                    <label for="custom_width">Custom Width (ft):</label>
-                    <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
-                    <span id="custom_width_inches" class="custom-size-inches">--</span>
-                 </div>';
+            
 
-            // Custom Height
-            echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-                    <label for="custom_height">Custom Height (ft):</label>
-                    <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
-                    <span id="custom_height_inches" class="custom-size-inches">--</span>
-                  </div>';
+           
         }
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {
+
+           
             // Curtain Length
             echo '<div class="form-group curtain-length">
                     <label for="curtain_length">Length (ft):</label>
@@ -108,7 +107,10 @@ function custom_curtain_options_add_to_product() {
 
         // Curtain Hem
         if ($product_type === 'livestock_curtains') {
-            echo '<div class="form-group curtain-addons">                   
+
+          //  echo ' <label for="addon">Additions to Curtain</label>';
+            echo '<div class="form-group curtain-addons">       
+
                     <input type="checkbox" id="second_hem" name="second_hem" value="yes"' . ($second_hem == 'yes' ? ' checked' : '') . '>
                      <label for="second_hem">Add a second hem:</label>
                   </div>';
