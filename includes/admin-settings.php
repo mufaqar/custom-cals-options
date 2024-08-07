@@ -5,8 +5,8 @@ function custom_curtain_options_product_custom_fields() {
     $product_id = $post->ID;
 
     $predefined_materials = array(
-        '15_oz' => '15oz',
-        '18_oz' => '18oz',
+        '15_oz' => '15oz Clear',
+        '18_oz' => '18oz White',
         '20_oz' => '20oz',
         '22_oz' => '22oz'
     );

@@ -20,8 +20,8 @@ function custom_curtain_options_add_to_product() {
 
         // Predefined options
         $predefined_materials = array(
-            '15_oz' => '15oz',
-            '18_oz' => '18oz',
+            '15_oz' => '15oz Clear',
+            '18_oz' => '18oz White',
             '20_oz' => '20oz',
             '22_oz' => '22oz'
         );
@@ -49,10 +49,24 @@ function custom_curtain_options_add_to_product() {
                 <strong>Price: </strong><span id="curtain_price">$0.00</span>
               </div>';
 
-        // Curtain Material
+       
+
+        // Width/Size Options
+        if (!empty($curtain_size)) {
+            echo '<div class="form-group curtain-size">
+                    <label for="curtain_size">Linear Ft. Width:</label>
+                    <select id="curtain_size" name="curtain_size">';
+            foreach ($curtain_size as $key) {
+                if (isset($predefined_size_options[$key])) {
+                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_size_options[$key]) . '</option>';
+                }
+            }
+            echo '</select></div>';
+
+             // Curtain Fabric
         if (!empty($curtain_material)) {
             echo '<div class="form-group curtain-material">
-                    <label for="curtain_material">Choose Curtain Material:</label>
+                    <label for="curtain_material">Curtain Fabric:</label>
                     <select id="curtain_material" name="curtain_material">';
             foreach ($curtain_material as $key) {
                 if (isset($predefined_materials[$key])) {
@@ -62,35 +76,23 @@ function custom_curtain_options_add_to_product() {
             echo '</select></div>';
         }
 
-        // Width/Size Options
-        if (!empty($curtain_size)) {
-            echo '<div class="form-group curtain-size">
-                    <label for="curtain_size">Choose a width/size option:</label>
-                    <select id="curtain_size" name="curtain_size">';
-            foreach ($curtain_size as $key) {
-                if (isset($predefined_size_options[$key])) {
-                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_size_options[$key]) . '</option>';
-                }
-            }
-            echo '</select></div>';
-
             // Custom Width
             echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-                <label for="custom_width">Custom Width (ft):</label>
-                <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
-                <span id="custom_width_inches" class="custom-size-inches">--</span>
-            </div>';
+                    <label for="custom_width">Custom Width (ft):</label>
+                    <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
+                    <span id="custom_width_inches" class="custom-size-inches">--</span>
+                 </div>';
 
             // Custom Height
             echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-                <label for="custom_height">Custom Height (ft):</label>
-                <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
-                <span id="custom_height_inches" class="custom-size-inches">--</span>
-            </div>';
+                    <label for="custom_height">Custom Height (ft):</label>
+                    <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+                    <span id="custom_height_inches" class="custom-size-inches">--</span>
+                  </div>';
         }
           // If Product type is rollover_tarps
-          if ($product_type === 'rollover_tarps') {           
-         
+          if ($product_type === 'rollover_tarps') {   
+
             // Curtain Length
             echo '<div class="form-group curtain-length">
                 <label for="curtain_length">Length (ft):</label>
