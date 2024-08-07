@@ -38,18 +38,12 @@ function custom_curtain_options_add_to_product() {
         );
 
         echo '<div class="custom-curtain-options">';
-
-      
-        
-
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
                 <strong>Price: </strong><span id="curtain_price">$0.00</span>
               </div>';
-
-       
 
         // Width/Size Options
         if (!empty($curtain_size)) {
@@ -63,18 +57,18 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
-             // Curtain Fabric
-        if (!empty($curtain_material)) {
-            echo '<div class="form-group curtain-material">
-                    <label for="curtain_material">Curtain Fabric:</label>
-                    <select id="curtain_material" name="curtain_material">';
-            foreach ($curtain_material as $key) {
-                if (isset($predefined_materials[$key])) {
-                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_materials[$key]) . '</option>';
+            // Curtain Fabric
+            if (!empty($curtain_material)) {
+                echo '<div class="form-group curtain-material">
+                        <label for="curtain_material">Curtain Fabric:</label>
+                        <select id="curtain_material" name="curtain_material">';
+                foreach ($curtain_material as $key) {
+                    if (isset($predefined_materials[$key])) {
+                        echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_materials[$key]) . '</option>';
+                    }
                 }
+                echo '</select></div>';
             }
-            echo '</select></div>';
-        }
 
             // Custom Width
             echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
@@ -90,20 +84,19 @@ function custom_curtain_options_add_to_product() {
                     <span id="custom_height_inches" class="custom-size-inches">--</span>
                   </div>';
         }
-          // If Product type is rollover_tarps
-          if ($product_type === 'rollover_tarps') {   
 
+        // If Product type is rollover_tarps
+        if ($product_type === 'rollover_tarps') {
             // Curtain Length
             echo '<div class="form-group curtain-length">
-                <label for="curtain_length">Length (ft):</label>
-                <select id="curtain_length" name="curtain_length">';
+                    <label for="curtain_length">Length (ft):</label>
+                    <select id="curtain_length" name="curtain_length">';
             for ($i = 11; $i <= 50; $i++) {
                 echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
             }
             echo '</select></div>';
 
-              // Electric System 
-
+            // Electric System
             echo '<div class="form-group electric-system">
                     <label for="electric_system">Will this tarp be used in an electric system?</label>
                     <select id="electric_system" name="electric_system">
@@ -115,54 +108,21 @@ function custom_curtain_options_add_to_product() {
 
         // Curtain Hem
         if ($product_type === 'livestock_curtains') {
-            $hem_options = array(
-                '3_hem' => '3" Hem',
-                '4_hem' => '4" Hem',
-            );
-            echo '<div class="form-group curtain-hem">
-                    <label for="curtain_hem">Choose a hem:</label>
-                    <select id="curtain_hem" name="curtain_hem">';
-            foreach ($hem_options as $key => $value) {
-                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
-            }
-            echo '</select></div>';
+            echo '<div class="form-group curtain-addons">
+                    <label for="second_hem">Add a second hem:</label>
+                    <input type="checkbox" id="second_hem" name="second_hem" value="yes"' . ($second_hem == 'yes' ? ' checked' : '') . '>
+                  </div>';
 
-            $second_hem_options = array(
-                'none' => 'None',
-                '3_hem' => '3" Hem',
-                '4_hem' => '4" Hem',
-            );
-            echo '<div class="form-group curtain-addons"><label>Add a second hem:</label>
-                  <select id="second_hem" name="second_hem">';
-            foreach ($second_hem_options as $key => $value) {
-                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
-            }
-            echo '</select></div>';
+            echo '<div class="form-group curtain-addons">
+                    <label for="pipe_pocket">Add a Pipe Pocket:</label>
+                    <input type="checkbox" id="pipe_pocket" name="pipe_pocket" value="yes"' . ($pipe_pocket == 'yes' ? ' checked' : '') . '>
+                  </div>';
+
+            echo '<div class="form-group curtain-addons">
+                    <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
+                    <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>
+                  </div>';
         }
-
-        if ($product_type === 'rollover_tarps') {
-            $pipe_pocket_options = array(
-                'none' => 'None',
-                '1' => '1',
-                '2' => '2',
-                '3' => '3',
-            );
-            echo '<div class="form-group curtain-addons"><label>Add a Pipe Pocket:</label>
-                  <select id="pipe_pocket" name="pipe_pocket">';
-            foreach ($pipe_pocket_options as $key => $value) {
-                echo '<option value="' . esc_attr($key) . '">' . esc_html($value) . '</option>';
-            }
-            echo '</select>';
-
-            echo '<label for="webbing_reinforcement">Add Webbing Reinforcement:</label>
-                  <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>';
-        }
-
-        // Additional details/requests
-        echo '<div class="form-group additional-details">
-                <label for="additional_details">Additional details/requests:</label>
-                <textarea id="additional_details" name="additional_details" rows="4" cols="50">' . esc_textarea($additional_details) . '</textarea>
-              </div>';
 
         echo '</div>';
         echo '</div>';
@@ -170,3 +130,4 @@ function custom_curtain_options_add_to_product() {
     }
 }
 add_action('woocommerce_before_add_to_cart_button', 'custom_curtain_options_add_to_product');
+?>
