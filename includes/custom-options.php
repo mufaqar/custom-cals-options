@@ -108,19 +108,19 @@ function custom_curtain_options_add_to_product() {
 
         // Curtain Hem
         if ($product_type === 'livestock_curtains') {
-            echo '<div class="form-group curtain-addons">
-                    <label for="second_hem">Add a second hem:</label>
+            echo '<div class="form-group curtain-addons">                   
                     <input type="checkbox" id="second_hem" name="second_hem" value="yes"' . ($second_hem == 'yes' ? ' checked' : '') . '>
+                     <label for="second_hem">Add a second hem:</label>
                   </div>';
 
-            echo '<div class="form-group curtain-addons">
-                    <label for="pipe_pocket">Add a Pipe Pocket:</label>
+            echo '<div class="form-group curtain-addons">                  
                     <input type="checkbox" id="pipe_pocket" name="pipe_pocket" value="yes"' . ($pipe_pocket == 'yes' ? ' checked' : '') . '>
+                      <label for="pipe_pocket">Add a Pipe Pocket:</label>
                   </div>';
 
-            echo '<div class="form-group curtain-addons">
-                    <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
+            echo '<div class="form-group curtain-addons">                   
                     <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>
+                     <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
                   </div>';
         }
 
