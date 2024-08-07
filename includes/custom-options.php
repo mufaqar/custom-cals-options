@@ -103,7 +103,7 @@ function custom_curtain_options_add_to_product() {
             echo '<div class="form-group precise-length">
                     <label for="precise_length">Precise Length (in inches):</label>
                     <input type="number" id="precise_length" name="precise_length" value="' . esc_attr($precise_length) . '" min="0" step="0.1">
-                    <p class="hint">Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field.  If your actual length happens to be 42’ even then type n/a or a zero in the precise length field.</p>
+                    <p cl>Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field.  If your actual length happens to be 42’ even then type n/a or a zero in the precise length field.</p>
                  </div>';
 
             // Tarp Color
@@ -111,8 +111,8 @@ function custom_curtain_options_add_to_product() {
                     <label for="tarp_color">Tarp Color:</label>
                     <input type="text" id="tarp_color" name="tarp_color" value="' . esc_attr($tarp_color) . '">
                     <p>Colors Available:</p>
-                    <p class="hint">18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
-                    <p class="hint">22oz: Black, White, Royal Blue, and Red</p>
+                    <p>18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
+                    <p>22oz: Black, White, Royal Blue, and Red</p>
                   </div>';
 
             

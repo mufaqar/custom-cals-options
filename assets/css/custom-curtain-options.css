@@ -28,8 +28,13 @@
   display: none;
 }
 
-.curtain-custom-size-fields {
+.curtain-custom-size-fields,
+.precise-length,
+.tarp-color {
   display: none;
 }
 
-.hint { font-size: 14px; color: #333;}
+.hint {
+  font-size: 14px;
+  color: #333;
+}
