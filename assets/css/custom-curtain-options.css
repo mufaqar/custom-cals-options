@@ -5,15 +5,18 @@
 .custom-curtain-options label {
   display: inline;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .custom-curtain-options select,
 .custom-curtain-options textarea,
-.custom-curtain-options input[type=number] {
+.custom-curtain-options input[type='number'],
+.custom-curtain-options input[type='text'] {
   width: 100%;
-  padding: 5px;
+  padding: 12px;
   margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #dedede;
 }
 
 #curtain_price_display {
@@ -29,5 +32,4 @@
   display: none;
 }
 
-.curtain-length {
-}
+.hint { font-size: 14px; color: #333;}

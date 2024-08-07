@@ -17,6 +17,8 @@ function custom_curtain_options_add_to_product() {
         $electric_system = get_post_meta($product_id, '_electric_system', true);
         $product_type = get_post_meta($product_id, '_product_type', true);
         $curtain_length = get_post_meta($product_id, '_curtain_length', true);
+        $precise_length = get_post_meta($product_id, '_precise_length', true);
+        $tarp_color = get_post_meta($product_id, '_tarp_color', true);
 
         // Predefined options
         $predefined_materials = array(
@@ -96,12 +98,28 @@ function custom_curtain_options_add_to_product() {
                         <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
                     </select>
                   </div>';
+
+            // Precise Length
+            echo '<div class="form-group precise-length">
+                    <label for="precise_length">Precise Length (in inches):</label>
+                    <input type="number" id="precise_length" name="precise_length" value="' . esc_attr($precise_length) . '" min="0" step="0.1">
+                    <p class="hint">Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field.  If your actual length happens to be 42’ even then type n/a or a zero in the precise length field.</p>
+                 </div>';
+
+            // Tarp Color
+            echo '<div class="form-group tarp-color">
+                    <label for="tarp_color">Tarp Color:</label>
+                    <input type="text" id="tarp_color" name="tarp_color" value="' . esc_attr($tarp_color) . '">
+                    <p>Colors Available:</p>
+                    <p class="hint">18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
+                    <p class="hint">22oz: Black, White, Royal Blue, and Red</p>
+                  </div>';
+
+            
         }
 
         // Curtain Hem
         if ($product_type === 'livestock_curtains') {
-
-            echo '<label class="curtain-addons">Additions to curtain </label>';
             echo '<div class="form-group curtain-addons">
                     <input type="checkbox" id="second_hem" name="second_hem" value="yes"' . ($second_hem == 'yes' ? ' checked' : '') . '>
                     <label for="second_hem">Add a second hem:</label>
@@ -118,7 +136,7 @@ function custom_curtain_options_add_to_product() {
                   </div>';
         }
 
-        echo '</label>';
+        echo '</div>';
         echo '</div>';
         echo '</div>';
     }
