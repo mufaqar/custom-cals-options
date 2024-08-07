@@ -61,7 +61,6 @@ function custom_curtain_options_add_to_product() {
             echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
                     <label for="custom_width">Linear Ft. Length:</label>
                     <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
-                  
                  </div>';
 
             // Curtain Fabric
@@ -76,16 +75,10 @@ function custom_curtain_options_add_to_product() {
                 }
                 echo '</select></div>';
             }
-
-            
-
-           
         }
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {
-
-           
             // Curtain Length
             echo '<div class="form-group curtain-length">
                     <label for="curtain_length">Length (ft):</label>
@@ -108,25 +101,24 @@ function custom_curtain_options_add_to_product() {
         // Curtain Hem
         if ($product_type === 'livestock_curtains') {
 
-          //  echo ' <label for="addon">Additions to Curtain</label>';
-            echo '<div class="form-group curtain-addons">       
-
+            echo '<label class="curtain-addons">Additions to curtain </label>';
+            echo '<div class="form-group curtain-addons">
                     <input type="checkbox" id="second_hem" name="second_hem" value="yes"' . ($second_hem == 'yes' ? ' checked' : '') . '>
-                     <label for="second_hem">Add a second hem:</label>
+                    <label for="second_hem">Add a second hem:</label>
                   </div>';
 
-            echo '<div class="form-group curtain-addons">                  
+            echo '<div class="form-group curtain-addons">
                     <input type="checkbox" id="pipe_pocket" name="pipe_pocket" value="yes"' . ($pipe_pocket == 'yes' ? ' checked' : '') . '>
-                      <label for="pipe_pocket">Add a Pipe Pocket:</label>
+                    <label for="pipe_pocket">Add a Pipe Pocket:</label>
                   </div>';
 
-            echo '<div class="form-group curtain-addons">                   
+            echo '<div class="form-group curtain-addons">
                     <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes"' . ($webbing_reinforcement == 'yes' ? ' checked' : '') . '>
-                     <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
+                    <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
                   </div>';
         }
 
-        echo '</div>';
+        echo '</label>';
         echo '</div>';
         echo '</div>';
     }
