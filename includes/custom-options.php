@@ -20,23 +20,23 @@ function custom_curtain_options_add_to_product() {
         $precise_length = get_post_meta($product_id, '_precise_length', true);
         $tarp_color = get_post_meta($product_id, '_tarp_color', true);
 
-        // Predefined options
+        // Predefined options with prices
         $predefined_materials = array(
-            '15_oz' => '15oz Clear',
-            '18_oz' => '18oz White',
-            '20_oz' => '20oz',
-            '22_oz' => '22oz'
+            '15_oz' => array('label' => '15oz Clear', 'price' => 15),
+            '18_oz' => array('label' => '18oz White', 'price' => 18),
+            '20_oz' => array('label' => '20oz', 'price' => 20),
+            '22_oz' => array('label' => '22oz', 'price' => 22)
         );
 
         $predefined_size_options = array(
-            'size_1' => '5\' with 1 3" Hem (58") or 4" Hem',
-            'size_2' => '6\' with 1 3" Hem (69") or 4" Hem',
-            'size_3' => '9\' with 1 3" Hem (105") or 4" Hem',
-            'size_4' => '12\' with 1 3" Hem (141") or 4" Hem (140")',
-            'size_5' => '10\'3" width (96" trailer width)',
-            'size_6' => '10\'6" width (99" trailer width)',
-            'size_7' => '10\'9" width (102" trailer width)',
-            'custom' => 'Custom Size (price x total sq ft)',
+            'size_1' => array('label' => '5\' with 1 3" Hem (58") or 4" Hem (57")', 'prices' => array('15_oz' => 4.05, '18_oz' => 5.04)),
+            'size_2' => array('label' => '6\' with 1 3" Hem (69") or 4" Hem (68")', 'prices' => array('15_oz' => 4.86, '18_oz' => 6.05)),
+            'size_3' => array('label' => '9\' with 1 3" Hem (105") or 4" Hem (104")', 'prices' => array('15_oz' => 7.28, '18_oz' => 9.07)),
+            'size_4' => array('label' => '12\' with 1 3" Hem (141") or 4" Hem (140")', 'prices' => array('15_oz' => 9.71, '18_oz' => 12.10)),
+            'size_5' => array('label' => '10\'3" width (96" trailer width)', 'prices' => array('15_oz' => 50, '18_oz' => 60)),
+            'size_6' => array('label' => '10\'6" width (99" trailer width)', 'prices' => array('15_oz' => 70, '18_oz' => 80)),
+            'size_7' => array('label' => '10\'9" width (102" trailer width)', 'prices' => array('15_oz' => 90, '18_oz' => 100)),
+            'custom' => array('label' => 'Custom Size (price x total sq ft)', 'prices' => array('15_oz' => 150, '18_oz' => 180))
         );
 
         echo '<div class="custom-curtain-options">';
@@ -54,7 +54,7 @@ function custom_curtain_options_add_to_product() {
                     <select id="curtain_size" name="curtain_size">';
             foreach ($curtain_size as $key) {
                 if (isset($predefined_size_options[$key])) {
-                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_size_options[$key]) . '</option>';
+                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_size_options[$key]['label']) . '</option>';
                 }
             }
             echo '</select></div>';
@@ -64,19 +64,19 @@ function custom_curtain_options_add_to_product() {
                     <label for="custom_width">Linear Ft. Length:</label>
                     <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
                  </div>';
+        }
 
-            // Curtain Fabric
-            if (!empty($curtain_material)) {
-                echo '<div class="form-group curtain-material">
-                        <label for="curtain_material">Curtain Fabric:</label>
-                        <select id="curtain_material" name="curtain_material">';
-                foreach ($curtain_material as $key) {
-                    if (isset($predefined_materials[$key])) {
-                        echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_materials[$key]) . '</option>';
-                    }
+        // Curtain Fabric
+        if (!empty($curtain_material)) {
+            echo '<div class="form-group curtain-material">
+                    <label for="curtain_material">Curtain Fabric:</label>
+                    <select id="curtain_material" name="curtain_material">';
+            foreach ($curtain_material as $key) {
+                if (isset($predefined_materials[$key])) {
+                    echo '<option value="' . esc_attr($key) . '">' . esc_html($predefined_materials[$key]['label']) . '</option>';
                 }
-                echo '</select></div>';
             }
+            echo '</select></div>';
         }
 
         // If Product type is rollover_tarps
@@ -103,7 +103,7 @@ function custom_curtain_options_add_to_product() {
             echo '<div class="form-group precise-length">
                     <label for="precise_length">Precise Length (in inches):</label>
                     <input type="number" id="precise_length" name="precise_length" value="' . esc_attr($precise_length) . '" min="0" step="0.1">
-                    <p cl>Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field.  If your actual length happens to be 42’ even then type n/a or a zero in the precise length field.</p>
+                    <p class="hint">Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field.  If your actual length happens to be 42’ even then type n/a or a zero in the precise length field.</p>
                  </div>';
 
             // Tarp Color
@@ -111,11 +111,9 @@ function custom_curtain_options_add_to_product() {
                     <label for="tarp_color">Tarp Color:</label>
                     <input type="text" id="tarp_color" name="tarp_color" value="' . esc_attr($tarp_color) . '">
                     <p>Colors Available:</p>
-                    <p>18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
-                    <p>22oz: Black, White, Royal Blue, and Red</p>
+                    <p class="hint">18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
+                    <p class="hint">22oz: Black, White, Royal Blue, and Red</p>
                   </div>';
-
-            
         }
 
         // Curtain Hem
