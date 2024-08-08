@@ -13,6 +13,14 @@ jQuery(document).ready(function($) {
             totalPrice += getSecondHemPrice(materialType);
         }
 
+        if ($('#pipe_pocket').is(':checked')) {
+            totalPrice += getPipePocketPrice(materialType);
+        }
+
+        if ($('#webbing_reinforcement').is(':checked')) {
+            totalPrice += getWebbingReinforcementPrice();
+        }
+
         $('#curtain_price').text('$' + totalPrice.toFixed(2));
 
         if ($('#curtain_size option:selected').val() === 'custom' || $('#_curtain_size option:selected').val() === 'custom') {
@@ -39,7 +47,7 @@ jQuery(document).ready(function($) {
         }
     }
 
-    $('#curtain_material, #curtain_size, #curtain_length, #custom_width, #custom_height, #second_hem').on('input change', updatePriceAndConvertSize);
+    $('#curtain_material, #curtain_size, #curtain_length, #custom_width, #custom_height, #second_hem, #pipe_pocket, #webbing_reinforcement').on('input change', updatePriceAndConvertSize);
 
     $('#curtain_size, #_curtain_size').change(toggleCustomSizeFields).change();
 
@@ -70,5 +78,18 @@ jQuery(document).ready(function($) {
         };
 
         return secondHemPrices[materialType] || 0;
+    }
+
+    function getPipePocketPrice(materialType) {
+        var pipePocketPrices = {
+            '15_oz': 1.92,
+            '18_oz': 2.16
+        };
+
+        return pipePocketPrices[materialType] || 0;
+    }
+
+    function getWebbingReinforcementPrice() {
+        return 0.40;
     }
 });
