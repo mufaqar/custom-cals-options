@@ -22,8 +22,8 @@ function custom_curtain_options_add_to_product() {
 
         // Predefined options with prices
         $predefined_materials = array(
-            '15_oz' => array('label' => '15oz Clear', 'price' => 15),
-            '18_oz' => array('label' => '18oz White', 'price' => 18),
+            '15_oz' => array('label' => '15oz', 'price' => 15),
+            '18_oz' => array('label' => '18oz', 'price' => 18),
             '22_oz' => array('label' => '22oz', 'price' => 22)
         );
 
