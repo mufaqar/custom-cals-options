@@ -24,19 +24,18 @@ function custom_curtain_options_add_to_product() {
         $predefined_materials = array(
             '15_oz' => array('label' => '15oz Clear', 'price' => 15),
             '18_oz' => array('label' => '18oz White', 'price' => 18),
-            '20_oz' => array('label' => '20oz', 'price' => 20),
             '22_oz' => array('label' => '22oz', 'price' => 22)
         );
 
         $predefined_size_options = array(
-            'size_1' => array('label' => '5\' with 1 3" Hem (58") or 4" Hem (57")', 'prices' => array('15_oz' => 4.05, '18_oz' => 5.04)),
-            'size_2' => array('label' => '6\' with 1 3" Hem (69") or 4" Hem (68")', 'prices' => array('15_oz' => 4.86, '18_oz' => 6.05)),
-            'size_3' => array('label' => '9\' with 1 3" Hem (105") or 4" Hem (104")', 'prices' => array('15_oz' => 7.28, '18_oz' => 9.07)),
-            'size_4' => array('label' => '12\' with 1 3" Hem (141") or 4" Hem (140")', 'prices' => array('15_oz' => 9.71, '18_oz' => 12.10)),
-            'size_5' => array('label' => '10\'3" width (96" trailer width)', 'prices' => array('15_oz' => 50, '18_oz' => 60)),
-            'size_6' => array('label' => '10\'6" width (99" trailer width)', 'prices' => array('15_oz' => 70, '18_oz' => 80)),
-            'size_7' => array('label' => '10\'9" width (102" trailer width)', 'prices' => array('15_oz' => 90, '18_oz' => 100)),
-            'custom' => array('label' => 'Custom Size (price x total sq ft)', 'prices' => array('15_oz' => 150, '18_oz' => 180))
+            'size_1' => array('label' => '5\' with 1 3" Hem (58") or 4" Hem (57")', 'prices' => array('15_oz' => 4.05, '18_oz' => 5.04, '22_oz' => 5.04)),
+            'size_2' => array('label' => '6\' with 1 3" Hem (69") or 4" Hem (68")', 'prices' => array('15_oz' => 4.86, '18_oz' => 6.05, '22_oz' => 6.05)),
+            'size_3' => array('label' => '9\' with 1 3" Hem (105") or 4" Hem (104")', 'prices' => array('15_oz' => 7.28, '18_oz' => 9.07, '22_oz' => 9.07)),
+            'size_4' => array('label' => '12\' with 1 3" Hem (141") or 4" Hem (140")', 'prices' => array('15_oz' => 9.71, '18_oz' => 12.10, '22_oz' => 12.10)),
+            'size_5' => array('label' => '10\'3" width (96" trailer width)', 'prices' => array('15_oz' => 50, '18_oz' => 60, '22_oz' => 60)),
+            'size_6' => array('label' => '10\'6" width (99" trailer width)', 'prices' => array('15_oz' => 70, '18_oz' => 80, '22_oz' => 80)),
+            'size_7' => array('label' => '10\'9" width (102" trailer width)', 'prices' => array('15_oz' => 90, '18_oz' => 100, '22_oz' => 100)),
+            'custom' => array('label' => 'Custom Size (price x total sq ft)', 'prices' => array('15_oz' => 150, '18_oz' => 180, '22_oz' => 180))
         );
 
         echo '<div class="custom-curtain-options">';

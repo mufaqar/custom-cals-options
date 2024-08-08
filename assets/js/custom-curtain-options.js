@@ -6,20 +6,14 @@ jQuery(document).ready(function($) {
     function updatePriceAndConvertSize() {
         var basePrice = 0;
         var materialType = $('#curtain_material').val();
-        var sizeOption = $('#curtain_size').val();
-        var totalPrice = basePrice + getOptionPrice(sizeOption, materialType);
+        var materialPrice = getMaterialPrice(materialType);
+        var sizePrice = getSizePrice($('#curtain_size').val(), materialType);
+        var lengthPrice = getLengthPrice($('#curtain_length').val());
+        var secondHemPrice = $('#second_hem').is(':checked') ? getSecondHemPrice(materialType) : 0;
+        var pipePocketPrice = $('#pipe_pocket').is(':checked') ? getPipePocketPrice(materialType) : 0;
+        var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType) : 0;
 
-        if ($('#second_hem').is(':checked')) {
-            totalPrice += getSecondHemPrice(materialType);
-        }
-
-        if ($('#pipe_pocket').is(':checked')) {
-            totalPrice += getPipePocketPrice(materialType);
-        }
-
-        if ($('#webbing_reinforcement').is(':checked')) {
-            totalPrice += getWebbingReinforcementPrice();
-        }
+        var totalPrice = basePrice + materialPrice + sizePrice + lengthPrice + secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
 
         $('#curtain_price').text('$' + totalPrice.toFixed(2));
 
@@ -53,43 +47,61 @@ jQuery(document).ready(function($) {
 
     updatePriceAndConvertSize();
 
-    function getOptionPrice(sizeOption, materialType) {
+    function getMaterialPrice(materialType) {
         var prices = {
-            'size_1': {'15_oz': 4.05, '18_oz': 5.04},
-            'size_2': {'15_oz': 4.86, '18_oz': 6.05},
-            'size_3': {'15_oz': 7.28, '18_oz': 9.07},
-            'size_4': {'15_oz': 9.71, '18_oz': 12.10},
-            'size_5': {'15_oz': 50, '18_oz': 60},
-            'size_6': {'15_oz': 70, '18_oz': 80},
-            'size_7': {'15_oz': 90, '18_oz': 100},
-            'custom': {'15_oz': 150, '18_oz': 180}
+            '15_oz': 15,
+            '18_oz': 18,
+            '22_oz': 22
         };
 
-        if (prices[sizeOption] && prices[sizeOption][materialType]) {
-            return prices[sizeOption][materialType];
+        return prices[materialType] || 0;
+    }
+
+    function getSizePrice(sizeValue, materialType) {
+        var prices = {
+            'size_1': { '15_oz': 4.05, '18_oz': 5.04, '22_oz': 5.04 },
+            'size_2': { '15_oz': 4.86, '18_oz': 6.05, '22_oz': 6.05 },
+            'size_3': { '15_oz': 7.28, '18_oz': 9.07, '22_oz': 9.07 },
+            'size_4': { '15_oz': 9.71, '18_oz': 12.10, '22_oz': 12.10 },
+            'size_5': { '15_oz': 50, '18_oz': 60, '22_oz': 60 },
+            'size_6': { '15_oz': 70, '18_oz': 80, '22_oz': 80 },
+            'size_7': { '15_oz': 90, '18_oz': 100, '22_oz': 100 },
+            'custom': { '15_oz': 150, '18_oz': 180, '22_oz': 180 }
+        };
+
+        return prices[sizeValue] ? prices[sizeValue][materialType] : 0;
+    }
+
+    function getLengthPrice(lengthValue) {
+        var prices = {};
+        for (var i = 11; i <= 50; i++) {
+            prices[i.toString()] = i;
         }
-        return 0;
+
+        return prices[lengthValue] || 0;
     }
 
     function getSecondHemPrice(materialType) {
-        var secondHemPrices = {
+        var prices = {
             '15_oz': 0.54,
-            '18_oz': 0.61
+            '18_oz': 0.61,
+            '22_oz': 0.61
         };
 
-        return secondHemPrices[materialType] || 0;
+        return prices[materialType] || 0;
     }
 
     function getPipePocketPrice(materialType) {
-        var pipePocketPrices = {
+        var prices = {
             '15_oz': 1.92,
-            '18_oz': 2.16
+            '18_oz': 2.16,
+            '22_oz': 2.16
         };
 
-        return pipePocketPrices[materialType] || 0;
+        return prices[materialType] || 0;
     }
 
-    function getWebbingReinforcementPrice() {
+    function getWebbingReinforcementPrice(materialType) {
         return 0.40;
     }
 });
