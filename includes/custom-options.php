@@ -60,10 +60,17 @@ function custom_curtain_options_add_to_product() {
 
             // Custom Width
             echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
-                    <label for="custom_width">Linear Ft. Length:</label>
+                    <label for="custom_width">Linear Ft. Width:</label>
                     <input type="number" id="custom_width" name="custom_width" value="' . esc_attr($curtain_custom_width) . '" min="0" step="0.1">
                  </div>';
-        }
+       
+
+        // Custom Width
+        echo '<div class="form-group curtain-custom-size-fields" style="display: ' . (in_array('custom', $curtain_size) ? 'block' : 'none') . ';">
+        <label for="custom_height">Linear Ft. Length:</label>
+        <input type="number" id="custom_height" name="custom_height" value="' . esc_attr($curtain_custom_height) . '" min="0" step="0.1">
+     </div>';
+}
 
         // Curtain Fabric
         if (!empty($curtain_material)) {
