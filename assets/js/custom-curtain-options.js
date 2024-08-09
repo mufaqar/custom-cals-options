@@ -12,14 +12,13 @@ jQuery(document).ready(function($) {
         var secondHemPrice = $('#second_hem').is(':checked') ? getSecondHemPrice(materialType) : 0;
         var pipePocketPrice = $('#pipe_pocket').is(':checked') ? getPipePocketPrice(materialType) : 0;
         var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType) : 0;
+        var customSizePrice = 0;
 
-        var totalPrice = basePrice + materialPrice + sizePrice + lengthPrice + secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
-
-        $('#curtain_price').text('$' + totalPrice.toFixed(2));
-
-        if ($('#curtain_size option:selected').val() === 'custom' || $('#_curtain_size option:selected').val() === 'custom') {
+        if ($('#curtain_size option:selected').val() === 'custom') {
             var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
             var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+
+            customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
 
             var customWidthInches = convertFeetToInches(customWidthFeet);
             var customHeightInches = convertFeetToInches(customHeightFeet);
@@ -30,20 +29,24 @@ jQuery(document).ready(function($) {
             $('#custom_width_inches').hide();
             $('#custom_height_inches').hide();
         }
+
+        var totalPrice = basePrice + materialPrice + sizePrice + lengthPrice + secondHemPrice + pipePocketPrice + webbingReinforcementPrice + customSizePrice;
+
+        $('#curtain_price').text('$' + totalPrice.toFixed(2));
     }
 
     function toggleCustomSizeFields() {
-        if ($('#curtain_size option:selected').val() === 'custom' || $('#_curtain_size option:selected').val() === 'custom') {
+        if ($('#curtain_size option:selected').val() === 'custom') {
             $('.curtain-custom-size-fields').show();
-            updatePriceAndConvertSize();
         } else {
             $('.curtain-custom-size-fields').hide();
         }
+        updatePriceAndConvertSize();
     }
 
     $('#curtain_material, #curtain_size, #curtain_length, #custom_width, #custom_height, #second_hem, #pipe_pocket, #webbing_reinforcement').on('input change', updatePriceAndConvertSize);
 
-    $('#curtain_size, #_curtain_size').change(toggleCustomSizeFields).change();
+    $('#curtain_size').change(toggleCustomSizeFields).change();
 
     updatePriceAndConvertSize();
 
@@ -66,7 +69,7 @@ jQuery(document).ready(function($) {
             'size_5': { '15_oz': 50, '18_oz': 60, '22_oz': 60 },
             'size_6': { '15_oz': 70, '18_oz': 80, '22_oz': 80 },
             'size_7': { '15_oz': 90, '18_oz': 100, '22_oz': 100 },
-            'custom': { '15_oz': 150, '18_oz': 180, '22_oz': 180 }
+            'custom': { '15_oz': 0.81, '18_oz': 1.01, '22_oz': 1.01 }
         };
 
         return prices[sizeValue] ? prices[sizeValue][materialType] : 0;
@@ -101,7 +104,18 @@ jQuery(document).ready(function($) {
         return prices[materialType] || 0;
     }
 
-    function getWebbingReinforcementPrice(materialType) {
+    function getWebbingReinforcementPrice() {
         return 0.40;
+    }
+
+    function getCustomSizePrice(widthFeet, heightFeet, materialType) {
+        var squareFeet = widthFeet * heightFeet;
+        var pricePerSquareFoot = {
+            '15_oz': 0.81,
+            '18_oz': 1.01,
+            '22_oz': 1.01
+        };
+
+        return squareFeet * (pricePerSquareFoot[materialType] || 0);
     }
 });
