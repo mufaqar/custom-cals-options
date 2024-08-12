@@ -28,11 +28,7 @@
   display: none;
 }
 
-.curtain-custom-size-fields,
-.precise-length,
-.tarp-color {
-  display: none;
-}
+
 
 .hint {
   font-size: 14px;
