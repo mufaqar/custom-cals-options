@@ -105,7 +105,7 @@ function custom_curtain_options_add_to_product() {
                     </select>
                   </div>';
 
-            // Precise Length
+            // Precise Length 01
             echo '<div class="form-group precise-length">
                     <label for="precise_length">Precise Length (in inches):</label>
                     <input type="number" id="precise_length" name="precise_length" value="' . esc_attr($precise_length) . '" min="0" step="0.1">
