@@ -76,8 +76,7 @@ function custom_curtain_options_add_to_product() {
         if (!empty($curtain_material)) {
             $fabric_label = $product_type === 'rollover_tarps' ? 'Fabric Strength/Durability' : 'Curtain Fabric';
             echo '<div class="form-group curtain-material">
-                
-                        <label for="curtain_material">' . esc_html($fabric_label) . ':</label>
+                    <label for="curtain_material">' . esc_html($fabric_label) . ':</label>
                     <select id="curtain_material" name="curtain_material">';
             foreach ($curtain_material as $key) {
                 if (isset($predefined_materials[$key])) {
