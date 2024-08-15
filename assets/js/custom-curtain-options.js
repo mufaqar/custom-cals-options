@@ -142,7 +142,7 @@ jQuery(document).ready(function ($) {
           },
           him: 0.54,
           pocket: 1.92,
-          web: 0.4,
+          web: 0.4, 
         },
       },
     };
