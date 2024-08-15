@@ -49,24 +49,27 @@ jQuery(document).ready(function ($) {
       : 0;
     var customSizePrice = 0;
 
-    if (sizeValue === 'custom') {
+    if (sizeValue === 'size_custom') { // Check if custom size is selected
       var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
+    
       var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
 
-      customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
+      var customSqureFoot = customWidthFeet *  customHeightFeet;
+      console.log("🚀 ~ updatePriceAndConvertSize ~ customSqureFoot:", customSqureFoot)
+    
+  
+     customSizePrice = getCustomSizePrice(
+      customSqureFoot,
+      materialType
+    );
 
-      var customWidthInches = convertFeetToInches(customWidthFeet);
-      var customHeightInches = convertFeetToInches(customHeightFeet);
-
-      $('#custom_width_inches')
-        .text(customWidthInches.toFixed(2) + ' inches')
-        .show();
-      $('#custom_height_inches')
-        .text(customHeightInches.toFixed(2) + ' inches')
-        .show();
+      // Show custom size fields if size_custom is selected
+      $('.curtain-custom-size-fields').show();
     } else {
       $('#custom_width_inches').hide();
       $('#custom_height_inches').hide();
+      // Hide custom size fields if a regular size is selected
+      $('.curtain-custom-size-fields').hide();
     }
 
     // Calculate total price
@@ -85,12 +88,7 @@ jQuery(document).ready(function ($) {
   }
 
   function toggleCustomSizeFields() {
-    // Check if the selected option is 'custom'
-    if ($('#curtain_size').val() === 'custom') {
-      $('.curtain-custom-size-fields').show();
-    } else {
-      $('.curtain-custom-size-fields').hide();
-    }
+    // Trigger the price update and field toggle logic when the size is changed
     updatePriceAndConvertSize();
   }
 
@@ -127,9 +125,9 @@ jQuery(document).ready(function ($) {
     return prices[materialType] ? prices[materialType].web || 0 : 0;
   }
 
-  function getCustomSizePrice(widthFeet, heightFeet, materialType) {
-    var squareFeet = widthFeet * heightFeet;
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].custom.price || 0 : 0;
+  function getCustomSizePrice(squareFeet, materialType) {
+   
+    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
     return squareFeet * pricePerSquareFoot;
   }
 });
@@ -154,7 +152,7 @@ var prices = {
         price: 9.71,
         label: '12\' with 1 3" Hem (141") or 4" Hem (140")'
       },
-      custom: {
+      size_custom: {
         price: 0.81,
         label: 'Custom Size (price x total sq ft)'
       }
@@ -181,7 +179,7 @@ var prices = {
         price: 12.1,
         label: '12\' with 1 3" Hem (141") or 4" Hem (140")'
       },
-      custom: {
+      size_custom: {
         price: 0.81,
         label: 'Custom Size (price x total sq ft)'
       }
