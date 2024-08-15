@@ -40,24 +40,9 @@ function custom_curtain_options_product_custom_fields() {
         'desc_tip' => true,
     ));
 
-    echo '<p class="form-field"><label for="_curtain_material">' . __('Curtain Material Options', 'custom-curtain-options') . '</label><br>';
-    echo '<select id="_curtain_material" name="_curtain_material[]" multiple="multiple" style="width: 100%; height: auto;">';
-    foreach ($predefined_materials as $key => $label) {
-        $selected = in_array($key, $curtain_material) ? 'selected' : '';
-        echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($label) . '</option>';
-    }
-    echo '</select></p>';
+  
 
-    echo '<p class="form-field"><label for="_curtain_size">' . __('Curtain Size Options', 'custom-curtain-options') . '</label><br>';
-    echo '<select id="_curtain_size" name="_curtain_size[]" multiple="multiple" style="width: 100%; height: auto;">';
-    foreach ($predefined_size_options as $key => $label) {
-        $selected = in_array($key, $curtain_size) ? 'selected' : '';
-        echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($label) . '</option>';
-    }
-    echo '</select></p>';
-
-    
-
+  
     
 
     echo '</div>';

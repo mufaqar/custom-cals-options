@@ -28,6 +28,8 @@
   display: none;
 }
 
+.curtain-custom-size-fields .form-group { width: 50%;}
+
 
 
 .hint {
