@@ -53,9 +53,7 @@ jQuery(document).ready(function ($) {
 
     // Get other price components
     var lengthPrice = getLengthPrice($('#curtain_length').val());
-    var hemPrice = $('#curtain_hem').val() !== 'none' 
-      ? getHemPrice(materialType) 
-      : 0;
+    var hemPrice = $('#curtain_hem').val() !== 'none'  ? getHemPrice(materialType)  : 0;
 
     // Calculate the secondHemPrice and log it to the console
     var secondHemPrice = $('#second_hem').val() !== 'none'  ? getSecondHemPrice(materialType)   : 0;
