@@ -12,7 +12,7 @@
 .custom-curtain-options textarea,
 .custom-curtain-options input[type='number'],
 .custom-curtain-options input[type='text'] {
-  width: 100%;
+  width: -webkit-fill-available;
   padding: 12px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -28,7 +28,8 @@
   display: none;
 }
 
-.curtain-custom-size-fields .form-group { width: 50%;}
+.curtain-custom-size-fields  { display: flex; justify-content: space-between; }
+.curtain-custom-size-fields .form-group  { }
 
 
 
