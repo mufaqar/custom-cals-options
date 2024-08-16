@@ -38,12 +38,14 @@ jQuery(document).ready(function ($) {
     var hemPrice = $('#curtain_hem').val() !== 'none' 
       ? getHemPrice(materialType) 
       : 0;
-    var secondHemPrice = $('#second_hem').val() !== 'none' 
-      ? getSecondHemPrice(materialType) 
-      : 0;
-    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' 
-      ? getPipePocketPrice(materialType) 
-      : 0;
+
+    // Calculate the secondHemPrice and log it to the console
+    var secondHemPrice = $('#second_hem').val() !== 'none'  ? getSecondHemPrice(materialType)   : 0;
+    console.log('Second Hem Price:', secondHemPrice); // Log to console
+
+    var pipePocketPrice = $('#pipe_pocket').val() !== 'none'  ? getPipePocketPrice(materialType)   : 0;
+
+    console.log('pipePocketPrice:', pipePocketPrice); // Log to console
     var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
       ? getWebbingReinforcementPrice(materialType)
       : 0;
@@ -51,17 +53,20 @@ jQuery(document).ready(function ($) {
 
     if (sizeValue === 'size_custom') { // Check if custom size is selected
       var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
-    
       var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
 
-      var customSqureFoot = customWidthFeet *  customHeightFeet;
-      console.log("🚀 ~ updatePriceAndConvertSize ~ customSqureFoot:", customSqureFoot)
-    
-  
-     customSizePrice = getCustomSizePrice(
-      customSqureFoot,
-      materialType
-    );
+      customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
+      console.log("🚀 ~ updatePriceAndConvertSize ~ customSizePrice:", customSizePrice)
+
+      var customWidthInches = convertFeetToInches(customWidthFeet);
+      var customHeightInches = convertFeetToInches(customHeightFeet);
+
+      $('#custom_width_inches')
+        .text(customWidthInches.toFixed(2) + ' inches')
+        .show();
+      $('#custom_height_inches')
+        .text(customHeightInches.toFixed(2) + ' inches')
+        .show();
 
       // Show custom size fields if size_custom is selected
       $('.curtain-custom-size-fields').show();
@@ -114,20 +119,29 @@ jQuery(document).ready(function ($) {
   }
 
   function getSecondHemPrice(materialType) {
-    return prices[materialType] ? prices[materialType].him || 0 : 0;
+    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0; 
+    return customHeightFeet * materialPricePerUnit;
   }
 
   function getPipePocketPrice(materialType) {
-    return prices[materialType] ? prices[materialType].pocket || 0 : 0;
+    var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;  
+    if (pipePocketQuantity === 0) return 0; 
+    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;   
+    // Calculate the price: custom height * price per unit * quantity selected
+    return (customHeightFeet * materialPricePerUnit) * pipePocketQuantity;
   }
 
   function getWebbingReinforcementPrice(materialType) {
     return prices[materialType] ? prices[materialType].web || 0 : 0;
   }
 
-  function getCustomSizePrice(squareFeet, materialType) {
-   
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
+  function getCustomSizePrice(widthFeet, heightFeet, materialType) {
+    var squareFeet = widthFeet * heightFeet;    
+    console.log("🚀 ~ getCustomSizePrice ~ squareFeet:", squareFeet)
+    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;    
+    console.log("🚀 ~ getCustomSizePrice ~ pricePerSquareFoot:", pricePerSquareFoot)
     return squareFeet * pricePerSquareFoot;
   }
 });
@@ -180,7 +194,7 @@ var prices = {
         label: '12\' with 1 3" Hem (141") or 4" Hem (140")'
       },
       size_custom: {
-        price: 0.81,
+        price: 1.01,
         label: 'Custom Size (price x total sq ft)'
       }
     },
