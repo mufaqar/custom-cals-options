@@ -26,56 +26,38 @@ jQuery(document).ready(function ($) {
     var basePrice = 0;
     var materialType = $('#curtain_material').val();
     var sizeValue = $('#curtain_size').val();
+     var cusom_height = parseFloat($('#cusom_height').val()) || 0;
+     console.log("🚀 ~ updatePriceAndConvertSize ~ cusom_height:", cusom_height)
+ 
+   
 
-    // Retrieve the material price
-    var materialPrice = 0;
-    if (prices[materialType] && prices[materialType].lin_pr && prices[materialType].lin_pr[sizeValue]) {
-      materialPrice = prices[materialType].lin_pr[sizeValue].price || 0; // Get the price for the selected size
-
-      // Apply multipliers based on the selected size
-      switch (sizeValue) {
-        case 'size_5':
-          materialPrice *= 5;
-          break;
-        case 'size_6':
-          materialPrice *= 6;
-          case 'size_9':
-          materialPrice *= 9;
-          break;
-        case 'size_12':
-          materialPrice *= 12;
-          break;
-        default:
-          // No multiplier for other sizes
-          break;
-      }
-    }
+   
 
     // Get other price components
     var lengthPrice = getLengthPrice($('#curtain_length').val());
-    var hemPrice = $('#curtain_hem').val() !== 'none'  ? getHemPrice(materialType)  : 0;
+    var hemPrice = $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
 
     // Calculate the secondHemPrice and log it to the console
-    var secondHemPrice = $('#second_hem').val() !== 'none'  ? getSecondHemPrice(materialType)   : 0;
-    console.log('Second Hem Price:', secondHemPrice); // Log to console
+    var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType) : 0;
+    console.log('Second Hem Price:', secondHemPrice);
 
-    var pipePocketPrice = $('#pipe_pocket').val() !== 'none'  ? getPipePocketPrice(materialType)   : 0;
-    console.log('pipePocketPrice:', pipePocketPrice); // Log to console
+    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType) : 0;
+    console.log('pipePocketPrice:', pipePocketPrice);
 
     // Calculate the webbing reinforcement price
-    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
-      ? getWebbingReinforcementPrice(materialType)
-      : 0;
-    console.log('Webbing Reinforcement Price:', webbingReinforcementPrice); // Log to console
+    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType) : 0;
+    console.log('Webbing Reinforcement Price:', webbingReinforcementPrice);
 
     var customSizePrice = 0;
 
     if (sizeValue === 'size_custom') { // Check if custom size is selected
       var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
+      console.log("🚀 ~ updatePriceAndConvertSize ~ customWidthFeet:", customWidthFeet)
       var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+      console.log("🚀 ~ updatePriceAndConvertSize ~ customHeightFeet:", customHeightFeet)
 
       customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
-      console.log("🚀 ~ updatePriceAndConvertSize ~ customSizePrice:", customSizePrice)
+      
 
       var customWidthInches = convertFeetToInches(customWidthFeet);
       var customHeightInches = convertFeetToInches(customHeightFeet);
@@ -88,12 +70,17 @@ jQuery(document).ready(function ($) {
         .show();
 
       // Show custom size fields if size_custom is selected
-      $('.curtain-custom-size-fields').show();
+      $('.curtain_custom_width').show();
+      $('.curtain_custom_height').show();
     } else {
-      $('#custom_width_inches').hide();
-      $('#custom_height_inches').hide();
-      // Hide custom size fields if a regular size is selected
-      $('.curtain-custom-size-fields').hide();
+
+      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+      materialPrice = prices[materialType].lin_pr[sizeValue].price || 0;
+      materialPrice = customHeightFeet * materialPrice;
+
+
+      $('.curtain_custom_width').hide();
+      $('.curtain_custom_height').show();
     }
 
     // Calculate total price
@@ -118,7 +105,7 @@ jQuery(document).ready(function ($) {
 
   // Attach event listeners to form fields
   $('#curtain_material').on('change', updateSizeOptions);
-  $('#curtain_size, #curtain_length, #curtain_hem, #custom_width, #custom_height, #second_hem, #pipe_pocket, #webbing_reinforcement').on('input change', updatePriceAndConvertSize);
+  $('#curtain_size, #curtain_length, #curtain_hem, #custom_width, #custom_height, #second_hem, #pipe_pocket, #webbing_reinforcement, #cusom_height').on('input change', updatePriceAndConvertSize);
 
   // Initial trigger for material and size options
   updateSizeOptions();
@@ -138,16 +125,16 @@ jQuery(document).ready(function ($) {
   }
 
   function getSecondHemPrice(materialType) {
-    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0; 
+    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
     return customHeightFeet * materialPricePerUnit;
   }
 
   function getPipePocketPrice(materialType) {
-    var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;  
-    if (pipePocketQuantity === 0) return 0; 
-    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;   
+    var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;
+    if (pipePocketQuantity === 0) return 0;
+    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;
     // Calculate the price: custom height * price per unit * quantity selected
     return (customHeightFeet * materialPricePerUnit) * pipePocketQuantity;
   }
@@ -159,9 +146,9 @@ jQuery(document).ready(function ($) {
   }
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
-    var squareFeet = widthFeet * heightFeet;    
+    var squareFeet = widthFeet * heightFeet;
     console.log("🚀 ~ getCustomSizePrice ~ squareFeet:", squareFeet)
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;    
+    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
     console.log("🚀 ~ getCustomSizePrice ~ pricePerSquareFoot:", pricePerSquareFoot)
     return squareFeet * pricePerSquareFoot;
   }

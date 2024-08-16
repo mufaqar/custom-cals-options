@@ -93,13 +93,13 @@ function custom_curtain_options_add_to_product() {
 
             // Custom Width
             echo '<div class="curtain-custom-size-fields">';
-            echo '<div class="form-group" >
+            echo '<div class="form-group curtain_custom_width" >
                     <label for="custom_width">Linear Ft. Width:</label>
                     <input type="number" id="custom_width" name="custom_width" value="" >
                  </div>';
 
             // Custom Height
-            echo '<div class="form-group" >
+            echo '<div class="form-group curtain_custom_height" >
                     <label for="custom_height">Linear Ft. Length:</label>
                     <input type="number" id="custom_height" name="custom_height" value="">
                  </div>';
