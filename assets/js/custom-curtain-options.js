@@ -134,14 +134,15 @@ jQuery(document).ready(function ($) {
   }
 
   function getWebbingReinforcementPrice(materialType) {
-    return prices[materialType] ? prices[materialType].web || 0 : 0;
+    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].web || 0 : 0;
+    return customHeightFeet * materialPricePerUnit;
   }
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
-    var squareFeet = widthFeet * heightFeet;    
-    console.log("🚀 ~ getCustomSizePrice ~ squareFeet:", squareFeet)
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;    
-    console.log("🚀 ~ getCustomSizePrice ~ pricePerSquareFoot:", pricePerSquareFoot)
+    var squareFeet = widthFeet * heightFeet;     
+    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;   
+   
     return squareFeet * pricePerSquareFoot;
   }
 });
