@@ -31,6 +31,24 @@ jQuery(document).ready(function ($) {
     var materialPrice = 0;
     if (prices[materialType] && prices[materialType].lin_pr && prices[materialType].lin_pr[sizeValue]) {
       materialPrice = prices[materialType].lin_pr[sizeValue].price || 0; // Get the price for the selected size
+
+      // Apply multipliers based on the selected size
+      switch (sizeValue) {
+        case 'size_5':
+          materialPrice *= 5;
+          break;
+        case 'size_6':
+          materialPrice *= 6;
+          case 'size_9':
+          materialPrice *= 9;
+          break;
+        case 'size_12':
+          materialPrice *= 12;
+          break;
+        default:
+          // No multiplier for other sizes
+          break;
+      }
     }
 
     // Get other price components
@@ -44,11 +62,14 @@ jQuery(document).ready(function ($) {
     console.log('Second Hem Price:', secondHemPrice); // Log to console
 
     var pipePocketPrice = $('#pipe_pocket').val() !== 'none'  ? getPipePocketPrice(materialType)   : 0;
-
     console.log('pipePocketPrice:', pipePocketPrice); // Log to console
+
+    // Calculate the webbing reinforcement price
     var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
       ? getWebbingReinforcementPrice(materialType)
       : 0;
+    console.log('Webbing Reinforcement Price:', webbingReinforcementPrice); // Log to console
+
     var customSizePrice = 0;
 
     if (sizeValue === 'size_custom') { // Check if custom size is selected
@@ -140,9 +161,10 @@ jQuery(document).ready(function ($) {
   }
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
-    var squareFeet = widthFeet * heightFeet;     
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;   
-   
+    var squareFeet = widthFeet * heightFeet;    
+    console.log("🚀 ~ getCustomSizePrice ~ squareFeet:", squareFeet)
+    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;    
+    console.log("🚀 ~ getCustomSizePrice ~ pricePerSquareFoot:", pricePerSquareFoot)
     return squareFeet * pricePerSquareFoot;
   }
 });
