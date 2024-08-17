@@ -93,16 +93,21 @@ function custom_curtain_options_add_to_product() {
             // Custom Width and Height with Feet and Inches
             echo '<div class="curtain-custom-size-fields">';
             echo '<div class="form-group curtain_custom_width">
-                    <label for="custom_width_feet">Linear Ft. Width:</label>
-                    <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet">
-                    <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches">
-                 </div>';
+        <label for="custom_width_feet">Linear Ft. Width:</label>
+        <div class="inline-inputs">
+            <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet" class="inline-input">
+            <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches" class="inline-input">
+        </div>
+      </div>';
 
-            echo '<div class="form-group curtain_custom_height">
-                    <label for="custom_height_feet">Linear Ft. Length:</label>
-                    <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet">
-                    <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches">
-                 </div>';
+           echo '<div class="form-group curtain_custom_height">
+        <label for="custom_height_feet">Linear Ft. Length:</label>
+        <div class="inline-inputs">
+            <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet" class="inline-input">
+            <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches" class="inline-input">
+        </div>
+      </div>';
+
             echo '</div>';
 
             // Curtain Fabric
