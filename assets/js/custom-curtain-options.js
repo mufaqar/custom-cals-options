@@ -26,36 +26,49 @@ jQuery(document).ready(function ($) {
     var basePrice = 0;
     var materialType = $('#curtain_material').val();
     var sizeValue = $('#curtain_size').val();
-     var cusom_height = parseFloat($('#cusom_height').val()) || 0;
-     console.log("🚀 ~ updatePriceAndConvertSize ~ cusom_height:", cusom_height)
- 
-   
+    var custom_height_feet = parseFloat($('#custom_height_feet').val()) || 0;
+    var custom_height_inches =
+      parseFloat($('#custom_height_inches').val()) || 0;
+    var TFH = custom_height_feet + custom_height_inches / 12;
 
-   
+    var custom_width_feet = parseFloat($('#custom_width_feet').val()) || 0;
+    var custom_width_inches = parseFloat($('#custom_width_inches').val()) || 0;
+    var TFW = custom_width_feet + custom_width_inches / 12;
+    console.log('🚀 ~ updatePriceAndConvertSize ~ TFW:', TFW);
 
     // Get other price components
-    var lengthPrice = getLengthPrice($('#curtain_length').val());
-    var hemPrice = $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
+    var lengthPrice = getLengthPrice($('#custom_height_feet').val());
+    console.log('🚀 ~ updatePriceAndConvertSize ~ lengthPrice:', lengthPrice);
+    var hemPrice =
+      $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
 
     // Calculate the secondHemPrice and log it to the console
-    var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType) : 0;
+    var secondHemPrice =
+      $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType) : 0;
     console.log('Second Hem Price:', secondHemPrice);
 
-    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType) : 0;
+    var pipePocketPrice =
+      $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType) : 0;
     console.log('pipePocketPrice:', pipePocketPrice);
 
     // Calculate the webbing reinforcement price
-    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType) : 0;
+    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
+      ? getWebbingReinforcementPrice(materialType)
+      : 0;
     console.log('Webbing Reinforcement Price:', webbingReinforcementPrice);
 
     var customSizePrice = 0;
 
-    if (sizeValue === 'size_custom') { // Check if custom size is selected
-      var customWidthFeet = parseFloat($('#custom_width').val()) || 0;   
-      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
+    if (sizeValue === 'size_custom') {
+      // Check if custom size is selected
+      var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
+      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
 
-      customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
-      
+      customSizePrice = getCustomSizePrice(
+        customWidthFeet,
+        customHeightFeet,
+        materialType
+      );
 
       var customWidthInches = convertFeetToInches(customWidthFeet);
       var customHeightInches = convertFeetToInches(customHeightFeet);
@@ -71,11 +84,9 @@ jQuery(document).ready(function ($) {
       $('.curtain_custom_width').show();
       $('.curtain_custom_height').show();
     } else {
-
       var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
       materialPrice = prices[materialType].lin_pr[sizeValue].price || 0;
       materialPrice = customHeightFeet * materialPrice;
-
 
       $('.curtain_custom_width').hide();
       $('.curtain_custom_height').show();
@@ -103,7 +114,9 @@ jQuery(document).ready(function ($) {
 
   // Attach event listeners to form fields
   $('#curtain_material').on('change', updateSizeOptions);
-  $('#curtain_size, #curtain_length, #curtain_hem, #custom_width, #custom_height, #second_hem, #pipe_pocket, #webbing_reinforcement, #cusom_height').on('input change', updatePriceAndConvertSize);
+  $(
+    '#curtain_size, #curtain_length, #curtain_hem, #second_hem, #pipe_pocket, #webbing_reinforcement, #custom_height_feet, #custom_height_inches , #custom_width_feet , #custom_width_inches'
+  ).on('input change', updatePriceAndConvertSize);
 
   // Initial trigger for material and size options
   updateSizeOptions();
@@ -124,7 +137,9 @@ jQuery(document).ready(function ($) {
 
   function getSecondHemPrice(materialType) {
     var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].him || 0
+      : 0;
     return customHeightFeet * materialPricePerUnit;
   }
 
@@ -132,19 +147,25 @@ jQuery(document).ready(function ($) {
     var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;
     if (pipePocketQuantity === 0) return 0;
     var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;
-    return (customHeightFeet * materialPricePerUnit) * pipePocketQuantity;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].pocket || 0
+      : 0;
+    return customHeightFeet * materialPricePerUnit * pipePocketQuantity;
   }
 
   function getWebbingReinforcementPrice(materialType) {
     var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].web || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].web || 0
+      : 0;
     return customHeightFeet * materialPricePerUnit;
   }
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
     var squareFeet = widthFeet * heightFeet;
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
+    var pricePerSquareFoot = prices[materialType]
+      ? prices[materialType].lin_pr.size_custom.price || 0
+      : 0;
     return squareFeet * pricePerSquareFoot;
   }
 });
@@ -155,24 +176,24 @@ var prices = {
     lin_pr: {
       size_5: {
         price: 4.05,
-        label: '5\' with 1 3" Hem (58") or 4" Hem'
+        label: '5\' with 1 3" Hem (58") or 4" Hem',
       },
       size_6: {
         price: 4.86,
-        label: '6\' with 1 3" Hem (69") or 4" Hem'
+        label: '6\' with 1 3" Hem (69") or 4" Hem',
       },
       size_9: {
         price: 7.28,
-        label: '9\' with 1 3" Hem (105") or 4" Hem'
+        label: '9\' with 1 3" Hem (105") or 4" Hem',
       },
       size_12: {
         price: 9.71,
-        label: '12\' with 1 3" Hem (141") or 4" Hem (140")'
+        label: '12\' with 1 3" Hem (141") or 4" Hem (140")',
       },
       size_custom: {
         price: 0.81,
-        label: 'Custom Size (price x total sq ft)'
-      }
+        label: 'Custom Size (price x total sq ft)',
+      },
     },
     him: 0.54,
     pocket: 1.92,
@@ -182,27 +203,27 @@ var prices = {
     lin_pr: {
       size_5: {
         price: 5.04,
-        label: '5\' with 1 3" Hem (58") or 4" Hem'
+        label: '5\' with 1 3" Hem (58") or 4" Hem',
       },
       size_6: {
         price: 6.05,
-        label: '6\' with 1 3" Hem (69") or 4" Hem'
+        label: '6\' with 1 3" Hem (69") or 4" Hem',
       },
       size_9: {
         price: 9.07,
-        label: '9\' with 1 3" Hem (105") or 4" Hem'
+        label: '9\' with 1 3" Hem (105") or 4" Hem',
       },
       size_12: {
         price: 12.1,
-        label: '12\' with 1 3" Hem (141") or 4" Hem (140")'
+        label: '12\' with 1 3" Hem (141") or 4" Hem (140")',
       },
       size_custom: {
         price: 1.01,
-        label: 'Custom Size (price x total sq ft)'
-      }
+        label: 'Custom Size (price x total sq ft)',
+      },
     },
     him: 0.61,
     pocket: 2.16,
     web: 0.4,
-  }
+  },
 };

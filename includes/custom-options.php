@@ -8,19 +8,18 @@ function custom_curtain_options_add_to_product() {
         $product_type = get_post_meta($product_id, '_product_type', true);
         $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
 
-
         // LiveStock Material Options
         $livestock_materials = array(
             '15_oz' => '15oz',
             '18_oz' => '18oz',
         );
-          // RollOver Material Options
+        // RollOver Material Options
         $rollover_materials = array(
             '18_oz' => '18oz',
             '22_oz' => '22oz'
         );
 
-        // Size Options for  LiveStock
+        // Size Options for LiveStock
         $livestock_size_options = array(
             'size_5' => '5\' with 1 3" Hem (58") or 4" Hem',
             'size_6' => '6\' with 1 3" Hem (69") or 4" Hem',
@@ -28,7 +27,7 @@ function custom_curtain_options_add_to_product() {
             'size_12' => '12\' with 1 3" Hem (141") or 4" Hem (140")',
             'custom' => 'Custom Size (price x total sq ft)',
         );
-         // Size Options for  Roll Over
+        // Size Options for Roll Over
         $rollover_size_options = array(
             'size_96' => '10\'3" width (96" trailer width)',
             'size_99' => '10\'6" width (99" trailer width)',
@@ -87,23 +86,24 @@ function custom_curtain_options_add_to_product() {
                     <label for="curtain_size">Linear Ft. Width:</label>
                     <select id="curtain_size" name="curtain_size">';
             foreach ($livestock_size_options as $key => $label) {
-                echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '--</option>';
+                echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
             }
             echo '</select></div>';
 
-            // Custom Width
+            // Custom Width and Height with Feet and Inches
             echo '<div class="curtain-custom-size-fields">';
-            echo '<div class="form-group curtain_custom_width" >
-                    <label for="custom_width">Linear Ft. Width:</label>
-                    <input type="number" id="custom_width" name="custom_width" value="" >
+            echo '<div class="form-group curtain_custom_width">
+                    <label for="custom_width_feet">Linear Ft. Width:</label>
+                    <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet">
+                    <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches">
                  </div>';
 
-            // Custom Height
-            echo '<div class="form-group curtain_custom_height" >
-                    <label for="custom_height">Linear Ft. Length:</label>
-                    <input type="number" id="custom_height" name="custom_height" value="">
+            echo '<div class="form-group curtain_custom_height">
+                    <label for="custom_height_feet">Linear Ft. Length:</label>
+                    <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet">
+                    <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches">
                  </div>';
-                 echo "</div>";
+            echo '</div>';
 
             // Curtain Fabric
             echo '<div class="form-group curtain-material">
@@ -114,9 +114,7 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
-          
             // Curtain Hem
-      
             $hem_options = array(
                 '3_hem' => '3" Hem',
                 '4_hem' => '4" Hem',
@@ -130,39 +128,35 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
-             // Curtain Optional Add-ons
-                echo '<div class="curtain-addons">';
-            
-                    $second_hem_options = array(
-                        'none' => 'None',
-                        '3_hem' => '3" Hem',
-                        '4_hem' => '4" Hem',
-                    );
-                    echo '<label>Add a second hem:</label>
-                        <select id="second_hem" name="second_hem">';
-                    foreach ($second_hem_options as $key => $value) {
-                        $selected = ($second_hem == $key) ? 'selected' : '';
-                        echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
-                    }
-                echo '</select> </div>';
-
             // Curtain Optional Add-ons
-                $pipe_pocket_options = array(
-                    'none' => 'None',
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                );
-                echo '<label>Add a Pipe Pocket:</label>
-                      <select id="pipe_pocket" name="pipe_pocket">';
-                foreach ($pipe_pocket_options as $key => $value) {
-                    $selected = ($pipe_pocket == $key) ? 'selected' : '';
-                    echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
-                }
-                echo '</select>';
-           
-       
-        
+            echo '<div class="curtain-addons">';
+            
+            $second_hem_options = array(
+                'none' => 'None',
+                '3_hem' => '3" Hem',
+                '4_hem' => '4" Hem',
+            );
+            echo '<label>Add a second hem:</label>
+                <select id="second_hem" name="second_hem">';
+            foreach ($second_hem_options as $key => $value) {
+                $selected = ($second_hem == $key) ? 'selected' : '';
+                echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
+            }
+            echo '</select> </div>';
+
+            $pipe_pocket_options = array(
+                'none' => 'None',
+                '1' => '1',
+                '2' => '2',
+                '3' => '3',
+            );
+            echo '<label>Add a Pipe Pocket:</label>
+                  <select id="pipe_pocket" name="pipe_pocket">';
+            foreach ($pipe_pocket_options as $key => $value) {
+                $selected = ($pipe_pocket == $key) ? 'selected' : '';
+                echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($value) . '</option>';
+            }
+            echo '</select>';
 
             echo '<div class="form-group curtain-addons">
                     <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes">
