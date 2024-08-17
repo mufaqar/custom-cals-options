@@ -26,52 +26,42 @@ jQuery(document).ready(function ($) {
     var basePrice = 0;
     var materialType = $('#curtain_material').val();
     var sizeValue = $('#curtain_size').val();
+
+    // Calculate total feet from feet and inches inputs
     var custom_height_feet = parseFloat($('#custom_height_feet').val()) || 0;
-    var custom_height_inches =
-      parseFloat($('#custom_height_inches').val()) || 0;
-    var TFH = custom_height_feet + custom_height_inches / 12;
+    var custom_height_inches = parseFloat($('#custom_height_inches').val()) || 0;
+    var TFH = custom_height_feet + custom_height_inches / 12; // Total height in feet
 
     var custom_width_feet = parseFloat($('#custom_width_feet').val()) || 0;
     var custom_width_inches = parseFloat($('#custom_width_inches').val()) || 0;
-    var TFW = custom_width_feet + custom_width_inches / 12;
-    console.log('🚀 ~ updatePriceAndConvertSize ~ TFW:', TFW);
+    var TFW = custom_width_feet + custom_width_inches / 12; // Total width in feet
+
+    // Validate that TFH and TFW are valid numbers
+    if (isNaN(TFH) || isNaN(TFW) || TFH <= 0 || TFW <= 0) {
+      $('#curtain_price').text('$0.00');
+      return;
+    }
 
     // Get other price components
-    var lengthPrice = getLengthPrice($('#custom_height_feet').val());
-    console.log('🚀 ~ updatePriceAndConvertSize ~ lengthPrice:', lengthPrice);
-    var hemPrice =
-      $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
+    var lengthPrice = getLengthPrice($('#custom_height_feet').val()) || 0;
+    var hemPrice = $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
 
-    // Calculate the secondHemPrice and log it to the console
-    var secondHemPrice =
-      $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType) : 0;
-    console.log('Second Hem Price:', secondHemPrice);
+    // Calculate the secondHemPrice
+    var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType, TFH) : 0;
 
-    var pipePocketPrice =
-      $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType) : 0;
-    console.log('pipePocketPrice:', pipePocketPrice);
+    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType, TFH) : 0;
 
-    // Calculate the webbing reinforcement price
-    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
-      ? getWebbingReinforcementPrice(materialType)
-      : 0;
-    console.log('Webbing Reinforcement Price:', webbingReinforcementPrice);
+    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType, TFH) : 0;
 
     var customSizePrice = 0;
+    var materialPrice = 0;
 
     if (sizeValue === 'size_custom') {
-      // Check if custom size is selected
-      var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
-      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+      // Calculate custom size price using total feet for width and height
+      customSizePrice = getCustomSizePrice(TFW, TFH, materialType);
 
-      customSizePrice = getCustomSizePrice(
-        customWidthFeet,
-        customHeightFeet,
-        materialType
-      );
-
-      var customWidthInches = convertFeetToInches(customWidthFeet);
-      var customHeightInches = convertFeetToInches(customHeightFeet);
+      var customWidthInches = convertFeetToInches(custom_width_feet);
+      var customHeightInches = convertFeetToInches(custom_height_feet);
 
       $('#custom_width_inches')
         .text(customWidthInches.toFixed(2) + ' inches')
@@ -84,9 +74,9 @@ jQuery(document).ready(function ($) {
       $('.curtain_custom_width').show();
       $('.curtain_custom_height').show();
     } else {
-      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
-      materialPrice = prices[materialType].lin_pr[sizeValue].price || 0;
-      materialPrice = customHeightFeet * materialPrice;
+      // Calculate material price based on total height in feet (TFH)
+      materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
+      materialPrice = TFH * materialPrice;
 
       $('.curtain_custom_width').hide();
       $('.curtain_custom_height').show();
@@ -102,6 +92,11 @@ jQuery(document).ready(function ($) {
       pipePocketPrice +
       webbingReinforcementPrice +
       customSizePrice;
+
+    // Ensure totalPrice is a valid number
+    if (isNaN(totalPrice)) {
+      totalPrice = 0;
+    }
 
     // Update the displayed price
     $('#curtain_price').text('$' + totalPrice.toFixed(2));
@@ -135,30 +130,27 @@ jQuery(document).ready(function ($) {
     return prices[materialType] ? prices[materialType].him || 0 : 0;
   }
 
-  function getSecondHemPrice(materialType) {
-    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+  function getSecondHemPrice(materialType, TFH) {
     var materialPricePerUnit = prices[materialType]
       ? prices[materialType].him || 0
       : 0;
-    return customHeightFeet * materialPricePerUnit;
+    return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
-  function getPipePocketPrice(materialType) {
+  function getPipePocketPrice(materialType, TFH) {
     var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;
     if (pipePocketQuantity === 0) return 0;
-    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
     var materialPricePerUnit = prices[materialType]
       ? prices[materialType].pocket || 0
       : 0;
-    return customHeightFeet * materialPricePerUnit * pipePocketQuantity;
+    return TFH * materialPricePerUnit * pipePocketQuantity; // Use TFH for pipe pocket price calculation
   }
 
-  function getWebbingReinforcementPrice(materialType) {
-    var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
+  function getWebbingReinforcementPrice(materialType, TFH) {
     var materialPricePerUnit = prices[materialType]
       ? prices[materialType].web || 0
       : 0;
-    return customHeightFeet * materialPricePerUnit;
+    return TFH * materialPricePerUnit; // Use TFH for webbing reinforcement price calculation
   }
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
