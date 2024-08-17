@@ -51,10 +51,8 @@ jQuery(document).ready(function ($) {
     var customSizePrice = 0;
 
     if (sizeValue === 'size_custom') { // Check if custom size is selected
-      var customWidthFeet = parseFloat($('#custom_width').val()) || 0;
-      console.log("🚀 ~ updatePriceAndConvertSize ~ customWidthFeet:", customWidthFeet)
-      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
-      console.log("🚀 ~ updatePriceAndConvertSize ~ customHeightFeet:", customHeightFeet)
+      var customWidthFeet = parseFloat($('#custom_width').val()) || 0;   
+      var customHeightFeet = parseFloat($('#custom_height').val()) || 0;   
 
       customSizePrice = getCustomSizePrice(customWidthFeet, customHeightFeet, materialType);
       
@@ -135,7 +133,6 @@ jQuery(document).ready(function ($) {
     if (pipePocketQuantity === 0) return 0;
     var customHeightFeet = parseFloat($('#custom_height').val()) || 0;
     var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;
-    // Calculate the price: custom height * price per unit * quantity selected
     return (customHeightFeet * materialPricePerUnit) * pipePocketQuantity;
   }
 
@@ -147,9 +144,7 @@ jQuery(document).ready(function ($) {
 
   function getCustomSizePrice(widthFeet, heightFeet, materialType) {
     var squareFeet = widthFeet * heightFeet;
-    console.log("🚀 ~ getCustomSizePrice ~ squareFeet:", squareFeet)
     var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
-    console.log("🚀 ~ getCustomSizePrice ~ pricePerSquareFoot:", pricePerSquareFoot)
     return squareFeet * pricePerSquareFoot;
   }
 });
