@@ -1,5 +1,4 @@
 <?php
-
 function custom_curtain_options_add_to_product() {
     global $product;
 
@@ -34,6 +33,20 @@ function custom_curtain_options_add_to_product() {
             'size_102' => '10\'9" width (102" trailer width)',
         );
 
+        // Tarp Color Options
+        $tarp_colors = array(
+            'black' => 'Black',
+            'white' => 'White',
+            'gray' => 'Gray',
+            'royal_blue' => 'Royal Blue',
+            'red' => 'Red',
+            'tan' => 'Tan',
+            'purple' => 'Purple',
+            'green' => 'Green',
+            'orange' => 'Orange',
+            'yellow' => 'Yellow',
+        );
+
         echo '<div class="custom-curtain-options">';
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
@@ -44,38 +57,72 @@ function custom_curtain_options_add_to_product() {
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {
-            // Curtain Length
-            echo '<div class="form-group curtain-length">
-                    <label for="curtain_length">Length (ft):</label>
-                    <select id="curtain_length" name="curtain_length">';
-            for ($i = 11; $i <= 50; $i++) {
-                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
-            }
-            echo '</select></div>';
+
+
+              // Curtain Fabric
+              echo '<div class="form-group curtain-material">
+              <label for="curtain_material">Curtain Fabric:</label>
+              <select id="curtain_material" name="curtain_material">';
+                foreach ($livestock_materials as $key => $label) {
+                    echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
+                }
+                echo '</select></div>';
+
+             // Width/Size Options
+             echo '<div class="form-group curtain-size">
+             <label for="curtain_size">Linear Ft. Width:</label>
+             <select id="curtain_size" name="curtain_size">';
+                foreach ($rollover_size_options as $key => $label) {
+                    echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
+                }
+                echo '</select></div>';
+            // // Curtain Length
+            // echo '<div class="form-group curtain-length">
+            //         <label for="curtain_length">Length (ft):</label>
+            //         <select id="curtain_length" name="curtain_length">';
+            // for ($i = 11; $i <= 50; $i++) {
+            //     echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
+            // }
+            // echo '</select></div>';
+
+            // Custom Width and Height with Feet and Inches
+            echo '<div class="curtain-custom-size-fields">';
+                echo '<div class="form-group curtain_custom_width">
+                        <label for="custom_width_feet">Linear Ft. Width:</label>
+                        <div class="inline-inputs">
+                            <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet" class="inline-input">
+                            <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches" class="inline-input">
+                        </div>
+                    </div>';
+
+            echo '<div class="form-group curtain_custom_height">
+                        <label for="custom_height_feet">Linear Ft. Length:</label>
+                        <div class="inline-inputs">
+                            <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet" class="inline-input">
+                            <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches" class="inline-input">
+                        </div>
+                    </div>';
+
+            echo '</div>';
+
 
             // Electric System
             echo '<div class="form-group electric-system">
                     <label for="electric_system">Will this tarp be used in an electric system?</label>
                     <select id="electric_system" name="electric_system">
-                        <option value="no" ' . selected($electric_system, 'no', false) . '>No</option>
-                        <option value="yes" ' . selected($electric_system, 'yes', false) . '>Yes</option>
+                        <option value="no"  >No</option>
+                        <option value="yes" >Yes</option>
                     </select>
                   </div>';
 
-            // Precise Length
-            echo '<div class="form-group precise-length">
-                    <label for="precise_length">Precise Length (in inches):</label>
-                    <input type="number" id="precise_length" name="precise_length" value="' . esc_attr($precise_length) . '" min="0" step="0.1">
-                    <p class="hint">Examples: If your tarp length is 42 ft 7 inches (42’7”) then select a 43’ length tarp from the dropdown above and enter either 42ft 7in or 42’7” into this field. If your actual length happens to be 42’ even, then type n/a or a zero in the precise length field.</p>
-                 </div>';
-
-            // Tarp Color
+            // Tarp Color (changed to select dropdown)
             echo '<div class="form-group tarp-color">
                     <label for="tarp_color">Tarp Color:</label>
-                    <input type="text" id="tarp_color" name="tarp_color" value="' . esc_attr($tarp_color) . '">
-                    <p>Colors Available:</p>
-                    <p class="hint">18oz: Black, White, Gray, Royal Blue, Red, Tan, Purple, Green, Orange, and Yellow</p>
-                    <p class="hint">22oz: Black, White, Royal Blue, and Red</p>
+                    <select id="tarp_color" name="tarp_color">';
+            foreach ($tarp_colors as $key => $label) {
+                echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
+            }
+            echo '</select>
                   </div>';
         }
 
@@ -118,6 +165,8 @@ function custom_curtain_options_add_to_product() {
                 echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
             }
             echo '</select></div>';
+
+        }
 
             // Curtain Hem
             $hem_options = array(
@@ -167,11 +216,10 @@ function custom_curtain_options_add_to_product() {
                     <input type="checkbox" id="webbing_reinforcement" name="webbing_reinforcement" value="yes">
                     <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
                   </div>';
-        }
+       
 
         echo '</div>'; // End of curtain_options
         echo '</div>'; // End of custom-curtain-options
     }
 }
 add_action('woocommerce_before_add_to_cart_button', 'custom_curtain_options_add_to_product');
-?>
