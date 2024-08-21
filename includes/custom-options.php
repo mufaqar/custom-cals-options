@@ -81,10 +81,10 @@ function custom_curtain_options_add_to_product() {
             echo '<div class="form-group curtain-length">
             <label for="curtain_length">Length (ft):</label>
             <select id="curtain_length" name="curtain_length">';
-    for ($i = 11; $i <= 50; $i++) {
-        echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
-    }
-    echo '</select></div>';
+            for ($i = 11; $i <= 50; $i++) {
+                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
+            }
+            echo '</select></div>';
           
             // Electric System
             echo '<div class="form-group electric-system">
@@ -196,9 +196,7 @@ function custom_curtain_options_add_to_product() {
                   </div>';
        
 
-        }
-
-          
+        }         
 
         echo '</div>'; // End of curtain_options
         echo '</div>'; // End of custom-curtain-options

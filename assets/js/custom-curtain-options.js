@@ -48,8 +48,6 @@ jQuery(document).ready(function ($) {
       } else {
         materialPrice = 0;
       }
-      console.log("🚀 ~ updatePriceAndConvertSize ~ materialPrice:", materialPrice);
-
       // Hide custom size fields if a predefined size is selected
       $('.curtain_custom_width').hide();
       $('.curtain_custom_height').show();
