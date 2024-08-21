@@ -61,51 +61,22 @@ function custom_curtain_options_add_to_product() {
 
               // Curtain Fabric
               echo '<div class="form-group curtain-material">
-              <label for="curtain_material">Curtain Fabric:</label>
-              <select id="curtain_material" name="curtain_material">';
-                foreach ($livestock_materials as $key => $label) {
+              <label for="roll_material">Curtain Fabric:</label>
+              <select id="roll_material" name="roll_material">';
+                foreach ($rollover_materials as $key => $label) {
                     echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
                 }
                 echo '</select></div>';
 
              // Width/Size Options
              echo '<div class="form-group curtain-size">
-             <label for="curtain_size">Linear Ft. Width:</label>
-             <select id="curtain_size" name="curtain_size">';
+             <label for="roll_size">Linear Ft. Width:</label>
+             <select id="roll_size" name="roll_size">';
                 foreach ($rollover_size_options as $key => $label) {
                     echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
                 }
                 echo '</select></div>';
-            // // Curtain Length
-            // echo '<div class="form-group curtain-length">
-            //         <label for="curtain_length">Length (ft):</label>
-            //         <select id="curtain_length" name="curtain_length">';
-            // for ($i = 11; $i <= 50; $i++) {
-            //     echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
-            // }
-            // echo '</select></div>';
-
-            // Custom Width and Height with Feet and Inches
-            echo '<div class="curtain-custom-size-fields">';
-                echo '<div class="form-group curtain_custom_width">
-                        <label for="custom_width_feet">Linear Ft. Width:</label>
-                        <div class="inline-inputs">
-                            <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet" class="inline-input">
-                            <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches" class="inline-input">
-                        </div>
-                    </div>';
-
-            echo '<div class="form-group curtain_custom_height">
-                        <label for="custom_height_feet">Linear Ft. Length:</label>
-                        <div class="inline-inputs">
-                            <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet" class="inline-input">
-                            <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches" class="inline-input">
-                        </div>
-                    </div>';
-
-            echo '</div>';
-
-
+          
             // Electric System
             echo '<div class="form-group electric-system">
                     <label for="electric_system">Will this tarp be used in an electric system?</label>
@@ -166,10 +137,8 @@ function custom_curtain_options_add_to_product() {
             }
             echo '</select></div>';
 
-        }
-
-            // Curtain Hem
-            $hem_options = array(
+              // Curtain Hem
+              $hem_options = array(
                 '3_hem' => '3" Hem',
                 '4_hem' => '4" Hem',
             );
@@ -217,6 +186,10 @@ function custom_curtain_options_add_to_product() {
                     <label for="webbing_reinforcement">2″ Webbing Reinforcement:</label>
                   </div>';
        
+
+        }
+
+          
 
         echo '</div>'; // End of curtain_options
         echo '</div>'; // End of custom-curtain-options

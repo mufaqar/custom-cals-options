@@ -187,9 +187,48 @@ var prices = {
         price: 1.01,
         label: 'Custom Size (price x total sq ft)',
       },
+      
     },
     him: 0.61,
     pocket: 2.16,
     web: 0.4,
   },
+};
+
+var prices_roll = {
+  '18_oz': {    
+    roll_pr: {
+      size_96: {
+        price: 4.05,
+        label: '10\'3" width (96" trailer width)',
+      },
+      size_99: {
+        price: 4.86,
+        label: '10\'6" width (99" trailer width)',
+      },
+      size_102: {
+        price: 7.28,
+        label: '10\'9" width (102" trailer width)',
+      }      
+    },
+    ele: 0.54
+  },
+  '22_oz': {    
+    roll_pr: {
+      size_96: {
+        price: 4.05,
+        label: '10\'3" width (96" trailer width)',
+      },
+      size_99: {
+        price: 4.86,
+        label: '10\'6" width (99" trailer width)',
+      },
+      size_102: {
+        price: 7.28,
+        label: '10\'9" width (102" trailer width)',
+      }      
+    },
+    ele: 0.54
+  },
+  
 };
