@@ -53,10 +53,7 @@ jQuery(document).ready(function ($) {
       $('.curtain_custom_height').show();
     } else {
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
-      console.log(
-        '🚀 ~ updatePriceAndConvertSize ~ materialPrice:',
-        materialPrice
-      );
+
       var customSizePrice = getCustomSizePrice(TFW, TFH, materialType);
 
       // Show custom size fields if size_custom is selected
@@ -96,7 +93,7 @@ jQuery(document).ready(function ($) {
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
 
     // Update the displayed price
-    $('#curtain_price').text('$' + totalPrice.toFixed(2));
+    $('#price_display').text('$' + totalPrice.toFixed(2));
   }
 
   function toggleCustomSizeFields() {
@@ -219,6 +216,3 @@ var prices = {
     web: 0.55,
   },
 };
-
-
-
