@@ -67,7 +67,9 @@ jQuery(document).ready(function ($) {
 
     // Get other price components
     var lengthPrice = getLengthPrice(TFH);
-    var hemPrice = $('#curtain_hem').val() !== 'none' ? getHemPrice(materialType) : 0;
+    var hemPrice = getHemPrice(materialType, TFH); // Default hem price
+   
+ 
     var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType, TFH) : 0;
     var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType, TFH) : 0;
     var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType, TFH) : 0;
@@ -106,8 +108,9 @@ jQuery(document).ready(function ($) {
     return lengthPrices[lengthValue] || 0;
   }
 
-  function getHemPrice(materialType) {
-    return prices[materialType] ? prices[materialType].him || 0 : 0;
+  function getHemPrice(materialType,TFH) {
+    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+    return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
   function getSecondHemPrice(materialType, TFH) {
@@ -161,7 +164,7 @@ var prices = {
     },
     him: 0.54,
     pocket: 1.92,
-    web: 0.4,
+    web: 0.55,
   },
   '18_oz': {
     lin_pr: {
@@ -189,7 +192,7 @@ var prices = {
     },
     him: 0.61,
     pocket: 2.16,
-    web: 0.4,
+    web: 0.55,
   },
 };
 
