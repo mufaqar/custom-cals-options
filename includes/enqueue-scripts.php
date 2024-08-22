@@ -49,7 +49,7 @@ function custom_rollover_tarps_tab($tabs) {
 add_filter('woocommerce_product_tabs', 'custom_rollover_tarps_tab');
 
 function custom_rollover_tarps_tab_content() {
-    echo '<h2>' . __('Rollover Tarps Information', 'your-textdomain') . '</h2>';
+    echo '<h2>Rollover Tarps Information</h2>';
     echo '<table border="1" cellpadding="10" cellspacing="0">
                 <tr>
                     <th>Inches</th>
@@ -106,12 +106,11 @@ function custom_rollover_tarps_tab_content() {
         </table>';
     echo '<p>*Please use the above conversion chart because the inches MUST Be converted into decimal form for proper processing.<p>';
     echo '<p>Std RTR	Example:	If the length is 35\'5" then you would enter it as:35.417<p>';
-    echo '<p>Custom	Example:	Width 9\'3" x length 20\'7" then enter it as:9.25 x 20.583<p>';  
-   
+    echo '<p>Custom	Example:	Width 9\'3" x length 20\'7" then enter it as:9.25 x 20.583<p>';     
 }
 
 function custom_materials_tab_content() {
-    echo '<h2>' . __('Materials Information', 'your-textdomain') . '</h2>';
+    echo '<h2>Materials Information</h2>';
     echo '<p><strong> 18oz Vinyl Coated Polyester (VCP): </strong>  *This is the most popular fabric option</p>';
     echo '<p>Commonly used in agricultural applications.  Grain haulers, gravity wagons, and more.</p>';
     echo '<table border="1" cellpadding="10" cellspacing="0">
