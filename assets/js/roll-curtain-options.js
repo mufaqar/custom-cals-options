@@ -95,13 +95,15 @@ jQuery(document).ready(function ($) {
     var selectedMaterial = $('#roll_material').val();
     var selectedSize = $('#roll_size').val();
     var selectedPricePerSqFt = prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+  
     var selectedWidth = prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
 
     // Get the total height in feet
     var totalHeightFeet = convertHeightToFeet();
 
     // Calculate the total area (width * height)
-    var totalArea = selectedWidth * totalHeightFeet;
+    var totalArea = totalHeightFeet;
+  
 
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalArea * selectedPricePerSqFt;
