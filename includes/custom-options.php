@@ -18,50 +18,25 @@ function custom_curtain_options_add_to_product() {
             '22_oz' => '22oz'
         );
 
-        // Size Options for LiveStock
-        $livestock_size_options = array(
-            'size_5' => '5\' with 1 3" Hem (58") or 4" Hem',
-            'size_6' => '6\' with 1 3" Hem (69") or 4" Hem',
-            'size_9' => '9\' with 1 3" Hem (105") or 4" Hem',
-            'size_12' => '12\' with 1 3" Hem (141") or 4" Hem (140")',
-            'custom' => 'Custom Size (price x total sq ft)',
-        );
-        // Size Options for Roll Over
-        $rollover_size_options = array(
-            'size_96' => '10\'3" width (96" trailer width)',
-            'size_99' => '10\'6" width (99" trailer width)',
-            'size_102' => '10\'9" width (102" trailer width)',
-        );
-
-        // Tarp Color Options
-        $tarp_colors = array(
-            'black' => 'Black',
-            'white' => 'White',
-            'gray' => 'Gray',
-            'royal_blue' => 'Royal Blue',
-            'red' => 'Red',
-            'tan' => 'Tan',
-            'purple' => 'Purple',
-            'green' => 'Green',
-            'orange' => 'Orange',
-            'yellow' => 'Yellow',
-        );
+       
+       
 
         echo '<div class="custom-curtain-options">';
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
-                <strong>Price: </strong><span id="curtain_price">$0.00</span>
+                <strong>Price: </strong><span id="price_display">$0.00</span>
               </div>';
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {
 
+            echo "<p>Highly durable rollover tarps made to your exact size specifications.<br/>  Most orders ship within 5 - 7 business days.</p>";
 
               // Curtain Fabric
               echo '<div class="form-group curtain-material">
-              <label for="roll_material">Curtain Fabric:</label>
+              <label for="roll_material">Fabric Options:</label>
               <select id="roll_material" name="roll_material">';
                 foreach ($rollover_materials as $key => $label) {
                     echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
@@ -77,33 +52,48 @@ function custom_curtain_options_add_to_product() {
                 }
                 echo '</select></div>';
 
-                  // Curtain Length
-            echo '<div class="form-group curtain-length">
-            <label for="curtain_length">Length (ft):</label>
-            <select id="curtain_length" name="curtain_length">';
-            for ($i = 11; $i <= 50; $i++) {
-                echo '<option value="' . esc_attr($i) . '" ' . selected($curtain_length, $i, false) . '>' . esc_html($i) . '</option>';
-            }
-            echo '</select></div>';
-          
-            // Electric System
-            echo '<div class="form-group electric-system">
-                    <label for="electric_system">Will this tarp be used in an electric system?</label>
-                    <select id="electric_system" name="electric_system">
-                        <option value="no"  >No</option>
-                        <option value="yes" >Yes</option>
-                    </select>
-                  </div>';
+                echo '<p>* If you need to order a custom size Roll tarp click here</p>';
 
+                
+            // Custom Width and Height with Feet and Inches
+            echo '<div class="roll-custom-size-fields">';
+            // echo '<div class="form-group roll_custom_width">
+            //         <label for="custom_width_feet">Linear Ft. Width:</label>
+            //         <div class="inline-inputs">
+            //             <input type="number" id="custom_width_feet" name="custom_width_feet" value="" placeholder="Feet" class="inline-input">
+            //             <input type="number" id="custom_width_inches" name="custom_width_inches" value="" placeholder="Inches" class="inline-input">
+            //         </div>
+            //     </div>';
+
+        echo '<div class="form-group curtain_custom_height">
+                    <label for="custom_height_feet">Enter desired length of tarp:</label>
+                    <div class="inline-inputs">
+                        <input type="number" id="custom_height_feet" name="custom_height_feet" value="" placeholder="Feet" class="inline-input">
+                        <input type="number" id="custom_height_inches" name="custom_height_inches" value="" placeholder="Inches" class="inline-input">
+                    </div>
+                </div>';
+
+        echo '</div>';
+          
+           
             // Tarp Color (changed to select dropdown)
             echo '<div class="form-group tarp-color">
-                    <label for="tarp_color">Tarp Color:</label>
+                    <label for="tarp_color">Color:</label>
                     <select id="tarp_color" name="tarp_color">';
             foreach ($tarp_colors as $key => $label) {
                 echo '<option value="' . esc_attr($key) . '">' . esc_html($label) . '</option>';
             }
             echo '</select>
                   </div>';
+                   // Electric System
+            echo '<div class="form-group electric-system">
+            <label for="electric_system">Is this tarp for an electric tarp system?</label>
+            <select id="electric_system" name="electric_system">
+                <option value="no"  >No</option>
+                <option value="yes" >Yes</option>
+            </select>
+          </div>';
+
         }
 
         // If Product type is livestock_curtains

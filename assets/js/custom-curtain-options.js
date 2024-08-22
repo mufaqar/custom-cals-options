@@ -29,12 +29,12 @@ jQuery(document).ready(function ($) {
 
     // Calculate total feet from feet and inches inputs
     var custom_height_feet = parseFloat($('#custom_height_feet').val()) || 0;
-    var custom_height_inches = parseFloat($('#custom_height_inches').val()) || 0;
-    var TFH = custom_height_feet + custom_height_inches / 12; 
+    var custom_height_inches =
+      parseFloat($('#custom_height_inches').val()) || 0;
+    var TFH = custom_height_feet + custom_height_inches / 12;
     var custom_width_feet = parseFloat($('#custom_width_feet').val()) || 0;
     var custom_width_inches = parseFloat($('#custom_width_inches').val()) || 0;
-    var TFW = custom_width_feet + custom_width_inches / 12; 
-    
+    var TFW = custom_width_feet + custom_width_inches / 12;
 
     // Initialize material price
     var materialPrice = 0;
@@ -42,7 +42,7 @@ jQuery(document).ready(function ($) {
     if (sizeValue !== 'size_custom') {
       // Calculate material price based on the selected size
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
-      
+
       if (TFH > 0) {
         materialPrice = TFH * materialPrice;
       } else {
@@ -52,12 +52,13 @@ jQuery(document).ready(function ($) {
       $('.curtain_custom_width').hide();
       $('.curtain_custom_height').show();
     } else {
-
-   
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
-      console.log("🚀 ~ updatePriceAndConvertSize ~ materialPrice:", materialPrice)
+      console.log(
+        '🚀 ~ updatePriceAndConvertSize ~ materialPrice:',
+        materialPrice
+      );
       var customSizePrice = getCustomSizePrice(TFW, TFH, materialType);
-    
+
       // Show custom size fields if size_custom is selected
       $('.curtain_custom_width').show();
       $('.curtain_custom_height').show();
@@ -68,14 +69,28 @@ jQuery(document).ready(function ($) {
     // Get other price components
     var lengthPrice = getLengthPrice(TFH);
     var hemPrice = getHemPrice(materialType, TFH); // Default hem price
-   
- 
-    var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType, TFH) : 0;
-    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType, TFH) : 0;
-    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType, TFH) : 0;
+
+    var secondHemPrice =
+      $('#second_hem').val() !== 'none'
+        ? getSecondHemPrice(materialType, TFH)
+        : 0;
+    var pipePocketPrice =
+      $('#pipe_pocket').val() !== 'none'
+        ? getPipePocketPrice(materialType, TFH)
+        : 0;
+    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
+      ? getWebbingReinforcementPrice(materialType, TFH)
+      : 0;
 
     // Calculate total price
-    var totalPrice = basePrice + materialPrice + lengthPrice + hemPrice + secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
+    var totalPrice =
+      basePrice +
+      materialPrice +
+      lengthPrice +
+      hemPrice +
+      secondHemPrice +
+      pipePocketPrice +
+      webbingReinforcementPrice;
 
     // Ensure totalPrice is a valid number
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
@@ -108,31 +123,41 @@ jQuery(document).ready(function ($) {
     return lengthPrices[lengthValue] || 0;
   }
 
-  function getHemPrice(materialType,TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+  function getHemPrice(materialType, TFH) {
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].him || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
   function getSecondHemPrice(materialType, TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].him || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
   function getPipePocketPrice(materialType, TFH) {
     var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;
     if (pipePocketQuantity === 0) return 0;
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].pocket || 0
+      : 0;
     return TFH * materialPricePerUnit * pipePocketQuantity; // Use TFH for pipe pocket price calculation
   }
 
   function getWebbingReinforcementPrice(materialType, TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].web || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].web || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for webbing reinforcement price calculation
   }
 
   function getCustomSizePrice(TFW, TFH, materialType) {
-    var squareFeet = TFW * TFH;  
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;   
+    var squareFeet = TFW * TFH;
+    var pricePerSquareFoot = prices[materialType]
+      ? prices[materialType].lin_pr.size_custom.price || 0
+      : 0;
     return squareFeet * pricePerSquareFoot;
   }
 });
@@ -188,7 +213,6 @@ var prices = {
         price: 1.01,
         label: 'Custom Size (price x total sq ft)',
       },
-      
     },
     him: 0.61,
     pocket: 2.16,
@@ -196,40 +220,5 @@ var prices = {
   },
 };
 
-var prices_roll = {
-  '18_oz': {    
-    roll_pr: {
-      size_96: {
-        price: 4.05,
-        label: '10\'3" width (96" trailer width)',
-      },
-      size_99: {
-        price: 4.86,
-        label: '10\'6" width (99" trailer width)',
-      },
-      size_102: {
-        price: 7.28,
-        label: '10\'9" width (102" trailer width)',
-      }      
-    },
-    ele: 0.54
-  },
-  '22_oz': {    
-    roll_pr: {
-      size_96: {
-        price: 4.05,
-        label: '10\'3" width (96" trailer width)',
-      },
-      size_99: {
-        price: 4.86,
-        label: '10\'6" width (99" trailer width)',
-      },
-      size_102: {
-        price: 7.28,
-        label: '10\'9" width (102" trailer width)',
-      }      
-    },
-    ele: 0.54
-  },
-  
-};
+
+
