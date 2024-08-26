@@ -75,7 +75,6 @@ jQuery(document).ready(function ($) {
     var selectedMaterial = $('#roll_material').val();
     var colorOptions = tarpColors[selectedMaterial] || {};
     var $tarpColorSelect = $('#tarp_color');
-
     // Clear current color options
     $tarpColorSelect.empty();
 
