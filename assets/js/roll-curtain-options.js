@@ -111,8 +111,8 @@ jQuery(document).ready(function ($) {
   function updatePrice() {
     var selectedMaterial = $('#roll_material').val();
     var selectedSize = $('#roll_size').val();
-    var selectedPricePerSqFt =
-      prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+    var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
+    console.log("Price Size Wise:", selectedPricePerSqFt)
 
     var selectedWidth =
       prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
@@ -120,16 +120,18 @@ jQuery(document).ready(function ($) {
     // Calculate custom width if the size is custom
     if (selectedSize === 'size_custom') {
       selectedWidth = convertWidthToFeet();
+   
     }
 
     // Get the total height in feet
     var totalHeightFeet = convertHeightToFeet();
-
+    
     // Calculate the total area (width * height)
-    var totalArea = selectedWidth * totalHeightFeet;
+    var totalArea =  totalHeightFeet;
 
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalArea * selectedPricePerSqFt;
+
 
     // Check if the electric system is selected and add the price
     var electricSystem = $('#electric_system').val();
