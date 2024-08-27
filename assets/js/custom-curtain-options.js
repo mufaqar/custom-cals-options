@@ -86,8 +86,8 @@ jQuery(document).ready(function ($) {
     console.log('Pipe Pocket Price:', pipePocketPrice);
     console.log('Webbing Reinforcement Price:', webbingReinforcementPrice);
 
-    // Calculate total price
-    var totalPrice = basePrice + materialPrice + lengthPrice + hemPrice + secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
+    // Calculate total price  hemPrice +
+    var totalPrice = basePrice + materialPrice + lengthPrice +  secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
 
     // Ensure totalPrice is a valid number
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
