@@ -94,7 +94,6 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
     } else {
         delete_post_meta($post_id, '_curtain_size');
     }
-
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
