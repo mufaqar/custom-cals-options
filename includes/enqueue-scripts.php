@@ -2,10 +2,18 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
+
 function custom_curtain_options_enqueue_scripts() {
     if (is_product()) {
         global $product;
-         wp_enqueue_style('custom-curtain-options-css', plugin_dir_url(__FILE__) . '../assets/css/custom-curtain-options.css', array(), '1.0.0');      
+
+        // Ensure $product is a valid WC_Product object
+        if (!is_a($product, 'WC_Product')) {
+            $product = wc_get_product(get_the_ID()); // Attempt to retrieve the product object if it's not correctly set
+        }
+
+        wp_enqueue_style('custom-curtain-options-css', plugin_dir_url(__FILE__) . '../assets/css/custom-curtain-options.css', array(), '1.0.0');
+
         if ($product && $product->is_type('simple')) {
             $product_id = $product->get_id();
             $product_type = get_post_meta($product_id, '_product_type', true);
@@ -18,6 +26,7 @@ function custom_curtain_options_enqueue_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'custom_curtain_options_enqueue_scripts');
+
 
 
 // function custom_rollover_tarps_tab($tabs) {
