@@ -13,10 +13,13 @@
 .custom-curtain-options input[type='number'],
 .custom-curtain-options input[type='text'] {
   width: 50%;
-  padding: 8px;
+  padding: 12px;
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #dedede;
+}
+.custom-curtain-options select {
+  padding: 8px !important;
 }
 
 #curtain_price_display {
