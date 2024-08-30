@@ -13,7 +13,7 @@
 .custom-curtain-options input[type='number'],
 .custom-curtain-options input[type='text'] {
   width: 50%;
-  padding: 12px;
+  padding: 8px;
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #dedede;
