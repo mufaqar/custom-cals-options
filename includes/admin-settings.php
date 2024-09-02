@@ -1,5 +1,4 @@
 <?php
-
 function custom_curtain_options_product_custom_fields() {
     global $post;
     $product_id = $post->ID;
