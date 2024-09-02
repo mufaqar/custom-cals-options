@@ -28,7 +28,6 @@ function custom_curtain_options_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'custom_curtain_options_enqueue_scripts');
 
 
-
 function custom_rollover_tarps_tab($tabs) {
     global $product;
 
