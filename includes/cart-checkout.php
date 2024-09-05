@@ -143,7 +143,7 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
     }
     if (isset($cart_item['calculated_price'])) {
         $item_data[] = array(
-            'name' => 'Custom Price',
+            'name' => 'Calucated Price',
             'value' => wc_price($cart_item['calculated_price'])
         );
     }
