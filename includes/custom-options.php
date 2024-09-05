@@ -27,7 +27,7 @@ function custom_curtain_options_add_to_product() {
 
          // Hidden field to hold the base price
          echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
-         echo '<input type="text" name="cal_price" id="cal_price" value="">';
+         echo '<input type="hidden" name="cal_price" id="cal_price" value="">';
 
 
         // Price Display
