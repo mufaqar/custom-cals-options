@@ -27,12 +27,14 @@ function custom_curtain_options_add_to_product() {
 
          // Hidden field to hold the base price
          echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
+         echo '<input type="text" name="cal_price" id="cal_price" value="">';
 
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
                 <strong>Price: </strong><span id="price_display">$0.00</span>
               </div>';
+              
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {

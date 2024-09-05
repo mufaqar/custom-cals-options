@@ -111,6 +111,10 @@ jQuery(document).ready(function ($) {
 
     // Update the displayed price
     $('#price_display').text('$' + totalPrice.toFixed(2));
+    $('#cal_price').val(totalPrice.toFixed(2));
+
+
+    
   }
 
   function toggleCustomSizeFields() {
@@ -233,3 +237,5 @@ var prices = {
     web: 0.55,
   },
 };
+
+

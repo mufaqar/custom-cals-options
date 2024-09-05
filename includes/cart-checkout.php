@@ -1,9 +1,15 @@
 <?php
+
+
 // Save custom options in cart for both livestock_curtains and rollover_tarps
 function custom_curtain_options_save_custom_options($cart_item_data, $product_id, $variation_id) {
     $product_type = get_post_meta($product_id, '_product_type', true); // Assuming product type is stored in post meta
 
     if ($product_type === 'livestock_curtains' || $product_type === 'rollover_tarps') {
+
+        if (isset($_POST['cal_price'])) {
+            $cart_item_data['calculated_price'] = sanitize_text_field($_POST['cal_price']);
+        }
         // Common fields for both product types
         if (isset($_POST['roll_material'])) {
             $cart_item_data['roll_material'] = sanitize_text_field($_POST['roll_material']);
@@ -45,7 +51,17 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
         }
         if (isset($_POST['webbing_reinforcement'])) {
             $cart_item_data['webbing_reinforcement'] = sanitize_text_field($_POST['webbing_reinforcement']);
+        }  
+        
+        
+        if( isset( $_POST['cal_price'] ) ) {
+            $custom_price = floatval( $_POST['cal_price'] );
+            $cart_item_data['custom_price'] = $custom_price;
         }
+        return $cart_item_data;
+       
+
+        
     }
     
     return $cart_item_data;
@@ -54,10 +70,13 @@ add_filter('woocommerce_add_cart_item_data', 'custom_curtain_options_save_custom
 
 
 
+
 // checkout 
 
 // Display custom options in cart and checkout
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
+
+    
     if (isset($cart_item['roll_material'])) {
         $item_data[] = array(
             'key' => __('Roll Material', 'custom-curtain-options'),
@@ -122,6 +141,12 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
             'value' => wc_clean($cart_item['webbing_reinforcement']),
         );
     }
+    if (isset($cart_item['calculated_price'])) {
+        $item_data[] = array(
+            'name' => 'Custom Price',
+            'value' => wc_price($cart_item['calculated_price'])
+        );
+    }
 
     return $item_data;
 }
@@ -130,6 +155,10 @@ add_filter('woocommerce_get_item_data', 'custom_curtain_options_display_custom_o
 
 // Save custom options to order
 function custom_curtain_options_save_custom_options_to_order($item, $cart_item_key, $values, $order) {
+
+    if (isset($values['calculated_price'])) {
+        $item->add_meta_data('Custom Curtain Price', wc_price($values['calculated_price']));
+    }
     if (isset($values['roll_material'])) {
         $item->add_meta_data(__('Roll Material', 'custom-curtain-options'), $values['roll_material']);
     }
@@ -166,4 +195,13 @@ add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_option
 
 
 
+
+// function update_price_before_adding_to_cart( $cart_item_data, $product_id ) {
+//     if( isset( $_POST['custom_price'] ) ) {
+//         $custom_price = floatval( $_POST['custom_price'] );
+//         $cart_item_data['custom_price'] = $custom_price;
+//     }
+//     return $cart_item_data;
+// }
+//add_filter( 'woocommerce_add_cart_item_data', 'update_price_before_adding_to_cart', 10, 2 );
 

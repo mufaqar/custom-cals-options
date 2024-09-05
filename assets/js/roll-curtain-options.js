@@ -154,6 +154,7 @@ jQuery(document).ready(function ($) {
 
     // Update the price display
     $('#price_display').text('$' + totalPrice.toFixed(2));
+    $('#cal_price').val(totalPrice.toFixed(2));
 
     // Log for debugging
     console.log('Width (ft):', selectedWidth);
