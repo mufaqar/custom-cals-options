@@ -18,11 +18,16 @@ function custom_curtain_options_add_to_product() {
             '22_oz' => '22oz'
         );
 
+        $base_price = $product->get_price();
        
        
 
         echo '<div class="custom-curtain-options">';
         echo '<div id="curtain_options" class="form-group curtain-options" style="display: block;">';
+
+         // Hidden field to hold the base price
+         echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
+
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">

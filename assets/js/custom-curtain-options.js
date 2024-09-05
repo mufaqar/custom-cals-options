@@ -35,7 +35,8 @@ jQuery(document).ready(function ($) {
 
     // Calculate total feet from feet and inches inputs
     var custom_height_feet = parseFloat($('#custom_height_feet').val()) || 0;
-    var custom_height_inches = parseFloat($('#custom_height_inches').val()) || 0;
+    var custom_height_inches =
+      parseFloat($('#custom_height_inches').val()) || 0;
     var TFH = custom_height_feet + custom_height_inches / 12;
     var custom_width_feet = parseFloat($('#custom_width_feet').val()) || 0;
     var custom_width_inches = parseFloat($('#custom_width_inches').val()) || 0;
@@ -76,9 +77,17 @@ jQuery(document).ready(function ($) {
     // Get other price components
     var lengthPrice = getLengthPrice(TFH);
     var hemPrice = getHemPrice(materialType, TFH); // Default hem price
-    var secondHemPrice = $('#second_hem').val() !== 'none' ? getSecondHemPrice(materialType, TFH) : 0;
-    var pipePocketPrice = $('#pipe_pocket').val() !== 'none' ? getPipePocketPrice(materialType, TFH) : 0;
-    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked') ? getWebbingReinforcementPrice(materialType, TFH) : 0;
+    var secondHemPrice =
+      $('#second_hem').val() !== 'none'
+        ? getSecondHemPrice(materialType, TFH)
+        : 0;
+    var pipePocketPrice =
+      $('#pipe_pocket').val() !== 'none'
+        ? getPipePocketPrice(materialType, TFH)
+        : 0;
+    var webbingReinforcementPrice = $('#webbing_reinforcement').is(':checked')
+      ? getWebbingReinforcementPrice(materialType, TFH)
+      : 0;
 
     console.log('Length Price:', lengthPrice);
     console.log('Hem Price:', hemPrice);
@@ -87,7 +96,13 @@ jQuery(document).ready(function ($) {
     console.log('Webbing Reinforcement Price:', webbingReinforcementPrice);
 
     // Calculate total price  hemPrice +
-    var totalPrice = basePrice + materialPrice + lengthPrice +  secondHemPrice + pipePocketPrice + webbingReinforcementPrice;
+    var totalPrice =
+      basePrice +
+      materialPrice +
+      lengthPrice +
+      secondHemPrice +
+      pipePocketPrice +
+      webbingReinforcementPrice;
 
     // Ensure totalPrice is a valid number
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
@@ -123,30 +138,40 @@ jQuery(document).ready(function ($) {
   }
 
   function getHemPrice(materialType, TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].him || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
   function getSecondHemPrice(materialType, TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].him || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].him || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for second hem price calculation
   }
 
   function getPipePocketPrice(materialType, TFH) {
     var pipePocketQuantity = parseInt($('#pipe_pocket').val()) || 0;
     if (pipePocketQuantity === 0) return 0;
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].pocket || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].pocket || 0
+      : 0;
     return TFH * materialPricePerUnit * pipePocketQuantity; // Use TFH for pipe pocket price calculation
   }
 
   function getWebbingReinforcementPrice(materialType, TFH) {
-    var materialPricePerUnit = prices[materialType] ? prices[materialType].web || 0 : 0;
+    var materialPricePerUnit = prices[materialType]
+      ? prices[materialType].web || 0
+      : 0;
     return TFH * materialPricePerUnit; // Use TFH for webbing reinforcement price calculation
   }
 
   function getCustomSizePrice(TFW, TFH, materialType) {
     var squareFeet = TFW * TFH;
-    var pricePerSquareFoot = prices[materialType] ? prices[materialType].lin_pr.size_custom.price || 0 : 0;
+    var pricePerSquareFoot = prices[materialType]
+      ? prices[materialType].lin_pr.size_custom.price || 0
+      : 0;
     return squareFeet * pricePerSquareFoot;
   }
 });
