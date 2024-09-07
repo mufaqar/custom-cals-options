@@ -5,7 +5,6 @@ Description: Custom curtain options to WooCommerce products.
 Version: 1.1.4
 Author: Mufaqar
 */
-
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
