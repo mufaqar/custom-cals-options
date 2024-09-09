@@ -69,8 +69,6 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
 add_filter('woocommerce_add_cart_item_data', 'custom_curtain_options_save_custom_options', 10, 3);
 
 
-
-
 // checkout 
 
 // Display custom options in cart and checkout
