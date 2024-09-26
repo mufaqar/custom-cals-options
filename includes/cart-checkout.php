@@ -73,7 +73,6 @@ add_filter('woocommerce_add_cart_item_data', 'custom_curtain_options_save_custom
 
 // Display custom options in cart and checkout
 function custom_curtain_options_display_custom_options($item_data, $cart_item) {
-
     
     if (isset($cart_item['roll_material'])) {
         $item_data[] = array(
