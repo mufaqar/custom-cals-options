@@ -59,9 +59,6 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
             $cart_item_data['custom_price'] = $custom_price;
         }
         return $cart_item_data;
-       
-
-        
     }
     
     return $cart_item_data;
