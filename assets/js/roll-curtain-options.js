@@ -44,6 +44,9 @@ jQuery(document).ready(function ($) {
         },
       },
       ele: 17.0,
+      sp: 8,
+      wt: 0.1552086,
+      area:0.076673
     },
     '22_oz': {
       roll_pr: {
@@ -63,11 +66,14 @@ jQuery(document).ready(function ($) {
           label: '10\'9" width (102" trailer width)',
         },
         size_custom: {
-          price: 1.75, // Example price per sq ft for custom size
+          price: 1.75,
           label: 'Custom Size (price x total sq ft)',
         },
       },
       ele: 17.0,
+      sp: 1.75,
+      wt: 0.1785714,
+      area:0.0775193
     },
   };
 
@@ -112,7 +118,7 @@ jQuery(document).ready(function ($) {
     var selectedMaterial = $('#roll_material').val();
     var selectedSize = $('#roll_size').val();
     var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
-    console.log("Price Size Wise:", selectedPricePerSqFt)
+ 
 
     var selectedWidth =
       prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
@@ -128,6 +134,23 @@ jQuery(document).ready(function ($) {
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalArea * selectedPricePerSqFt;
 
+    var shippingValue = prices[selectedMaterial]?.sp || 0;
+    var sqWeightValue = prices[selectedMaterial]?.wt || 0;
+    var sqAreaValue = prices[selectedMaterial]?.area || 0;
+
+    let TotalWeight = sqWeightValue * totalArea;
+
+    let TotalShippingArea = sqAreaValue * totalArea;
+    let Shipping_Cost = TotalWeight * shippingValue;
+
+    console.log("🚀 ~ updatePrice ~ TotalShippingArea:", TotalShippingArea)
+    console.log("TotalWeight:", TotalWeight)
+    $('#weight_display').text( TotalWeight);
+    $('#area_display').text( TotalShippingArea);
+    $('#shipping_display').text('$' + Shipping_Cost.toFixed(2));
+
+    $('#total_price_display').text('$' + (totalPrice + Shipping_Cost).toFixed(2));
+
 
 
     // Calculate custom width if the size is custom
@@ -140,6 +163,24 @@ jQuery(document).ready(function ($) {
       var totalArea =  selectedWidth * selectedHeight;
       console.log("🚀 ~ updatePrice ~ totalArea:", totalArea)
       var totalPrice = totalArea * selectedPricePerSqFt;
+
+      var shippingValue = prices[selectedMaterial]?.sp || 0;
+      var sqWeightValue = prices[selectedMaterial]?.wt || 0;
+      var sqAreaValue = prices[selectedMaterial]?.area || 0;
+
+      let TotalWeight = sqWeightValue * totalArea;
+
+      let TotalShippingArea = sqAreaValue * totalArea;
+      let Shipping_Cost = TotalWeight * shippingValue;
+
+      console.log("🚀 ~ updatePrice ~ TotalShippingArea:", TotalShippingArea)
+      console.log("TotalWeight:", TotalWeight)
+      $('#weight_display').text( TotalWeight);
+      $('#area_display').text( TotalShippingArea);
+      $('#shipping_display').text('$' + Shipping_Cost.toFixed(2));
+
+      $('#total_price_display').text('$' + (totalPrice + Shipping_Cost).toFixed(2));
+
     
    
     }
@@ -155,6 +196,8 @@ jQuery(document).ready(function ($) {
     // Update the price display
     $('#price_display').text('$' + totalPrice.toFixed(2));
     $('#cal_price').val(totalPrice.toFixed(2));
+
+
 
     // Log for debugging
     console.log('Width (ft):', selectedWidth);

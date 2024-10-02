@@ -34,7 +34,27 @@ function custom_curtain_options_add_to_product() {
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
                 <strong>Price: </strong><span id="price_display">$0.00</span>
               </div>';
-              
+
+               // weight_display
+        echo '<div id="" style="margin-top: 10px;">
+                    <strong>Weight: </strong><span id="weight_display">0</span> lb
+                </div>';
+
+                     // area_display
+        echo '<div id="" style="margin-top: 10px;">
+                <strong>Area: </strong><span id="area_display">0</span> ft2
+            </div>';
+
+                  // weight_display
+        echo '<div id="" style="margin-top: 10px;">
+        <strong>Shipping Cost: </strong><span id="shipping_display">$0.00</span>
+    </div>';
+        // weight_display
+        echo '<div id="" style="margin-top: 10px;">
+        <strong>Total Price: </strong><span id="total_price_display">$0.00</span>
+    </div>';
+    
+                        
 
         // If Product type is rollover_tarps
         if ($product_type === 'rollover_tarps') {
