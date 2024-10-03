@@ -37,12 +37,12 @@ function custom_curtain_options_add_to_product() {
 
                // weight_display
         echo '<div id="" style="margin-top: 10px;">
-                    <strong>Weight: </strong><span id="weight_display">0</span> lb
+                    <strong>Weight: </strong><span id="weight_display">0</span> lb  = (  0.1552086 * 456 [12x38] )
                 </div>';
 
                      // area_display
         echo '<div id="" style="margin-top: 10px;">
-                <strong>Area: </strong><span id="area_display">0</span> ft2
+                <strong>Area: </strong><span id="area_display">0</span> ft2  { 0.0766073 * 456 ]
             </div>';
 
                   // weight_display
