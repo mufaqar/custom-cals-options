@@ -159,8 +159,10 @@ jQuery(document).ready(function ($) {
       selectedWidth = convertWidthToFeet();
      
       selectedHeight = convertHeightToFeet();
+
+      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
      
-      var totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
+      var totalArea =  selectedWidth * selectedHeight ;
 
       var cubic_Area_Trap = totalArea* .03;
 
@@ -178,17 +180,14 @@ jQuery(document).ready(function ($) {
 
       let TotalWeight = sqWeightValue * totalArea;
 
-      let TotalShippingArea = sqAreaValue * totalArea;
-      let Shipping_Cost = TotalWeight * shippingValue;
 
-      console.log("🚀 ~ updatePrice ~ TotalShippingArea:", TotalShippingArea)
+   
       console.log("TotalWeight:", TotalWeight)
       $('#weight_display').text( TotalWeight);
       $('#area_display').text( Math.ceil(Total_Box));
       $('#size_display').text( selectedWidth * selectedHeight);
 
-      $('#total_price_display').text('$' + (totalPrice + Shipping_Cost).toFixed(2));
-
+      
     
    
     }
