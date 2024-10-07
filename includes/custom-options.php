@@ -32,28 +32,25 @@ function custom_curtain_options_add_to_product() {
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
-                <strong>Price: </strong><span id="price_display">$0.00</span>
+                <strong>Base Price: </strong><span id="price_display">$0.00</span>
               </div>';
+        
+                   // weight_display
+        echo '<div id="" style="margin-top: 10px;">
+        <strong>Size of Trap: </strong><span id="size_display">0</span> ft&sup2;
+    </div>';
 
                // weight_display
         echo '<div id="" style="margin-top: 10px;">
-                    <strong>Weight: </strong><span id="weight_display">0</span> lb  = (  0.1552086 * 456 [12x38] )
+                    <strong>Weight: </strong><span id="weight_display">0</span> lb  = (  0.1552086 * Size )
                 </div>';
 
                      // area_display
         echo '<div id="" style="margin-top: 10px;">
-                <strong>Area: </strong><span id="area_display">0</span> ft2  { 0.0766073 * 456 ]
+                <strong>Box: </strong><span id="area_display">0</span> Boxes
             </div>';
 
-                  // weight_display
-        echo '<div id="" style="margin-top: 10px;">
-        <strong>Shipping Cost: </strong><span id="shipping_display">$0.00</span>
-    </div>';
-        // weight_display
-        echo '<div id="" style="margin-top: 10px;">
-        <strong>Total Price: </strong><span id="total_price_display">$0.00</span>
-    </div>';
-    
+            
                         
 
         // If Product type is rollover_tarps
