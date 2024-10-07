@@ -27,16 +27,19 @@ jQuery(document).ready(function ($) {
           price: 13.95,
           width: 10.25,
           label: '10\'3" width (96" trailer width)',
+          value: 10.3,
         },
         size_99: {
           price: 14.5,
           width: 10.5,
           label: '10\'6" width (99" trailer width)',
+          value: 10.6,
         },
         size_102: {
           price: 14.65,
           width: 10.75,
           label: '10\'9" width (102" trailer width)',
+          value: 10.9,
         },
         size_custom: {
           price: 1.55, // Example price per sq ft for custom size
@@ -54,16 +57,19 @@ jQuery(document).ready(function ($) {
           price: 16.75,
           width: 10.25,
           label: '10\'3" width (96" trailer width)',
+          value: 10.3,
         },
         size_99: {
           price: 17.25,
           width: 10.5,
           label: '10\'6" width (99" trailer width)',
+          value: 10.6,
         },
         size_102: {
           price: 17.5,
           width: 10.75,
           label: '10\'9" width (102" trailer width)',
+          value: 10.9,
         },
         size_custom: {
           price: 1.75,
@@ -117,11 +123,24 @@ jQuery(document).ready(function ($) {
   function updatePrice() {
     var selectedMaterial = $('#roll_material').val();
     var selectedSize = $('#roll_size').val();
+
+
+    
     var selectedPricePerSqFt =  prices[selectedMaterial]?.roll_pr[selectedSize]?.price || 0;
  
 
-    var selectedWidth =
-      prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;
+    var selectedWidth =   prices[selectedMaterial]?.roll_pr[selectedSize]?.width || 0;     
+
+
+      selectedHeight = convertHeightToFeet();
+
+      var sq_inch_totalArea =  (selectedWidth *12 ) * (selectedHeight * 12);
+
+      var cubic_Area_Trap = sq_inch_totalArea* .03;
+
+      var cubic_Area_Box = 5880;
+  
+      var Total_Box = cubic_Area_Trap/cubic_Area_Box;
 
     
 
@@ -130,26 +149,30 @@ jQuery(document).ready(function ($) {
     
     // Calculate the total area (width * height)
     var totalArea =  totalHeightFeet;
+    console.log("🚀 ~ updatePrice ~ totalArea:", totalArea)
 
     // Calculate the total price based on the area and price per square foot
-    var totalPrice = totalArea * selectedPricePerSqFt;
+    var totalPrice = totalHeightFeet * selectedPricePerSqFt;
 
-    var shippingValue = prices[selectedMaterial]?.sp || 0;
+  
+   
+
+
     var sqWeightValue = prices[selectedMaterial]?.wt || 0;
-    var sqAreaValue = prices[selectedMaterial]?.area || 0;
 
-    let TotalWeight = sqWeightValue * totalArea;
+    let TotalWeight = sqWeightValue * (selectedWidth * selectedHeight);
 
-    let TotalShippingArea = sqAreaValue * totalArea;
-    let Shipping_Cost = TotalWeight * shippingValue;
 
-    console.log("🚀 ~ updatePrice ~ TotalShippingArea:", TotalShippingArea)
+
+ 
+
+    $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
+
+    
     console.log("TotalWeight:", TotalWeight)
     $('#weight_display').text( TotalWeight);
-    $('#area_display').text( TotalShippingArea);
-    $('#shipping_display').text('$' + Shipping_Cost.toFixed(2));
-
-    $('#total_price_display').text('$' + (totalPrice + Shipping_Cost).toFixed(2));
+    $('#area_display').text( Math.ceil(Total_Box));
+    $('#size_display').text( selectedWidth * selectedHeight);
 
 
 
@@ -164,14 +187,14 @@ jQuery(document).ready(function ($) {
      
       var totalArea =  selectedWidth * selectedHeight ;
 
-      var cubic_Area_Trap = totalArea* .03;
+      var cubic_Area_Trap = sq_inch_totalArea* .03;
 
       var cubic_Area_Box = 5880;
 
       var Total_Box = cubic_Area_Trap/cubic_Area_Box;
      
 
-      console.log("🚀 ~ updatePrice ~ totalArea:", totalArea)
+
       var totalPrice = totalArea * selectedPricePerSqFt;
 
       var shippingValue = prices[selectedMaterial]?.sp || 0;
