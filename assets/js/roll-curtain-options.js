@@ -162,14 +162,11 @@ jQuery(document).ready(function ($) {
 
     let TotalWeight = sqWeightValue * (selectedWidth * selectedHeight);
 
-
-
- 
-
+   
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
-
+    $('#cal_weight').val(TotalWeight.toFixed(2));
     
-    console.log("TotalWeight:", TotalWeight)
+
     $('#weight_display').text( TotalWeight);
     $('#area_display').text( Math.ceil(Total_Box));
     $('#size_display').text( selectedWidth * selectedHeight);
@@ -210,7 +207,7 @@ jQuery(document).ready(function ($) {
       $('#area_display').text( Math.ceil(Total_Box));
       $('#size_display').text( selectedWidth * selectedHeight);
 
-      
+      $('#cal_weight').val(TotalWeight.toFixed(2));
     
    
     }
@@ -226,6 +223,7 @@ jQuery(document).ready(function ($) {
     // Update the price display
     $('#price_display').text('$' + totalPrice.toFixed(2));
     $('#cal_price').val(totalPrice.toFixed(2));
+   
 
 
 

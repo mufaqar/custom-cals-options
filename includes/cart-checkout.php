@@ -58,6 +58,12 @@ function custom_curtain_options_save_custom_options($cart_item_data, $product_id
             $custom_price = floatval( $_POST['cal_price'] );
             $cart_item_data['custom_price'] = $custom_price;
         }
+
+         // Save custom weight to the cart item data
+         if (isset($_POST['cal_weight'])) {
+            $cart_item_data['cal_weight'] = floatval($_POST['cal_weight']);
+        }
+
         return $cart_item_data;
     }
     
@@ -140,6 +146,13 @@ function custom_curtain_options_display_custom_options($item_data, $cart_item) {
         );
     }
 
+    if (isset($cart_item['cal_weight'])) {
+        $item_data[] = array(
+            'key' => __('Custom Weight', 'custom-curtain-options'),
+            'value' => wc_clean($cart_item['cal_weight'] . ' lbs'), // Adjust the unit if needed
+        );
+    }
+
     return $item_data;
 }
 add_filter('woocommerce_get_item_data', 'custom_curtain_options_display_custom_options', 10, 2);
@@ -182,18 +195,40 @@ function custom_curtain_options_save_custom_options_to_order($item, $cart_item_k
     if (isset($values['webbing_reinforcement'])) {
         $item->add_meta_data(__('Webbing Reinforcement', 'custom-curtain-options'), $values['webbing_reinforcement']);
     }
+    if (isset($values['cal_weight'])) {
+        $item->add_meta_data(__('Custom Weight', 'custom-curtain-options'), $values['cal_weight'] . ' lbs'); // Adjust the unit if needed
+    }
 }
 add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_options_save_custom_options_to_order', 10, 4);
 
 
+add_filter('woocommerce_cart_shipping_packages', 'custom_curtain_options_update_shipping_package_weight');
+function custom_curtain_options_update_shipping_package_weight($packages) {
+    foreach ($packages as &$package) {
+        $total_weight = 0;
 
+        foreach ($package['contents'] as $cart_item_key => $cart_item) {
+            if (isset($cart_item['cal_weight'])) {
+                $item_weight = $cart_item['cal_weight'] * $cart_item['quantity'];
+                $total_weight += $item_weight;
 
-// function update_price_before_adding_to_cart( $cart_item_data, $product_id ) {
-//     if( isset( $_POST['custom_price'] ) ) {
-//         $custom_price = floatval( $_POST['custom_price'] );
-//         $cart_item_data['custom_price'] = $custom_price;
-//     }
-//     return $cart_item_data;
-// }
-//add_filter( 'woocommerce_add_cart_item_data', 'update_price_before_adding_to_cart', 10, 2 );
+                // Debugging - Log the custom weight
+                error_log('Custom Weight in Cart Item: ' . $item_weight);
+            } else {
+                $item_weight = $cart_item['data']->get_weight() * $cart_item['quantity'];
+                $total_weight += $item_weight;
 
+                // Debugging - Log the default weight
+                error_log('Default Weight in Cart Item: ' . $item_weight);
+            }
+        }
+
+        // Set the total package weight
+        $package['weight'] = $total_weight;
+
+        // Debugging - Log the total package weight
+        error_log('Total Package Weight: ' . $total_weight);
+    }
+
+    return $packages;
+}
