@@ -202,33 +202,3 @@ function custom_curtain_options_save_custom_options_to_order($item, $cart_item_k
 add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_options_save_custom_options_to_order', 10, 4);
 
 
-add_filter('woocommerce_cart_shipping_packages', 'custom_curtain_options_update_shipping_package_weight');
-function custom_curtain_options_update_shipping_package_weight($packages) {
-    foreach ($packages as &$package) {
-        $total_weight = 0;
-
-        foreach ($package['contents'] as $cart_item_key => $cart_item) {
-            if (isset($cart_item['cal_weight'])) {
-                $item_weight = $cart_item['cal_weight'] * $cart_item['quantity'];
-                $total_weight += $item_weight;
-
-                // Debugging - Log the custom weight
-            //    error_log('Custom Weight in Cart Item: ' . $item_weight);
-            } else {
-                $item_weight = $cart_item['data']->get_weight() * $cart_item['quantity'];
-                $total_weight += $item_weight;
-
-                // Debugging - Log the default weight
-                error_log('Default Weight in Cart Item: ' . $item_weight);
-            }
-        }
-
-        // Set the total package weight
-        $package['weight'] = $total_weight;
-
-        // Debugging - Log the total package weight
-     //   error_log('Total Package Weight: ' . $total_weight);
-    }
-
-    return $packages;
-}
