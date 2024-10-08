@@ -213,7 +213,7 @@ function custom_curtain_options_update_shipping_package_weight($packages) {
                 $total_weight += $item_weight;
 
                 // Debugging - Log the custom weight
-                error_log('Custom Weight in Cart Item: ' . $item_weight);
+            //    error_log('Custom Weight in Cart Item: ' . $item_weight);
             } else {
                 $item_weight = $cart_item['data']->get_weight() * $cart_item['quantity'];
                 $total_weight += $item_weight;
@@ -227,7 +227,7 @@ function custom_curtain_options_update_shipping_package_weight($packages) {
         $package['weight'] = $total_weight;
 
         // Debugging - Log the total package weight
-        error_log('Total Package Weight: ' . $total_weight);
+     //   error_log('Total Package Weight: ' . $total_weight);
     }
 
     return $packages;
