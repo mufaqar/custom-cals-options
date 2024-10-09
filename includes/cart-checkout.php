@@ -223,24 +223,24 @@ add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_option
 // }
 
 
-// add_filter('woocommerce_shipping_package_weight', 'override_shipping_package_weight', 10, 3);
+add_filter('woocommerce_shipping_package_weight', 'override_shipping_package_weight', 10, 3);
 
-// function override_shipping_package_weight($weight, $package, $package_key) {
-//     $total_custom_weight = 0;
+function override_shipping_package_weight($weight, $package, $package_key) {
+    $total_custom_weight = 0;
 
-//     // Loop through the package contents and calculate the total custom weight
-//     foreach ($package['contents'] as $cart_item) {
-//         if (isset($cart_item['cal_weight'])) {
-//             $total_custom_weight += $cart_item['cal_weight'] * $cart_item['quantity'];
-//         } else {
-//             // If no custom weight, use the product's original weight
-//             $total_custom_weight += $cart_item['data']->get_weight() * $cart_item['quantity'];
-//         }
-//     }
+    // Loop through the package contents and calculate the total custom weight
+    foreach ($package['contents'] as $cart_item) {
+        if (isset($cart_item['cal_weight'])) {
+            $total_custom_weight += $cart_item['cal_weight'] * $cart_item['quantity'];
+        } else {
+            // If no custom weight, use the product's original weight
+            $total_custom_weight += $cart_item['data']->get_weight() * $cart_item['quantity'];
+        }
+    }
 
-//     // Return the total custom weight as the package weight
-//     return $total_custom_weight;
-// }
+    // Return the total custom weight as the package weight
+    return $total_custom_weight;
+}
 
 
 
