@@ -211,4 +211,18 @@ function custom_curtain_options_save_custom_options_to_order($item, $cart_item_k
 }
 add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_options_save_custom_options_to_order', 10, 4);
 
+
+
+add_action('woocommerce_before_calculate_totals', 'adjust_product_weight_in_cart', 20, 1);
+
+function adjust_product_weight_in_cart($cart) {
+    if (is_admin() && !defined('DOING_AJAX')) return;
+
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        if (isset($cart_item['custom_weight'])) {
+            $cart_item['data']->set_weight($cart_item['custom_weight']);
+        }
+    }
+}
+
 ?>
