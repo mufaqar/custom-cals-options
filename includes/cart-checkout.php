@@ -73,13 +73,11 @@ add_filter('woocommerce_add_cart_item_data', 'custom_curtain_options_save_custom
 // Modify the product weight in the cart
 add_filter('woocommerce_add_cart_item', 'overwrite_product_weight_in_cart', 20, 2);
 function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
-    $cart_item['data']->set_weight(200);
-
-    print "<pre>";
-    print_r($cart_item);
-    print "</pre>";
+    if (isset($cart_item['cal_weight'])) {
+        $custom_weight = floatval($cart_item['cal_weight']); 
+       
+    }
     return $cart_item;
-    
 }
 
 // Display custom options in cart and checkout
