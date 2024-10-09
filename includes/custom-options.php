@@ -7,6 +7,8 @@ function custom_curtain_options_add_to_product() {
         $product_type = get_post_meta($product_id, '_product_type', true);
         $curtain_size = get_post_meta($product_id, '_curtain_size', true) ?: array();
 
+        $product_weight = $product->get_weight(); 
+
         // LiveStock Material Options
         $livestock_materials = array(
             '15_oz' => '15oz',
@@ -28,8 +30,7 @@ function custom_curtain_options_add_to_product() {
          // Hidden field to hold the base price
          echo '<input type="hidden" id="base_price" value="' . esc_attr($base_price) . '">';
          echo '<input type="hidden" name="cal_price" id="cal_price" value="">';
-         echo '<input type="hidden" id="cal_weight" name="cal_weight" value="0">';
-
+         echo '<input type="hidden" id="cal_weight" name="cal_weight" value="' . esc_attr($product_weight) . '">';
 
         // Price Display
         echo '<div id="curtain_price_display" style="margin-top: 10px;">
