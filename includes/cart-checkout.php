@@ -212,7 +212,6 @@ add_action('woocommerce_before_calculate_totals', 'apply_custom_weight_to_cart_i
 
 function apply_custom_weight_to_cart_items($cart) {
     if (is_admin() && !defined('DOING_AJAX')) return;
-
     // Loop through the cart items and set the custom weight
     foreach ($cart->get_cart() as $cart_item) {
         if (isset($cart_item['cal_weight'])) {
@@ -220,7 +219,6 @@ function apply_custom_weight_to_cart_items($cart) {
             $cart_item['data']->set_weight($cart_item['cal_weight']);
         }
     }
-
 }
 
 
