@@ -242,19 +242,6 @@ function override_shipping_package_weight($weight, $package, $package_key) {
     return $total_custom_weight;
 }
 
-add_filter('woocommerce_get_item_data', 'display_custom_weight_in_cart_item', 10, 2);
-
-function display_custom_weight_in_cart_item($item_data, $cart_item) {
-    if (isset($cart_item['cal_weight'])) {
-        $item_data[] = array(
-            'key'     => __('Custom Weight', 'woocommerce'),
-            'value'   => wc_format_weight($cart_item['cal_weight']),
-            'display' => '',
-        );
-    }
-
-    return $item_data;
-}
 
 
 ?>
