@@ -77,6 +77,7 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
 
     print "<pre>";
     print_r($cart_item);
+    print "</pre>";
     return $cart_item;
     
 }
