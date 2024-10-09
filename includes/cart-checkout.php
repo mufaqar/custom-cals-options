@@ -208,7 +208,7 @@ add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_option
 
 
 
-add_action('woocommerce_before_calculate_totals', 'apply_custom_weight_to_cart_items', 20, 1);
+//add_action('woocommerce_before_calculate_totals', 'apply_custom_weight_to_cart_items', 20, 1);
 
 function apply_custom_weight_to_cart_items($cart) {
     if (is_admin() && !defined('DOING_AJAX')) return;
@@ -221,6 +221,28 @@ function apply_custom_weight_to_cart_items($cart) {
     }
 }
 
+add_action('woocommerce_before_calculate_totals', 'custom_modify_cart_item_weight', 20, 1);
+
+function custom_modify_cart_item_weight($cart) {
+    // If we are in the admin or during an AJAX request, do not proceed.
+    if (is_admin() && !defined('DOING_AJAX')) return;
+
+    // Ensure the cart object is not empty.
+    if (did_action('woocommerce_before_calculate_totals') >= 2) return;
+
+    // Loop through each cart item.
+    foreach ($cart->get_cart() as $cart_item) {
+
+        // Check if the item has custom weight data set.
+        if (isset($cart_item['cal_weight'])) {
+            // Retrieve the custom weight from the cart item data.
+            $custom_weight = floatval($cart_item['cal_weight']);
+            
+            // Set the new custom weight for the product in the cart.
+            $cart_item['data']->set_weight($custom_weight);
+        }
+    }
+}
 
 // add_filter('woocommerce_shipping_package_weight', 'override_shipping_package_weight', 10, 3);
 
