@@ -79,9 +79,6 @@ function overwrite_product_weight_in_cart($cart_item, $cart_item_key) {
         // Set the custom weight as product weight in cart
         $cart_item['data']->set_weight($custom_weight);
     }
-    var_dump($cart_item);
-    die();
-
     return $cart_item;
 }
 
@@ -223,6 +220,11 @@ function adjust_product_weight_in_cart($cart) {
             $cart_item['data']->set_weight($cart_item['custom_weight']);
         }
     }
+
+    // print "<pre>";
+    // print_r($cart_item);
+    // print "</pre>";
+   // die();
 }
 
 ?>
