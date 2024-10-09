@@ -221,8 +221,6 @@ function apply_custom_weight_to_cart_items($cart) {
         }
     }
 
-    print_r($cart_item);
-    die();
 }
 
 
