@@ -42,7 +42,7 @@ function custom_curtain_options_add_to_product() {
         
                    // weight_display
         echo '<div id="" style="margin-top: 10px;">
-        <strong>Size of Trap: </strong><span id="size_display">0</span> ft&sup2;
+        <strong>Size of Curtain: </strong><span id="size_display">0</span> ft&sup2;
     </div>';
 
                // weight_display
