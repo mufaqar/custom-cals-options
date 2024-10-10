@@ -6,9 +6,6 @@ jQuery(document).ready(function ($) {
   function updateSizeOptions() {
     var materialType = $('#curtain_material').val();
     var curtainSizeSelect = $('#curtain_size');
-
-    console.log('Material Type Selected:', materialType);
-
     // Clear current options
     curtainSizeSelect.empty();
 
@@ -20,8 +17,6 @@ jQuery(document).ready(function ($) {
         curtainSizeSelect.append(new Option(value.label, key));
       });
     }
-
-    // Trigger price update after updating options
     updatePriceAndConvertSize();
   }
 
@@ -29,13 +24,7 @@ jQuery(document).ready(function ($) {
     var basePrice = 0;
     var materialType = $('#curtain_material').val();
     var sizeValue = $('#curtain_size').val();
-
     var sqWeightValue = prices[materialType] ? prices[materialType].wt || 0 : 0;
-
-
-   
-    console.log('Material Type:', materialType);
-    console.log('Size Selected:', sizeValue);
 
     // Calculate total feet from feet and inches inputs
     var custom_height_feet = parseFloat($('#custom_height_feet').val()) || 0;
@@ -46,9 +35,6 @@ jQuery(document).ready(function ($) {
     var custom_width_inches = parseFloat($('#custom_width_inches').val()) || 0;
     var TFW = custom_width_feet + custom_width_inches / 12;
 
-    console.log('Total Feet Height (TFH):', TFH);
-    console.log('Total Feet Width (TFW):', TFW);
-
     // Initialize material price
     var materialPrice = 0;
 
@@ -57,15 +43,13 @@ jQuery(document).ready(function ($) {
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
       materialWidth = prices[materialType]?.lin_pr[sizeValue]?.width || 0;
 
+      var sq_inch_totalArea = materialWidth * 12 * (TFH * 12);
 
-      var sq_inch_totalArea =  (materialWidth *12 ) * (TFH * 12);
-     
-      var cubic_Area_Trap = sq_inch_totalArea* .03;
+      var cubic_Area_Trap = sq_inch_totalArea * 0.03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Trap/cubic_Area_Box;   
-      
-      
-      $('#area_display').text( Math.ceil(Total_Box));
+      var Total_Box = cubic_Area_Trap / cubic_Area_Box;
+
+      $('#area_display').text(Math.ceil(Total_Box));
 
       if (TFH > 0) {
         materialPrice = TFH * materialPrice;
@@ -73,15 +57,10 @@ jQuery(document).ready(function ($) {
         materialPrice = 0;
       }
 
-
-
-
       let TotalWeight = materialWidth * TFH;
       let CalWeight = sqWeightValue * TotalWeight;
       $('#size_display').text(TotalWeight);
       $('#weight_display').text(CalWeight.toFixed(2));
-
-
 
       // Hide custom size fields if a predefined size is selected
       $('.curtain_custom_width').hide();
@@ -94,29 +73,24 @@ jQuery(document).ready(function ($) {
       let TotalWeight = TFW * TFH;
       $('#size_display').text(TotalWeight);
 
-      var sq_inch_totalArea =  (TFW *12 ) * (TFH * 12);
-     
-      var cubic_Area_Trap = sq_inch_totalArea* .03;
+      var sq_inch_totalArea = TFW * 12 * (TFH * 12);
+
+      var cubic_Area_Trap = sq_inch_totalArea * 0.03;
       var cubic_Area_Box = 5880;
-      var Total_Box = cubic_Area_Trap/cubic_Area_Box;   
-      
-      
-      $('#area_display').text( Math.ceil(Total_Box));
-    
+      var Total_Box = cubic_Area_Trap / cubic_Area_Box;
+
+      $('#area_display').text(Math.ceil(Total_Box));
 
       let CalWeight = sqWeightValue * TotalWeight;
-      console.log("🚀 ~ updatePriceAndConvertSize ~ CalWeight:", CalWeight)
-
       $('#weight_display').text(CalWeight.toFixed(2));
 
-      // Show custom size fields if size_custom is selected
       $('.curtain_custom_width').show();
       $('.curtain_custom_height').show();
 
       materialPrice = customSizePrice;
     }
 
-    console.log('Material Price:', materialPrice);
+
 
     // Get other price components
     var lengthPrice = getLengthPrice(TFH);
@@ -156,10 +130,6 @@ jQuery(document).ready(function ($) {
     // Update the displayed price
     $('#price_display').text('$' + totalPrice.toFixed(2));
     $('#cal_price').val(totalPrice.toFixed(2));
-    
-
-
-    
   }
 
   function toggleCustomSizeFields() {
@@ -257,7 +227,7 @@ var prices = {
     him: 0.54,
     pocket: 1.92,
     web: 0.55,
-    wt: 0.1552086
+    wt: 0.1552086,
   },
   '18_oz': {
     lin_pr: {
@@ -289,8 +259,6 @@ var prices = {
     him: 0.61,
     pocket: 2.16,
     web: 0.55,
-    wt: 0.1785714
+    wt: 0.1785714,
   },
 };
-
-
