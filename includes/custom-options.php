@@ -25,11 +25,14 @@ function custom_curtain_options_add_to_product() {
 
         $base_price = $product->get_price();
 
+        echo $product_type;
+
         if ($product_type === 'rollover_tarps') {
             $size_label = 'Size of Trap:';
         } else {
             $size_label = 'Size of Curtain:';
         }      
+       
        
 
         echo '<div class="custom-curtain-options">';
