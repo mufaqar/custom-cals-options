@@ -22,8 +22,8 @@ function custom_curtain_options_add_custom_field() {
     woocommerce_wp_checkbox(
         array(
             'id'            => 'enable_custom_curtain_options',
-            'label'         => __('Enable Custom Curtain Options', 'woocommerce'),
-            'description'   => __('Enable this option to display custom curtain options on the product page.', 'woocommerce'),
+            'label'         => __('Enable Custom Rollover Tarp Options', 'woocommerce'),
+            'description'   => __('Enable this option to display custom Tarp options on the product page.', 'woocommerce'),
             'desc_tip'      => true,
         )
     );
