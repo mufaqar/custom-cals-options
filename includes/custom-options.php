@@ -25,8 +25,6 @@ function custom_curtain_options_add_to_product() {
 
         $base_price = $product->get_price();
 
-        echo $product_type;
-
         if ($product_type === 'rollover_tarps') {
             $size_label = 'Size of Trap:';
         } else {
@@ -59,7 +57,7 @@ function custom_curtain_options_add_to_product() {
                 </div>';
 
                      // area_display
-        echo '<div id="" style="margin-top: 10px;">
+        echo '<div id="" style="margin-top: 10px;margin-bottom:10px">
                 <strong>Box: </strong><span id="area_display">0</span> Boxes
             </div>';
 
