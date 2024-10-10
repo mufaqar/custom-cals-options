@@ -29,8 +29,7 @@ function custom_curtain_options_add_to_product() {
             $size_label = 'Size of Trap:';
         } else {
             $size_label = 'Size of Curtain:';
-        }
-       
+        }      
        
 
         echo '<div class="custom-curtain-options">';
