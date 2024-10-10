@@ -18,9 +18,9 @@ function custom_curtain_options_enqueue_scripts() {
             $product_id = $product->get_id();
             $product_type = get_post_meta($product_id, '_product_type', true);
             if (!empty($product_type) && $product_type === 'rollover_tarps') {
-                wp_enqueue_script('roll-curtain-options', plugin_dir_url(__FILE__) . '../assets/js/roll-curtain-options.js', array('jquery'), '1.0.0', true);
+                wp_enqueue_script('roll-curtain-options', plugin_dir_url(__FILE__) . '../assets/js/roll.js', array('jquery'), '1.0.0', true);
             } elseif (!empty($product_type) && $product_type === 'livestock_curtains') {
-                wp_enqueue_script('custom-curtain-options-js', plugin_dir_url(__FILE__) . '../assets/js/custom-curtain-options.js', array('jquery'), '1.0.0', true);
+                wp_enqueue_script('custom-curtain-options-js', plugin_dir_url(__FILE__) . '../assets/js/curtain.js', array('jquery'), '1.0.0', true);
             }
         }
     }

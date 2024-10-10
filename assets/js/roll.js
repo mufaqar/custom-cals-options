@@ -47,9 +47,7 @@ jQuery(document).ready(function ($) {
         },
       },
       ele: 17.0,
-      sp: 8,
-      wt: 0.1552086,
-      area:0.076673
+      wt: 0.1552086
     },
     '22_oz': {
       roll_pr: {
@@ -77,9 +75,7 @@ jQuery(document).ready(function ($) {
         },
       },
       ele: 17.0,
-      sp: 1.75,
-      wt: 0.1785714,
-      area:0.0775193
+      wt: 0.1785714
     },
   };
 
@@ -149,20 +145,15 @@ jQuery(document).ready(function ($) {
     
     // Calculate the total area (width * height)
     var totalArea =  totalHeightFeet;
-    console.log("🚀 ~ updatePrice ~ totalArea:", totalArea)
-
     // Calculate the total price based on the area and price per square foot
     var totalPrice = totalHeightFeet * selectedPricePerSqFt;
 
-  
-   
-
 
     var sqWeightValue = prices[selectedMaterial]?.wt || 0;
-
-    let TotalWeight = sqWeightValue * (selectedWidth * selectedHeight);
-
-   
+ 
+    let WH = selectedWidth * selectedHeight;
+    let TotalWeight = sqWeightValue * WH;
+    
     $('#total_price_display').text('$' + (totalPrice ).toFixed(2));
     $('#cal_weight').val(TotalWeight.toFixed(2));
     
@@ -205,7 +196,6 @@ jQuery(document).ready(function ($) {
       $('#weight_display').text( TotalWeight);
       $('#area_display').text( Math.ceil(Total_Box));
       $('#size_display').text( selectedWidth * selectedHeight);
-
       $('#cal_weight').val(TotalWeight.toFixed(2));
     
    
@@ -224,17 +214,6 @@ jQuery(document).ready(function ($) {
     $('#cal_price').val(totalPrice.toFixed(2));
    
 
-
-
-    // Log for debugging
-    console.log('Width (ft):', selectedWidth);
-    console.log('Height (ft):', totalHeightFeet);
-    console.log('Total Area (sq ft):', totalArea);
-    console.log(
-      'Electric System Price:',
-      electricSystem === 'yes' ? electricSystemPrice : 0
-    );
-    console.log('Total Price:', totalPrice);
   }
 
   function convertWidthToFeet() {
