@@ -30,6 +30,10 @@ jQuery(document).ready(function ($) {
     var materialType = $('#curtain_material').val();
     var sizeValue = $('#curtain_size').val();
 
+    var sqWeightValue = prices[materialType] ? prices[materialType].wt || 0 : 0;
+
+
+   
     console.log('Material Type:', materialType);
     console.log('Size Selected:', sizeValue);
 
@@ -51,12 +55,34 @@ jQuery(document).ready(function ($) {
     if (sizeValue !== 'size_custom') {
       // Calculate material price based on the selected size
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
+      materialWidth = prices[materialType]?.lin_pr[sizeValue]?.width || 0;
+
+
+      var sq_inch_totalArea =  (materialWidth *12 ) * (TFH * 12);
+     
+      var cubic_Area_Trap = sq_inch_totalArea* .03;
+      var cubic_Area_Box = 5880;
+      var Total_Box = cubic_Area_Trap/cubic_Area_Box;   
+      
+      
+      $('#area_display').text( Math.ceil(Total_Box));
 
       if (TFH > 0) {
         materialPrice = TFH * materialPrice;
       } else {
         materialPrice = 0;
       }
+
+
+
+
+      let TotalWeight = materialWidth * TFH;
+      let CalWeight = sqWeightValue * TotalWeight;
+      $('#size_display').text(TotalWeight);
+      $('#weight_display').text(CalWeight.toFixed(2));
+
+
+
       // Hide custom size fields if a predefined size is selected
       $('.curtain_custom_width').hide();
       $('.curtain_custom_height').show();
@@ -64,6 +90,24 @@ jQuery(document).ready(function ($) {
       materialPrice = prices[materialType]?.lin_pr[sizeValue]?.price || 0;
 
       var customSizePrice = getCustomSizePrice(TFW, TFH, materialType);
+
+      let TotalWeight = TFW * TFH;
+      $('#size_display').text(TotalWeight);
+
+      var sq_inch_totalArea =  (TFW *12 ) * (TFH * 12);
+     
+      var cubic_Area_Trap = sq_inch_totalArea* .03;
+      var cubic_Area_Box = 5880;
+      var Total_Box = cubic_Area_Trap/cubic_Area_Box;   
+      
+      
+      $('#area_display').text( Math.ceil(Total_Box));
+    
+
+      let CalWeight = sqWeightValue * TotalWeight;
+      console.log("🚀 ~ updatePriceAndConvertSize ~ CalWeight:", CalWeight)
+
+      $('#weight_display').text(CalWeight.toFixed(2));
 
       // Show custom size fields if size_custom is selected
       $('.curtain_custom_width').show();
@@ -112,6 +156,7 @@ jQuery(document).ready(function ($) {
     // Update the displayed price
     $('#price_display').text('$' + totalPrice.toFixed(2));
     $('#cal_price').val(totalPrice.toFixed(2));
+    
 
 
     
@@ -187,18 +232,22 @@ var prices = {
       size_5: {
         price: 4.05,
         label: '5\' with 1 3" Hem (58") or 4" Hem',
+        width: 5,
       },
       size_6: {
         price: 4.86,
         label: '6\' with 1 3" Hem (69") or 4" Hem',
+        width: 6,
       },
       size_9: {
         price: 7.28,
         label: '9\' with 1 3" Hem (105") or 4" Hem',
+        width: 9,
       },
       size_12: {
         price: 9.71,
         label: '12\' with 1 3" Hem (141") or 4" Hem (140")',
+        width: 12,
       },
       size_custom: {
         price: 0.81,
@@ -208,23 +257,28 @@ var prices = {
     him: 0.54,
     pocket: 1.92,
     web: 0.55,
+    wt: 0.1552086
   },
   '18_oz': {
     lin_pr: {
       size_5: {
         price: 5.04,
+        width: 5,
         label: '5\' with 1 3" Hem (58") or 4" Hem',
       },
       size_6: {
         price: 6.05,
+        width: 6,
         label: '6\' with 1 3" Hem (69") or 4" Hem',
       },
       size_9: {
         price: 9.07,
+        width: 9,
         label: '9\' with 1 3" Hem (105") or 4" Hem',
       },
       size_12: {
         price: 12.1,
+        width: 12,
         label: '12\' with 1 3" Hem (141") or 4" Hem (140")',
       },
       size_custom: {
@@ -235,6 +289,7 @@ var prices = {
     him: 0.61,
     pocket: 2.16,
     web: 0.55,
+    wt: 0.1785714
   },
 };
 

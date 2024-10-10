@@ -188,15 +188,14 @@ jQuery(document).ready(function ($) {
 
       var cubic_Area_Box = 5880;
 
-      var Total_Box = cubic_Area_Trap/cubic_Area_Box;
-     
+      var Total_Box = cubic_Area_Trap/cubic_Area_Box;    
 
 
       var totalPrice = totalArea * selectedPricePerSqFt;
 
-      var shippingValue = prices[selectedMaterial]?.sp || 0;
+    
       var sqWeightValue = prices[selectedMaterial]?.wt || 0;
-      var sqAreaValue = prices[selectedMaterial]?.area || 0;
+    
 
       let TotalWeight = sqWeightValue * totalArea;
 
