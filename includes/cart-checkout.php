@@ -210,16 +210,16 @@ add_action('woocommerce_checkout_create_order_line_item', 'custom_curtain_option
 
 //add_action('woocommerce_before_calculate_totals', 'apply_custom_weight_to_cart_items', 20, 1);
 
-function apply_custom_weight_to_cart_items($cart) {
-    if (is_admin() && !defined('DOING_AJAX')) return;
-    // Loop through the cart items and set the custom weight
-    foreach ($cart->get_cart() as $cart_item) {
-        if (isset($cart_item['cal_weight'])) {
-            // Set the product weight to the custom weight value
-            $cart_item['data']->set_weight($cart_item['cal_weight']);
-        }
-    }
-}
+// function apply_custom_weight_to_cart_items($cart) {
+//     if (is_admin() && !defined('DOING_AJAX')) return;
+//     // Loop through the cart items and set the custom weight
+//     foreach ($cart->get_cart() as $cart_item) {
+//         if (isset($cart_item['cal_weight'])) {
+//             // Set the product weight to the custom weight value
+//             $cart_item['data']->set_weight($cart_item['cal_weight']);
+//         }
+//     }
+// }
 
 
 

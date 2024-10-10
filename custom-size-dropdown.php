@@ -16,6 +16,27 @@ include_once plugin_dir_path(__FILE__) . 'includes/cart-checkout.php';
 include_once plugin_dir_path(__FILE__) . 'includes/admin-settings.php';
 
 
+// Add a custom checkbox field in the product dashboard
+add_action('woocommerce_product_options_general_product_data', 'custom_curtain_options_add_custom_field');
+function custom_curtain_options_add_custom_field() {
+    woocommerce_wp_checkbox(
+        array(
+            'id'            => 'enable_custom_curtain_options',
+            'label'         => __('Enable Custom Curtain Options', 'woocommerce'),
+            'description'   => __('Enable this option to display custom curtain options on the product page.', 'woocommerce'),
+            'desc_tip'      => true,
+        )
+    );
+}
+
+// Save the custom checkbox field value
+add_action('woocommerce_process_product_meta', 'custom_curtain_options_save_custom_field');
+function custom_curtain_options_save_custom_field($post_id) {
+    $enable_custom_curtain_options = isset($_POST['enable_custom_curtain_options']) ? 'yes' : 'no';
+    update_post_meta($post_id, 'enable_custom_curtain_options', $enable_custom_curtain_options);
+}
+
+
 
 function update_price_before_adding_to_cart( $cart_item_data, $product_id ) {
     if( isset( $_POST['custom_price'] ) ) {

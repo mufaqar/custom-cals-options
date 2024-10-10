@@ -1,6 +1,9 @@
 <?php
 function custom_curtain_options_add_to_product() {
     global $product;
+  // Get the custom field value
+        $enable_custom_curtain_options = get_post_meta($product->get_id(), 'enable_custom_curtain_options', true);
+    if ($enable_custom_curtain_options === 'yes') {
 
     if ($product->is_type('simple')) {
         $product_id = $product->get_id();
@@ -228,5 +231,6 @@ function custom_curtain_options_add_to_product() {
         echo '</div>'; // End of curtain_options
         echo '</div>'; // End of custom-curtain-options
     }
+}
 }
 add_action('woocommerce_before_add_to_cart_button', 'custom_curtain_options_add_to_product');
