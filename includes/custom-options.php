@@ -47,7 +47,7 @@ function custom_curtain_options_add_to_product() {
 
                // weight_display
         echo '<div id="" style="margin-top: 10px;">
-                    <strong>Weight: </strong><span id="weight_display">0</span> lb  = (  0.1552086 * Size )
+                    <strong>Weight: </strong><span id="weight_display">0</span> lb  
                 </div>';
 
                      // area_display
