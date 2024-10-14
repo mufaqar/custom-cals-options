@@ -15,8 +15,6 @@ include_once plugin_dir_path(__FILE__) . 'includes/custom-options.php';
 include_once plugin_dir_path(__FILE__) . 'includes/cart-checkout.php';
 include_once plugin_dir_path(__FILE__) . 'includes/admin-settings.php';
 
-
-
 add_action('woocommerce_product_options_general_product_data', 'custom_curtain_options_add_custom_field');
 function custom_curtain_options_add_custom_field() {
     woocommerce_wp_checkbox(
