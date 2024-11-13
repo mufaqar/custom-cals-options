@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Curtain Options
-Description: Custom curtain options to WooCommerce products.
-Version: 2.0.2
+Plugin Name: Custom Product Options
+Description: Custom Product Options to WooCommerce products.
+Version: 1.0.1
 Author: Mufaqar
 */
 if (!defined('ABSPATH')) {
