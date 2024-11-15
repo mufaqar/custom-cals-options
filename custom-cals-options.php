@@ -1,9 +1,14 @@
 <?php
 /*
-Plugin Name: Custom Product Options
-Description: Custom Product Options to WooCommerce products.
-Version: 1.0.1
-Author: Mufaqar
+Plugin Name: Custom Expiry Date Calculator
+Plugin URI: https://yourwebsite.com
+Description: A plugin to calculate expiry dates and display dynamic prices based on user input.
+Version: 1.0
+Author: Mufaqar Islam
+Author URI: https://github.com/mufaqar
+License: GPL2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: custom-expiry-date-calculator
 */
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
