@@ -2,8 +2,8 @@
 
 
 
-function display_expiry_date_calculator() {
-    echo do_shortcode('[expiry_date_calculator]');
+// Hook the calculator to display before the price on the single product page
+function add_expiry_date_calculator_before_price() {
+    custom_expiry_date_calculator();
 }
-// Hook into WooCommerce single product summary, with priority 15 (between title and price)
-add_action('woocommerce_single_product_summary', 'display_expiry_date_calculator', 15);
+add_action('woocommerce_single_product_summary', 'add_expiry_date_calculator_before_price', 15);
