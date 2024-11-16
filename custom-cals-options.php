@@ -5,7 +5,7 @@ Plugin URI: https://yourwebsite.com
 Description: A plugin to calculate expiry dates and display dynamic prices based on user input.
 Version: 1.0
 Author: Mufaqar Islam
-Author URI: https://github.com/mufaqar
+Author URI: https://mufaqar.com
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: custom-expiry-date-calculator
@@ -28,7 +28,6 @@ function custom_product_options_enqueue_scripts() {
         '1.0.0', 
         true
     );
-
     wp_enqueue_style(
         'custom-product-style', 
         plugin_dir_url(__FILE__) . 'assets/css/style.css'
