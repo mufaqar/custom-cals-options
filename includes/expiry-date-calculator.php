@@ -60,6 +60,7 @@ function custom_expiry_date_calculator() {
             </div>
              <!-- Dynamic Price Display -->
              <div id="dynamic-price" style="margin-top: 15px; font-weight: bold;"></div>
+            
            
     </div>
 </div>

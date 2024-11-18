@@ -19,6 +19,7 @@ include_once plugin_dir_path(__FILE__) . 'includes/custom-options.php';
 include_once plugin_dir_path(__FILE__) . 'includes/cart-checkout.php';
 include_once plugin_dir_path(__FILE__) . 'includes/admin-settings.php';
 include_once plugin_dir_path(__FILE__) . 'includes/expiry-date-calculator.php';
+//include_once plugin_dir_path(__FILE__) . 'includes/custom-shipping-methods.php';
 
 function custom_product_options_enqueue_scripts() {
     wp_enqueue_script(
