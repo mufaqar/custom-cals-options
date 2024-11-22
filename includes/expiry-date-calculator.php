@@ -60,8 +60,7 @@ function custom_expiry_date_calculator() {
             <label>
                 <input type="radio" name="condition" value="Good">
                 Good (Label Residue)
-            </label>
-
+            </label><br>
             <label>
                 <input type="radio" name="condition" value="Damaged/Stained">
                 Damaged/Stained
