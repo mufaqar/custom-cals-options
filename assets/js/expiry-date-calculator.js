@@ -48,7 +48,7 @@ jQuery(document).ready(function ($) {
                 price = 8;
             }
         }
-        else if (expirationDate === '5 months') {
+        else if (expirationDate === '1-5 months') {
             if (condition === 'Mint') {
                 price = 8;
             } else if (condition === 'Good') {
