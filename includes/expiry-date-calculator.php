@@ -44,7 +44,7 @@ function custom_expiry_date_calculator() {
             <label>
                 <input type="radio" name="expiration-date" value="6-8 months">
                 6-8 months
-            </label>
+            </label><br>
             <label>
                 <input type="radio" name="expiration-date" value="1-5 months">
                 1-5 months
