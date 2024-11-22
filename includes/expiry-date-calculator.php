@@ -30,38 +30,49 @@ function custom_expiry_date_calculator() {
             <p id="expiry-result"></p>
         </div>
 
-          <!-- Additional Options -->
-          <div class="additional-options">
-                <p><strong>Expiration Date:</strong></p>
-                <label>
-                    <input type="radio" name="expiration-date" value="10+ months">
-                    10+ months
-                </label><br>
-                <label>
-                    <input type="radio" name="expiration-date" value="7-9 months">
-                    7-9 months
-                </label><br>
-                <label>
-                    <input type="radio" name="expiration-date" value="6-8 months">
-                    6-8 months
-                </label>
-            </div>
+        <!-- Additional Options -->
+        <div class="additional-options">
+            <p><strong>Expiration Date:</strong></p>
+            <label>
+                <input type="radio" name="expiration-date" value="10+ months">
+                10+ months
+            </label><br>
+            <label>
+                <input type="radio" name="expiration-date" value="7-9 months">
+                7-9 months
+            </label><br>
+            <label>
+                <input type="radio" name="expiration-date" value="6-8 months">
+                6-8 months
+            </label>
+            <label>
+                <input type="radio" name="expiration-date" value="5 months">
+                5 months and blow
+            </label>
+        </div>
 
-            <div class="condition-options">
-                <p><strong>Condition:</strong></p>
-                <label>
-                    <input type="radio" name="condition" value="Mint">
-                    Mint (Perfect No Damage)
-                </label><br>
-                <label>
-                    <input type="radio" name="condition" value="Good">
-                    Good (Label Residue)
-                </label>
-            </div>
-             <!-- Dynamic Price Display -->
-             <div id="dynamic-price" style="margin-top: 15px; font-weight: bold;"></div>
-            
-           
+        <div class="condition-options">
+            <p><strong>Condition:</strong></p>
+            <label>
+                <input type="radio" name="condition" value="Mint">
+                Mint (Perfect No Damage)
+            </label><br>
+            <label>
+                <input type="radio" name="condition" value="Good">
+                Good (Label Residue)
+            </label>
+
+            <label>
+                <input type="radio" name="condition" value="Damaged/Stained">
+                Damaged/Stained
+            </label>
+
+
+        </div>
+        <!-- Dynamic Price Display -->
+        <div id="dynamic-price" style="margin-top: 15px; font-weight: bold;"></div>
+
+
     </div>
 </div>
 <?php

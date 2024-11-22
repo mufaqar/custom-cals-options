@@ -48,6 +48,13 @@ jQuery(document).ready(function ($) {
                 price = 8;
             }
         }
+        else if (expirationDate === '5 months') {
+            if (condition === 'Mint') {
+                price = 8;
+            } else if (condition === 'Good') {
+                price = 6;
+            }
+        }
 
         // Update the dynamic price display
         if (price > 0) {
