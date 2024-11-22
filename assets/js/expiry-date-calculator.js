@@ -28,33 +28,41 @@ jQuery(document).ready(function ($) {
 
         let price = 0;
 
-        // Calculate price based on conditions
-        if (expirationDate === '10+ months') {
-            if (condition === 'Mint') {
-                price = 30;
-            } else if (condition === 'Good') {
-                price = 28;
-            }
-        } else if (expirationDate === '7-9 months') {
-            if (condition === 'Mint') {
-                price = 25;
-            } else if (condition === 'Good') {
-                price = 23;
-            }
-        } else if (expirationDate === '6-8 months') {
-            if (condition === 'Mint') {
-                price = 10;
-            } else if (condition === 'Good') {
-                price = 8;
-            }
-        }
-        else if (expirationDate === '1-5 months') {
-            if (condition === 'Mint') {
-                price = 8;
-            } else if (condition === 'Good') {
-                price = 6;
-            }
-        }
+    // Calculate price based on conditions
+if (expirationDate === '10+ months') {
+    if (condition === 'Mint') {
+        price = 30;
+    } else if (condition === 'Good') {
+        price = 28;
+    } else if (condition === 'Damaged/Stained') {
+        price = 25;
+    }
+} else if (expirationDate === '7-9 months') {
+    if (condition === 'Mint') {
+        price = 25;
+    } else if (condition === 'Good') {
+        price = 23;
+    } else if (condition === 'Damaged/Stained') {
+        price = 20;
+    }
+} else if (expirationDate === '6-8 months') {
+    if (condition === 'Mint') {
+        price = 10;
+    } else if (condition === 'Good') {
+        price = 8;
+    } else if (condition === 'Damaged/Stained') {
+        price = 5;
+    }
+} else if (expirationDate === '1-5 months') {
+    if (condition === 'Mint') {
+        price = 8;
+    } else if (condition === 'Good') {
+        price = 6;
+    } else if (condition === 'Damaged/Stained') {
+        price = 3;
+    }
+}
+
 
         // Update the dynamic price display
         if (price > 0) {
