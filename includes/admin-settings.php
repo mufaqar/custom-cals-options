@@ -1,4 +1,103 @@
 <?php
+
+
+// Add this to your admin-settings.php file
+function custom_user_approval_admin_page() {
+    ?>
+    <div class="wrap">
+        <h1>User Approvals</h1>
+        <?php
+        if (isset($_GET['action']) && isset($_GET['user_id'])) {
+            $user_id = intval($_GET['user_id']);
+            if ($_GET['action'] === 'approve') {
+                update_user_meta($user_id, 'account_status', 'approved');
+                echo '<div class="notice notice-success"><p>User approved successfully.</p></div>';
+            } elseif ($_GET['action'] === 'reject') {
+                update_user_meta($user_id, 'account_status', 'rejected');
+                echo '<div class="notice notice-error"><p>User rejected.</p></div>';
+            }
+        }
+
+        // Display pending users
+        $pending_users = get_users(array(
+            'meta_key' => 'account_status',
+            'meta_value' => 'pending',
+            'fields' => array('ID', 'user_email', 'display_name'),
+        ));
+
+        if (!empty($pending_users)) {
+            echo '<table class="wp-list-table widefat fixed striped">';
+            echo '<thead><tr><th>Name</th><th>Email</th><th>Actions</th></tr></thead>';
+            echo '<tbody>';
+            foreach ($pending_users as $user) {
+                echo '<tr>';
+                echo '<td>' . esc_html($user->display_name) . '</td>';
+                echo '<td>' . esc_html($user->user_email) . '</td>';
+                echo '<td>';
+                echo '<a href="' . admin_url('admin.php?page=custom_user_approval&action=approve&user_id=' . $user->ID) . '">Approve</a> | ';
+                echo '<a href="' . admin_url('admin.php?page=custom_user_approval&action=reject&user_id=' . $user->ID) . '">Reject</a>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody></table>';
+        } else {
+            echo '<p>No pending users.</p>';
+        }
+        ?>
+    </div>
+    <?php
+}
+
+function custom_user_approval_menu() {
+    add_menu_page(
+        'User Approvals',
+        'User Approvals',
+        'manage_options',
+        'custom_user_approval',
+        'custom_user_approval_admin_page',
+        'dashicons-groups',
+        6
+    );
+}
+add_action('admin_menu', 'custom_user_approval_menu');
+
+// Add this to your cart-checkout.php file
+function custom_save_payment_methods($order_id) {
+    if (isset($_POST['payment_method'])) {
+        $payment_method = sanitize_text_field($_POST['payment_method']);
+        update_user_meta(get_current_user_id(), 'preferred_payment_method', $payment_method);
+    }
+}
+add_action('woocommerce_checkout_update_order_meta', 'custom_save_payment_methods');
+
+function custom_checkout_payment_method_field($checkout) {
+    woocommerce_form_field('payment_method', array(
+        'type' => 'select',
+        'class' => array('form-row-wide'),
+        'label' => __('Preferred Payment Method'),
+        'options' => array(
+            'check' => __('Check'),
+            'ach' => __('Bank Transfer (ACH)'),
+            'wire' => __('Wire Transfer'),
+            'paypal' => __('PayPal'),
+            'zelle' => __('Zelle'),
+            'venmo' => __('Venmo'),
+            'cashapp' => __('CashApp'),
+            'chime' => __('Chime'),
+        ),
+        'required' => true,
+    ), $checkout->get_value('payment_method'));
+}
+add_action('woocommerce_after_order_notes', 'custom_checkout_payment_method_field');
+
+
+
+
+
+
+
+
+
 function custom_curtain_options_product_custom_fields() {
     global $post;
     $product_id = $post->ID;
