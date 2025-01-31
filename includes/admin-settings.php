@@ -98,6 +98,9 @@ add_action('woocommerce_after_order_notes', 'custom_checkout_payment_method_fiel
 
 
 
+
+
+
 function custom_curtain_options_product_custom_fields() {
     global $post;
     $product_id = $post->ID;
@@ -201,3 +204,13 @@ function custom_curtain_options_save_product_custom_fields($post_id) {
     }
 }
 add_action('woocommerce_process_product_meta', 'custom_curtain_options_save_product_custom_fields');
+
+
+// Add this to your custom-options.php or expiry-date-calculator.php file
+function custom_check_user_login_before_add_to_cart() {
+    if (!is_user_logged_in()) {
+        echo '<p>You must be logged in to add products to your cart. <a href="' . wp_login_url(get_permalink()) . '">Login here</a>.</p>';
+        return; // Stop further execution
+    }
+}
+add_action('woocommerce_before_add_to_cart_button', 'custom_check_user_login_before_add_to_cart');
