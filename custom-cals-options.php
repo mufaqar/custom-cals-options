@@ -3,7 +3,7 @@
 Plugin Name: Expiry Date Calculator
 Plugin URI: https://yourwebsite.com
 Description: A plugin to calculate expiry dates and display dynamic prices based on user input.
-Version: 2.1.1
+Version: 2.1.12
 Author: Mufaqar Islam
 Author URI: https://mufaqar.com
 License: GPL2
