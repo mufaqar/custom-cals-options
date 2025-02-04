@@ -102,7 +102,6 @@ add_shortcode('custom_registration_form', 'custom_user_registration_form');
 
 
 
-
 function custom_user_registration_process() {
     // Security check
     check_ajax_referer('custom_user_registration', 'security');
@@ -126,17 +125,29 @@ function custom_user_registration_process() {
 
             // Send email to admin for approval
             $admin_email = get_option('admin_email');
-            $subject = 'New User Registration Requires Approval';
-            $message = "A new user has registered and is awaiting approval.\n\n";
-            $message .= "Name: $name\n";
-            $message .= "Email: $email\n";
-            $message .= "Phone: $phone\n";
-            $message .= "Address: $address\n";
-            wp_mail($admin_email, $subject, $message);
+            $admin_subject = 'New User Registration Requires Approval';
+            $admin_message = "A new user has registered and is awaiting approval.\n\n";
+            $admin_message .= "Name: $name\n";
+            $admin_message .= "Email: $email\n";
+            $admin_message .= "Phone: $phone\n";
+            $admin_message .= "Address: $address\n";
+            wp_mail($admin_email, $admin_subject, $admin_message);
+
+            // Send email to user with their password
+            $user_subject = 'Your Account Registration Details';
+            $user_message = "Dear $name,\n\n";
+            $user_message .= "Thank you for registering. Your account is currently pending approval.\n\n";
+            $user_message .= "Once approved, you can log in using the following details:\n";
+            $user_message .= "Email: $email\n";
+            $user_message .= "Password: $password\n\n";
+            $user_message .= "Login here: " . wp_login_url() . "\n\n";
+            $user_message .= "Best regards,\nYour Website Team";
+
+            wp_mail($email, $user_subject, $user_message);
 
             wp_send_json(array(
                 'success' => true,
-                'message' => 'Thank you for registering! Your account is pending approval.'
+                'message' => 'Thank you for registering! Your account is pending approval. Check your email for login details.'
             ));
         } else {
             wp_send_json(array(
@@ -152,5 +163,3 @@ function custom_user_registration_process() {
     }
     wp_die();
 }
-add_action('wp_ajax_custom_user_registration_process', 'custom_user_registration_process');
-add_action('wp_ajax_nopriv_custom_user_registration_process', 'custom_user_registration_process');
