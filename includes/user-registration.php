@@ -101,7 +101,6 @@ function custom_user_registration_form() {
 add_shortcode('custom_registration_form', 'custom_user_registration_form');
 
 
-
 function custom_user_registration_process() {
     // Security check
     check_ajax_referer('custom_user_registration', 'security');
@@ -125,15 +124,15 @@ function custom_user_registration_process() {
 
             // Send email to admin for approval
             $admin_email = get_option('admin_email');
-            $admin_subject = 'New User Registration Requires Approval';
-            $admin_message = "A new user has registered and is awaiting approval.\n\n";
-            $admin_message .= "Name: $name\n";
-            $admin_message .= "Email: $email\n";
-            $admin_message .= "Phone: $phone\n";
-            $admin_message .= "Address: $address\n";
-            wp_mail($admin_email, $admin_subject, $admin_message);
+            $subject = 'New User Registration Requires Approval';
+            $message = "A new user has registered and is awaiting approval.\n\n";
+            $message .= "Name: $name\n";
+            $message .= "Email: $email\n";
+            $message .= "Phone: $phone\n";
+            $message .= "Address: $address\n";
+            wp_mail($admin_email, $subject, $message);
 
-            // Send email to user with their password
+            // Send email to user with login details
             $user_subject = 'Your Account Registration Details';
             $user_message = "Dear $name,\n\n";
             $user_message .= "Thank you for registering. Your account is currently pending approval.\n\n";
@@ -163,3 +162,5 @@ function custom_user_registration_process() {
     }
     wp_die();
 }
+add_action('wp_ajax_custom_user_registration_process', 'custom_user_registration_process');
+add_action('wp_ajax_nopriv_custom_user_registration_process', 'custom_user_registration_process');
