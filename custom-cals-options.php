@@ -21,6 +21,18 @@ include_once plugin_dir_path(__FILE__) . 'includes/admin-settings.php';
 include_once plugin_dir_path(__FILE__) . 'includes/expiry-date-calculator.php';
 //include_once plugin_dir_path(__FILE__) . 'includes/custom-shipping-methods.php';
 
+
+
+function custom_registration_scripts() {
+    wp_enqueue_script('custom-registration-script', plugin_dir_url(__FILE__) . 'assets/js/custom-registration.js', array('jquery'), null, true);
+    wp_localize_script('custom-registration-script', 'custom_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('custom_user_registration')
+    ));
+}
+add_action('wp_enqueue_scripts', 'custom_registration_scripts');
+
+
 function custom_product_options_enqueue_scripts() {
     wp_enqueue_script(
         'expiry-date-calculator', 

@@ -209,7 +209,7 @@ add_action('woocommerce_process_product_meta', 'custom_curtain_options_save_prod
 // Add this to your custom-options.php or expiry-date-calculator.php file
 function custom_check_user_login_before_add_to_cart() {
     if (!is_user_logged_in()) {
-        echo '<p>You must be logged in to add products to your cart. <a href="' . wp_login_url(get_permalink()) . '">Login here</a>.</p>';
+        echo '<p>Special Price for Customers <a href="' . home_url('register') . '">Login here</a>.</p>';
         return; // Stop further execution
     }
 }
