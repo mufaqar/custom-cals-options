@@ -51,3 +51,124 @@
   color: green;
   font-size: 18px;
 }
+
+/* Form container */
+#custom-registration-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Form title */
+#custom-registration-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Form labels */
+#custom-registration-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+/* Form inputs */
+#custom-registration-form input[type="text"],
+#custom-registration-form input[type="email"],
+#custom-registration-form input[type="tel"],
+#custom-registration-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#custom-registration-form input[type="text"]:focus,
+#custom-registration-form input[type="email"]:focus,
+#custom-registration-form input[type="tel"]:focus,
+#custom-registration-form textarea:focus {
+  border-color: #0073e6;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 115, 230, 0.2);
+}
+
+/* Textarea */
+#custom-registration-form textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+/* Submit button */
+#custom-registration-form input[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #0073e6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#custom-registration-form input[type="submit"]:hover {
+  background-color: #005bb5;
+}
+
+/* Success and error messages */
+#custom-registration-form .success,
+#custom-registration-form .error {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#custom-registration-form .success {
+  background-color: #e6f4ea;
+  color: #008000;
+  border: 1px solid #a5d6a7;
+}
+
+#custom-registration-form .error {
+  background-color: #ffebee;
+  color: #ff0000;
+  border: 1px solid #ef9a9a;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  #custom-registration-form {
+      padding: 20px;
+  }
+
+  #custom-registration-form h2 {
+      font-size: 20px;
+  }
+
+  #custom-registration-form input[type="text"],
+  #custom-registration-form input[type="email"],
+  #custom-registration-form input[type="tel"],
+  #custom-registration-form textarea {
+      padding: 10px;
+  }
+
+  #custom-registration-form input[type="submit"] {
+      padding: 12px;
+  }
+}
