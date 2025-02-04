@@ -164,3 +164,31 @@ function custom_user_registration_process() {
 }
 add_action('wp_ajax_custom_user_registration_process', 'custom_user_registration_process');
 add_action('wp_ajax_nopriv_custom_user_registration_process', 'custom_user_registration_process');
+
+
+
+function custom_redirect_wp_login() {
+    $woo_login_url = wc_get_page_permalink('myaccount'); // WooCommerce My Account login page
+
+    if (strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false && !is_admin()) {
+        wp_redirect($woo_login_url);
+        exit;
+    }
+}
+add_action('init', 'custom_redirect_wp_login');
+
+
+function custom_redirect_wp_logout() {
+    wp_redirect(wc_get_page_permalink('myaccount'));
+    exit;
+}
+add_action('wp_logout', 'custom_redirect_wp_logout');
+
+function custom_login_form_links($link, $action, $redirect) {
+    if ($action === 'lostpassword') {
+        return wc_lostpassword_url(); // Redirects to WooCommerce lost password page
+    }
+    return $link;
+}
+add_filter('login_url', 'custom_login_form_links', 10, 3);
+
