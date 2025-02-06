@@ -76,6 +76,31 @@ function update_cart_item_price_with_dynamic_price($cart) {
 
 
 
+add_action('woocommerce_before_calculate_totals', 'update_cart_item_price_with_discount', 10, 1);
+function update_cart_item_price_with_discount($cart) {
+    if (is_admin() && !defined('DOING_AJAX')) {
+        return;
+    }
+
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        $discount_price = get_user_meta($user_id, 'global_discount_price', true);
+
+        if (!empty($discount_price) && is_numeric($discount_price)) {
+            foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+                $original_price = $cart_item['data']->get_price();
+
+                // Apply discount by subtracting the discount price
+                $new_price = max(0, $original_price - $discount_price); // Ensure price doesn't go below zero
+                
+                $cart_item['data']->set_price($new_price);
+            }
+        }
+    }
+}
+
+
+
 
 
 
