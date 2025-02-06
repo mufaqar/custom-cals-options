@@ -66,6 +66,53 @@ function approve_pending_user() {
 add_action('admin_init', 'approve_pending_user');
 
 
+// Add a user meta field in the admin panel for discount price
+function add_global_discount_price_user_meta($user) {
+    ?>
+    <h3>Global Discount Price</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="global_discount_price">Discount Price</label></th>
+            <td>
+                <input type="number" name="global_discount_price" id="global_discount_price" value="<?php echo esc_attr(get_the_author_meta('global_discount_price', $user->ID)); ?>" step="0.01">
+                <p class="description">Enter the discount price that applies to all products for this user.</p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+add_action('show_user_profile', 'add_global_discount_price_user_meta');
+add_action('edit_user_profile', 'add_global_discount_price_user_meta');
+
+// Save user meta data
+function save_global_discount_price_user_meta($user_id) {
+    if (!current_user_can('edit_user', $user_id)) {
+        return false;
+    }
+
+    if (isset($_POST['global_discount_price'])) {
+        update_user_meta($user_id, 'global_discount_price', sanitize_text_field($_POST['global_discount_price']));
+    }
+}
+add_action('personal_options_update', 'save_global_discount_price_user_meta');
+add_action('edit_user_profile_update', 'save_global_discount_price_user_meta');
+
+
+function display_global_discount_price($price, $product) {
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        $discount_price = get_user_meta($user_id, 'global_discount_price', true);
+
+        if (!empty($discount_price) && is_numeric($discount_price)) {
+            $price = '<del>' . wc_price($product->get_regular_price()) . '</del> <ins>' . wc_price($discount_price) . '</ins>';
+        }
+    }
+    return $price;
+}
+add_filter('woocommerce_get_price_html', 'display_global_discount_price', 10, 2);
+
+
+
 
 
 
