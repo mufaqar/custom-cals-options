@@ -1,5 +1,4 @@
 <?php
-
 add_filter('woocommerce_add_cart_item_data', 'add_custom_values_to_cart_item', 10, 2);
 function add_custom_values_to_cart_item($cart_item_data, $product_id) {
     if (!empty($_POST['expiry_month'])) {
